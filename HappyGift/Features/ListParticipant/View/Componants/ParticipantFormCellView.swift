@@ -15,7 +15,7 @@ struct ParticipantFormCellView: View {
         ZStack{
             VStack(alignment: .leading, spacing: 50){
                 Text("Ajouter un participant")
-                    .font(.system(size: 15).width(.expanded).bold())
+                    .font(.custom("Syncopate-Bold", size: 20))
                     .foregroundStyle(.beige)
                     .frame(maxWidth: .infinity, alignment: .center)
                 
@@ -37,7 +37,7 @@ struct ParticipantFormCellView: View {
     func textfield(title: String, data: Binding<String>) -> some View{
         HStack(alignment: .center) {
             Text(title)
-                .font(.system(size: 16, weight: .semibold))
+                .font(.custom("Syncopate-Bold", size: 12))
                 .foregroundStyle(.beige)
                 .frame(width: 70, alignment: .leading)
             
@@ -47,6 +47,7 @@ struct ParticipantFormCellView: View {
                 .background(Color.beige)
                 .cornerRadius(10)
                 .foregroundColor(.vertDark)
+                .font(.custom("Syncopate-Regular", size: 14))
         }
     }
     
