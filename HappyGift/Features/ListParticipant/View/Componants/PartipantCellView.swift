@@ -17,14 +17,14 @@ struct PartipantCellView: View {
             Image(bouleType)
                 .resizable()
                 .frame(width: 55, height: 60)
-            VStack(alignment: .leading, spacing: 3){
+            VStack(alignment: .leading, spacing: 6){
                 Text(name)
-                    .font(.system(size: 12).width(.expanded).bold())
+                    .font(.custom("Syncopate-Bold", size: 12))
                     .bold()
                 Text(tel)
-                    .font(.system(size: 12).width(.expanded).bold())
+                    .font(.custom("Syncopate-Regular", size: 12))
                 Text(email)
-                    .font(.system(size: 12).width(.expanded).bold())
+                    .font(.custom("Syncopate-Regular", size: 12))
           
             }
         }
