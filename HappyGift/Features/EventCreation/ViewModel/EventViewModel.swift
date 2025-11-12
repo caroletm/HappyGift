@@ -13,10 +13,15 @@ import SwiftUI
 
 class EventViewModel {
     
-    //MARK: -  Map Data
+    //MARK: -  Create Event
     
-    var iconEvent : [String] = ["carChristmas", "iconChristmas", "houseChristmas"]
+    var iconsEvent : [String] = ["carChristmas", "iconChristmas", "houseChristmas"]
     
+    var nomEvent: String = ""
+    var descriptionEvent: String = ""
+    var imageEvent: String = ""
+    var dateEvent: Date = Date()
+    var lieuEvent: String = ""
     
 }
 
