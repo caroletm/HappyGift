@@ -1,0 +1,16 @@
+
+# macOS
+.DS_Store
+
+# Xcode user-specific files
+*.xcuserstate
+*.xcuserdata/
+*.xcscmblueprint
+
+# Xcode shared data
+*.xccheckout
+*.xcworkspace/xcshareddata/
+*.xcworkspace/xcuserdata/
+*.xcuserdatad/
+*.xcworkspace/xcuserdata/*
+
