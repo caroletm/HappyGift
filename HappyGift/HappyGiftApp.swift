@@ -11,7 +11,8 @@ import SwiftUI
 struct HappyGiftApp: App {
     var body: some Scene {
         WindowGroup {
-            LandingScreenView()
+//            LandingScreenView()
+            TirageView()
         }
     }
 }
