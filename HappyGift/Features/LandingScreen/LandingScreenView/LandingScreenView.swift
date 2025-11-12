@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import DotLottie
 
 struct LandingScreenView: View {
     var body: some View {
@@ -65,12 +66,24 @@ struct LandingScreenView: View {
                 
                 ButtonsLandingScreen()
             }.padding(.bottom)
-            
-            
         }
+    }
+}
+
+struct AnimationView: View {
+    var body: some View {
+        ZStack {
+            Color.red
+            DotLottieAnimation(fileName: "cool_animation", config: AnimationConfig(autoplay: true, loop: true)).view()
+        }
+ 
     }
 }
 
 #Preview {
     LandingScreenView()
+}
+
+#Preview {
+    AnimationView()
 }

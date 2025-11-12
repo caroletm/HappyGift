@@ -64,7 +64,11 @@ struct Countdown : View {
 }
 
 #Preview {
-    Countdown()
+    ZStack {
+        Color.red
+        Countdown()
+
+    }
 }
 
 

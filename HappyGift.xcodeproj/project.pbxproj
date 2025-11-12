@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		6A6B996C2EC51BE800CE78BC /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 6A6B996B2EC51BE800CE78BC /* Algorithms */; };
+		6A6B996F2EC52F9700CE78BC /* DotLottie in Frameworks */ = {isa = PBXBuildFile; productRef = 6A6B996E2EC52F9700CE78BC /* DotLottie */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		BD94C1EA2EC4CA5F000239E8 /* HappyGift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HappyGift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A6B996C2EC51BE800CE78BC /* Algorithms in Frameworks */,
+				6A6B996F2EC52F9700CE78BC /* DotLottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +85,8 @@
 			);
 			name = HappyGift;
 			packageProductDependencies = (
+				6A6B996B2EC51BE800CE78BC /* Algorithms */,
+				6A6B996E2EC52F9700CE78BC /* DotLottie */,
 			);
 			productName = HappyGift;
 			productReference = BD94C1EA2EC4CA5F000239E8 /* HappyGift.app */;
@@ -107,6 +116,10 @@
 			);
 			mainGroup = BD94C1E12EC4CA5F000239E8;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				6A6B996A2EC51BE800CE78BC /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+				6A6B996D2EC52F9700CE78BC /* XCRemoteSwiftPackageReference "dotlottie-ios" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = BD94C1EB2EC4CA5F000239E8 /* Products */;
 			projectDirPath = "";
@@ -349,6 +362,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6A6B996A2EC51BE800CE78BC /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.1;
+			};
+		};
+		6A6B996D2EC52F9700CE78BC /* XCRemoteSwiftPackageReference "dotlottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/LottieFiles/dotlottie-ios";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6A6B996B2EC51BE800CE78BC /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6A6B996A2EC51BE800CE78BC /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
+		};
+		6A6B996E2EC52F9700CE78BC /* DotLottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6A6B996D2EC52F9700CE78BC /* XCRemoteSwiftPackageReference "dotlottie-ios" */;
+			productName = DotLottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BD94C1E22EC4CA5F000239E8 /* Project object */;
 }
