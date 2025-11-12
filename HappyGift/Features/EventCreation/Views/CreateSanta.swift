@@ -53,8 +53,8 @@ struct CreateSanta: View {
                             .foregroundStyle(.rougeDark)
                         
                         HStack {
-                            ForEach(0..<3, id: \.self) { icon in
-                                IconCard(image:"carChristmas")
+                            ForEach(eventViewModel.iconsEvent, id: \.self) { icon in
+                                IconCard(image: icon)
                             }
                         }.padding()
                             .padding(.bottom,20)
@@ -90,7 +90,6 @@ struct CreateSanta: View {
                             .padding(.horizontal)
                         }
                         .padding(.bottom,20)
-
                         
                         ButtonText(text: "OK", width: 150)
                             .padding()
