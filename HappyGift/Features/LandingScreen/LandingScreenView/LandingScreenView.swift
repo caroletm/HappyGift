@@ -41,7 +41,7 @@ struct LandingScreenView: View {
                                     VStack {
                                         HStack{
                                             //boite aux lettres et bonhomme de neige
-                                            NavigationLink {
+                                            Button {
                                                 //TODO: vers la boite aux lettres
                                             } label: {
                                                 VStack {
@@ -59,7 +59,7 @@ struct LandingScreenView: View {
                                             VStack {
                                                 if !viewModel.mailboxIsEmpty {
                                                     
-                                                    NavigationLink {
+                                                    Button {
                                                         //TODO: vers la boite aux lettres
                                                     } label: {
                                                         VStack {

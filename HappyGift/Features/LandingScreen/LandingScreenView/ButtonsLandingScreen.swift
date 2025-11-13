@@ -9,9 +9,8 @@ import SwiftUI
 
 struct ButtonsLandingScreen: View {
     var body: some View {
-        NavigationStack{
             VStack {
-                NavigationLink {
+                Button {
                     //TODO: vers créer un évènement
                 } label: {
                     RoundedRectangle(cornerRadius: 16)
@@ -42,7 +41,7 @@ struct ButtonsLandingScreen: View {
                 .padding(.bottom)
                 
                 
-                NavigationLink {
+                Button {
                     //TODO: vers liste d'évènements
                 } label: {
                     RoundedRectangle(cornerRadius: 16)
@@ -65,7 +64,7 @@ struct ButtonsLandingScreen: View {
                 
                 
             }.padding(.horizontal, 25)
-        }
+        
        
         
         
