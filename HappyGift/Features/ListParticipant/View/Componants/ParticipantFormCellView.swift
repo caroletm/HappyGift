@@ -22,7 +22,7 @@ struct ParticipantFormCellView: View {
                 
                 participantForm
               
-                ButtonParticipantCellView {
+                ButtonParticipantCellView(title: "Ajouter") {
                     participantVM.addParticipant()
                     dismiss()
                     participantVM.reset()

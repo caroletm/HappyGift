@@ -12,7 +12,7 @@ struct HappyGiftApp: App {
     var body: some Scene {
         WindowGroup {
 //            LandingScreenView()
-            TirageView()
+            //TirageView()
         }
     }
 }
