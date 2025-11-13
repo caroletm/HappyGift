@@ -91,9 +91,12 @@ struct CreateSanta: View {
                         }
                         .padding(.bottom,20)
                         
-                        ButtonText(text: "OK", width: 150)
-                            .padding()
-                        
+                        Button {
+                            //
+                        }label:{
+                            ButtonText(text: "OK", width: 150)
+                                .padding()
+                        }
                     }
                 }
             }

@@ -8,7 +8,12 @@
 import SwiftUI
 
 struct TirageView: View {
+
     @State var viewModel:TirageViewModel
+    @Environment(TirageViewModel.self) private var tirageViewModel
+    @Environment(ParticipantViewModel.self) private var participantViewModel
+    @Environment(NavigationViewModel.self) private var navigationViewModel
+    
     
     var body: some View {
         ZStack {
@@ -39,8 +44,10 @@ struct TirageView: View {
                     }
                 }
                 //MARK: - Button
-                NavigationLink{
-                    LandingScreenView()
+                    Button{
+                    
+                    navigationViewModel.path = NavigationPath()
+                    
                 } label: {
                     Text("OK")
                         .font(.custom("Syncopate-Bold", size: 17))
@@ -64,4 +71,11 @@ struct TirageView: View {
             .allowsHitTesting(false)
         }
     }
+}
+
+#Preview {
+    TirageView(viewModel: TirageViewModel(participantVM: ParticipantViewModel(), currentUserName: "Carole"))
+        .environment(TirageViewModel(participantVM: ParticipantViewModel(), currentUserName: "Carole"))
+        .environment(ParticipantViewModel())
+        .environment(NavigationViewModel())
 }

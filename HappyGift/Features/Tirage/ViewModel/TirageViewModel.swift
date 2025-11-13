@@ -9,10 +9,11 @@ import Foundation
 import SwiftUI
 import Combine
 
+@Observable
 @MainActor
-class TirageViewModel: ObservableObject {
-    @Published var showSnow = false
-    @Published var selectedName: String? = nil
+class TirageViewModel {
+  var showSnow = false
+    var selectedName: String? = nil
     
     let participantVM: ParticipantViewModel
         let currentUserName: String

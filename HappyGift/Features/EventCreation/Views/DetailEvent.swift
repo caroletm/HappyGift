@@ -1,15 +1,16 @@
 //
-//  RecapEvent.swift
+//  DetailEvent.swift
 //  HappyGift
 //
-//  Created by caroletm on 12/11/2025.
+//  Created by caroletm on 13/11/2025.
 //
 
 import SwiftUI
 
-struct RecapEvent: View {
+struct DetailEvent: View {
     
     @Environment(EventViewModel.self) private var eventVM
+    @Environment(NavigationViewModel.self) private var navigationVM
     
     var body: some View {
         
@@ -103,7 +104,7 @@ struct RecapEvent: View {
                                 .multilineTextAlignment(.center)
                             
                             Button {
-                                //
+                                navigationVM.path.append(AppRoute.participantList)
                             }label:{
                                 ZStack {
                                     Rectangle()
@@ -112,9 +113,8 @@ struct RecapEvent: View {
                                         .frame(width: 75, height: 75)
                                         .cornerRadius(10)
                                     
-                                    Image(systemName: "plus")
-                                        .resizable()
-                                        .frame(width: 40, height: 40)
+                                    Text("Voir")
+                                        .font(.custom( "Syncopate-Bold", size: 14))
                                         .foregroundStyle(Color.white)
                                 }
                                 .offset(y: 30)
@@ -159,34 +159,11 @@ struct RecapEvent: View {
                                 .rotationEffect(Angle(degrees: 15))
                                 .padding(5)
                             HStack {
-                                Button {
-                                    eventVM.minusBudget()
-                                }label:{
-                                    ZStack {
-                                        Circle()
-                                            .fill(Color.white)
-                                            .frame(width: 40, height: 40)
-                                        Image(systemName: "minus")
-                                            .foregroundStyle(Color.black)
-                                    }
                                 }
                                 Text("\(eventVM.priceGift) €")
                                     .font(.custom( "Syncopate-Bold", size: 18))
                                     .foregroundStyle(Color.white)
                                     .padding(.horizontal, 10)
-                                Button {
-                                    eventVM.addBudget()
-                                }label:{
-                                    ZStack {
-                                        Circle()
-                                            .fill(Color.white)
-                                            .frame(width: 40, height: 40)
-                                        Image(systemName: "plus")
-                                            .foregroundStyle(Color.black)
-                                    }
-                                }
-                                
-                            }
                             
                         }
                         
@@ -195,17 +172,20 @@ struct RecapEvent: View {
                     .offset(x: -90, y: 230)
                 }
             }
-            Button {
-                //
-            }label:{
-                ButtonText(text: "Lancer le tirage", width: 190)
-                    .offset(y: 370 )
+            VStack {
+                Spacer()
+                Button {
+                    navigationVM.path = NavigationPath()
+                }label:{
+                    ButtonText(text: "OK", width: 150)
+                }
             }
         }
     }
 }
 
 #Preview {
-    RecapEvent()
+    DetailEvent()
         .environment(EventViewModel())
+        .environment(NavigationViewModel())
 }

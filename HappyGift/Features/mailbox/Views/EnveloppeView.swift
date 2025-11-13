@@ -13,6 +13,11 @@ public struct EnveloppeView: View {
     @State var isLetterOpen = false
     @State var isFlapOpen = false
     
+//    @Binding var landingVM : LandingScreenViewModel
+    
+    @Environment(LandingScreenViewModel.self) private var landingVM
+
+    
     public var body: some View {
         
         ZStack{
@@ -20,13 +25,14 @@ public struct EnveloppeView: View {
                 .ignoresSafeArea()
             
             VStack(spacing: 50){
-                
-                Text("Boîte aux lettres")
-                    .font(.custom("Syncopate-Bold", size: 30))
-                    .foregroundColor(.beige)
-                    .padding(.top, 20)
-                    .multilineTextAlignment(.center)
-                
+                VStack{
+                    Text("Boîte aux lettres")
+                        .font(.custom("Syncopate-Bold", size: 30))
+                        .foregroundColor(.beige)
+                        .padding(.top, 25)
+                        .multilineTextAlignment(.center)
+                        
+                }
                 Spacer()
                 
                 ZStack(alignment: .bottom){
@@ -68,15 +74,26 @@ public struct EnveloppeView: View {
                         .zIndex(3)
                         .shadow(color: .black.opacity(0.2), radius: 1, x: 0, y: -1)
                 }
-                
+                .offset(y: -40)
                 Button {
-                    //a revoir anim au retour
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        isFlapOpen.toggle()
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
-                        withAnimation(.easeInOut(duration: 0.5)) {
+                    if !isFlapOpen {
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            isFlapOpen.toggle()
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                            withAnimation(.easeInOut(duration: 0.5)) {
+                                isLetterOpen.toggle()
+                            }
+                        }
+                    } else {
+                        withAnimation(Animation.easeInOut(duration: 0.3).delay(0.3)) {
                             isLetterOpen.toggle()
+                            landingVM.mailboxIsEmpty.toggle()
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                            withAnimation(.easeInOut(duration: 0.5)) {
+                                isFlapOpen.toggle()
+                            }
                         }
                     }
                 } label: {
@@ -96,4 +113,5 @@ public struct EnveloppeView: View {
 
 #Preview {
     EnveloppeView(viewModel: LetterViewModel())
+        .environment(LandingScreenViewModel(targetDate: Date()))
 }
