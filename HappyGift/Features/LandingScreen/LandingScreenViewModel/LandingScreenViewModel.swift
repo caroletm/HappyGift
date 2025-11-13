@@ -12,7 +12,7 @@ import SwiftUI
 class LandingScreenViewModel: Observable {
     var mailboxIsEmpty : Bool = false
     
-    //MARK: - Compte à rebour
+    //MARK: - Compte à rebours
     
     let targetDate: Date
     var timeLeft: TimeInterval = 0
@@ -53,8 +53,4 @@ class LandingScreenViewModel: Observable {
     deinit {
         timer?.invalidate()
     }
-    
-    //MARK: - Countdown
-    var startDate = Date.now
-    var countdownEndDate : Date?
 }

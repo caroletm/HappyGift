@@ -30,6 +30,7 @@ struct Countdown : View {
                             Text(viewModel.formattedTimeLeft.days)
                                 .font(.custom("Syncopate-Bold", size: 24))
                                 .foregroundStyle(.vertDark)
+                                .contentTransition(.numericText(countsDown: true))
                         }
                     
                     VStack {
@@ -49,6 +50,8 @@ struct Countdown : View {
                             Text(viewModel.formattedTimeLeft.hours)
                                 .font(.custom("Syncopate-Bold", size: 24))
                                 .foregroundStyle(.vertDark)
+                                .contentTransition(.numericText(countsDown: true))
+
                         }
 
 
@@ -72,6 +75,8 @@ struct Countdown : View {
                             Text(viewModel.formattedTimeLeft.minutes)
                                 .font(.custom("Syncopate-Bold", size: 24))
                                 .foregroundStyle(.vertDark)
+                                .contentTransition(.numericText(countsDown: true))
+
                         }
 
 

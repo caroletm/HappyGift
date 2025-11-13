@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import DotLottie
 
 struct LandingScreenView: View {
     
@@ -21,7 +20,7 @@ struct LandingScreenView: View {
                 
                 VStack(alignment: .leading) {
                     //les backgrounds neige + boite aux lettres + hello Name
-                    Text("Hello Marie!")
+                    Text("Hello \(userStandard.name)!")
                         .font(.custom("Syncopate-Bold", size: 30))
                         .foregroundStyle(.white)
                         .padding(.top,30)
@@ -45,12 +44,12 @@ struct LandingScreenView: View {
                                     VStack {
                                         HStack{
                                             //boite aux lettres et bonhomme de neige
-                                            NavigationLink {
+                                            Button {
                                                 //TODO: vers la boite aux lettres
                                             } label: {
                                                 VStack {
                                                     //boite aux lettres et son ombre
-                                                    withAnimation(.smooth) {
+                                                    withAnimation(.easeInOut(duration: 2)) {
                                                         Image(viewModel.mailboxIsEmpty ? .boiteAuxLettresVide : .boiteAuxLettres)
                                                     }
                                                     Image(.ombreBoite)
@@ -63,7 +62,7 @@ struct LandingScreenView: View {
                                             VStack {
                                                 if !viewModel.mailboxIsEmpty {
                                                     
-                                                    NavigationLink {
+                                                    Button {
                                                         //TODO: vers la boite aux lettres
                                                     } label: {
                                                         VStack {
@@ -99,22 +98,42 @@ struct LandingScreenView: View {
                     
                     ButtonsLandingScreen()
                 }.padding(.bottom)
+                
+                SnowfallView2()
             }
         }
         
     }
 }
 
-struct AnimationView: View {
+struct SnowfallView2: View {
+    @StateObject private var viewModel: SnowfallVM
+    
+    var size: CGFloat
+
+    init(size: CGFloat = 450, snowCount: Int = 80) {
+        _viewModel = StateObject(wrappedValue: SnowfallVM(numberOfSnowflakes: snowCount, size: size))
+        self.size = size
+    }
+
     var body: some View {
-        ZStack {
-            Color.vert
-                .ignoresSafeArea()
-            DotLottieAnimation(fileName: "cool_animation", config: AnimationConfig(autoplay: true, loop: true)).view()
-            
-            
+        Canvas { context, _ in
+            for flake in viewModel.snowflakes {
+                let position = CGPoint(x: flake.x, y: flake.y)
+                let radius = flake.size
+                context.fill(
+                    Path(ellipseIn: CGRect(
+                        x: position.x - radius,
+                        y: position.y - radius,
+                        width: radius * 2,
+                        height: radius * 2
+                    )),
+                    with: .color(.gris)
+                )
+            }
         }
-        
+        .ignoresSafeArea()
+        .allowsHitTesting(false)
     }
 }
 
@@ -123,5 +142,9 @@ struct AnimationView: View {
 }
 
 #Preview {
-    AnimationView()
+    ZStack {
+        Color.vert
+        SnowfallView2()
+    }
+
 }
