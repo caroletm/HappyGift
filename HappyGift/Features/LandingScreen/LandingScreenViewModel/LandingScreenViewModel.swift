@@ -53,4 +53,8 @@ class LandingScreenViewModel: Observable {
     deinit {
         timer?.invalidate()
     }
+    
+    //MARK: - Countdown
+    var startDate = Date.now
+    var countdownEndDate : Date?
 }

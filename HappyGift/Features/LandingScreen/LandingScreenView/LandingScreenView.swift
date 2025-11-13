@@ -105,8 +105,11 @@ struct LandingScreenView: View {
 struct AnimationView: View {
     var body: some View {
         ZStack {
-            Color.red
+            Color.vert
+                .ignoresSafeArea()
             DotLottieAnimation(fileName: "cool_animation", config: AnimationConfig(autoplay: true, loop: true)).view()
+            
+            
         }
         
     }
