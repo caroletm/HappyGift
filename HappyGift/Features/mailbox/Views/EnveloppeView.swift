@@ -112,5 +112,6 @@ public struct EnveloppeView: View {
 }
 
 #Preview {
-    EnveloppeView(viewModel: LetterViewModel() /*landingVM: .constant(LandingScreenViewModel(targetDate: Date()))*/)
+    EnveloppeView(viewModel: LetterViewModel())
+        .environment(LandingScreenViewModel(targetDate: Date()))
 }

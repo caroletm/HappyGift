@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct ButtonsLandingScreen: View {
+    @Environment(NavigationViewModel.self) var navVM
+
     var body: some View {
             VStack {
                 Button {
                     //TODO: vers créer un évènement
+                    navVM.path.append(AppRoute.createEvent)
                 } label: {
                     RoundedRectangle(cornerRadius: 16)
                         .frame(height: 100)
@@ -43,6 +46,8 @@ struct ButtonsLandingScreen: View {
                 
                 Button {
                     //TODO: vers liste d'évènements
+//                    navVM.path.append(AppRoute.)
+                    
                 } label: {
                     RoundedRectangle(cornerRadius: 16)
                         .frame(height: 100)
@@ -74,4 +79,5 @@ struct ButtonsLandingScreen: View {
 
 #Preview {
     ButtonsLandingScreen()
+        .environment(NavigationViewModel())
 }
