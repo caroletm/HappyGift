@@ -9,11 +9,12 @@ import SwiftUI
 
 struct EventList: View {
     @Environment(EventViewModel.self) private var eventVM
+    @Environment(NavigationViewModel.self) private var navVM
     
     @State var eventListVM = EventListViewModel()
     
     var body: some View {
-        NavigationStack {
+
             ZStack {
                 Color.beige
                     .ignoresSafeArea()
@@ -30,8 +31,9 @@ struct EventList: View {
                         let rotation = rotationPattern[index % rotationPattern.count]
                         let color = colorPattern[index % colorPattern.count]
                         
-                        NavigationLink {
-                            RecapEvent()
+                        Button {
+                            navVM.path.append(AppRoute.detailEvent)
+                            
                         } label: {
                             EventCellView(
                                 RectangleColor: color,
@@ -50,8 +52,7 @@ struct EventList: View {
                 }
                 .padding(.top, 16)
             }
-        }
-        .navigationBarHidden(true)
+//        .navigationBarHidden(true)
         .sheet(isPresented: $eventListVM.isAddEvent) {
             EventJoinView(eventListVM: $eventListVM)
         }
@@ -62,4 +63,5 @@ struct EventList: View {
 #Preview {
     EventList()
         .environment(EventViewModel())
+        .environment(NavigationViewModel())
 }
