@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		6A6B996C2EC51BE800CE78BC /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 6A6B996B2EC51BE800CE78BC /* Algorithms */; };
-		6A6B996F2EC52F9700CE78BC /* DotLottie in Frameworks */ = {isa = PBXBuildFile; productRef = 6A6B996E2EC52F9700CE78BC /* DotLottie */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,7 +41,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A6B996C2EC51BE800CE78BC /* Algorithms in Frameworks */,
-				6A6B996F2EC52F9700CE78BC /* DotLottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,7 +84,6 @@
 			name = HappyGift;
 			packageProductDependencies = (
 				6A6B996B2EC51BE800CE78BC /* Algorithms */,
-				6A6B996E2EC52F9700CE78BC /* DotLottie */,
 			);
 			productName = HappyGift;
 			productReference = BD94C1EA2EC4CA5F000239E8 /* HappyGift.app */;
@@ -118,7 +115,6 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				6A6B996A2EC51BE800CE78BC /* XCRemoteSwiftPackageReference "swift-algorithms" */,
-				6A6B996D2EC52F9700CE78BC /* XCRemoteSwiftPackageReference "dotlottie-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = BD94C1EB2EC4CA5F000239E8 /* Products */;
@@ -279,7 +275,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = G557KN5FL3;
+				DEVELOPMENT_TEAM = 4NDGZX5784;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HappyGift/Info.plist;
@@ -313,7 +309,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = G557KN5FL3;
+				DEVELOPMENT_TEAM = 4NDGZX5784;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HappyGift/Info.plist;
@@ -372,14 +368,6 @@
 				minimumVersion = 1.2.1;
 			};
 		};
-		6A6B996D2EC52F9700CE78BC /* XCRemoteSwiftPackageReference "dotlottie-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/LottieFiles/dotlottie-ios";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -387,11 +375,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6A6B996A2EC51BE800CE78BC /* XCRemoteSwiftPackageReference "swift-algorithms" */;
 			productName = Algorithms;
-		};
-		6A6B996E2EC52F9700CE78BC /* DotLottie */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6A6B996D2EC52F9700CE78BC /* XCRemoteSwiftPackageReference "dotlottie-ios" */;
-			productName = DotLottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
