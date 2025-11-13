@@ -11,6 +11,8 @@ struct CreateSanta: View {
     
     @Environment(EventViewModel.self) private var eventVM
     @Bindable var eventViewModel = EventViewModel()
+    @Environment(NavigationViewModel.self) private var navigationVM
+
    
     var body: some View {
         
@@ -92,7 +94,7 @@ struct CreateSanta: View {
                         .padding(.bottom,20)
                         
                         Button {
-                            //
+                            navigationVM.path.append(AppRoute.recapEvent)
                         }label:{
                             ButtonText(text: "OK", width: 150)
                                 .padding()
@@ -107,4 +109,5 @@ struct CreateSanta: View {
 #Preview {
     CreateSanta(eventViewModel: EventViewModel())
         .environment(EventViewModel())
+        .environment(NavigationViewModel())
 }

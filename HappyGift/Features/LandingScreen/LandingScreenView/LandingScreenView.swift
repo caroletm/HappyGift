@@ -47,7 +47,7 @@ struct LandingScreenView: View {
                                         //boite aux lettres et bonhomme de neige
                                         Button {
                                             //TODO: vers la boite aux lettres
-                                            navVM.path.append(AppRoute.enveloppeView)
+                                            navVM.path.append(AppRoute.mailbox)
                                             
                                         } label: {
                                             VStack {

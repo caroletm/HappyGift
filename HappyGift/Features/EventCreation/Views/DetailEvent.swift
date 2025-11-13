@@ -110,14 +110,14 @@ struct DetailEvent: View {
                                     Rectangle()
                                         .fill(Color.white)
                                         .opacity(0.4)
-                                        .frame(width: 75, height: 75)
+                                        .frame(width: 60, height: 60)
                                         .cornerRadius(10)
                                     
                                     Text("Voir")
                                         .font(.custom( "Syncopate-Bold", size: 14))
                                         .foregroundStyle(Color.white)
                                 }
-                                .offset(y: 30)
+                                .offset(y: 10)
                             }
                             
                         }
@@ -175,10 +175,11 @@ struct DetailEvent: View {
             VStack {
                 Spacer()
                 Button {
-                    navigationVM.path = NavigationPath()
+//                    navigationVM.path = NavigationPath()
                 }label:{
-                    ButtonText(text: "OK", width: 150)
+                    ButtonText(text: "Ecrire à mon pere noel", width: 270)
                 }
+                
             }
         }
     }

@@ -10,6 +10,7 @@ import SwiftUI
 struct RecapEvent: View {
     
     @Environment(EventViewModel.self) private var eventVM
+    @Environment(NavigationViewModel.self) private var navigationVM
     
     var body: some View {
         
@@ -117,7 +118,7 @@ struct RecapEvent: View {
                                         .frame(width: 40, height: 40)
                                         .foregroundStyle(Color.white)
                                 }
-                                .offset(y: 30)
+                                .offset(y: 10)
                             }
                             
                         }
@@ -195,11 +196,14 @@ struct RecapEvent: View {
                     .offset(x: -90, y: 230)
                 }
             }
-            Button {
-                //
-            }label:{
-                ButtonText(text: "Lancer le tirage", width: 190)
-                    .offset(y: 370 )
+            VStack {
+                Spacer()
+                
+                Button {
+                    navigationVM.path.append(AppRoute.tirageView)
+                }label:{
+                    ButtonText(text: "Lancer le tirage", width: 190)
+                }
             }
         }
     }
@@ -208,4 +212,5 @@ struct RecapEvent: View {
 #Preview {
     RecapEvent()
         .environment(EventViewModel())
+        .environment(NavigationViewModel())
 }
