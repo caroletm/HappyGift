@@ -13,6 +13,10 @@ import SwiftUI
 
 class EventViewModel {
     
+    //MARK: -  Data Event
+
+    var eventsVM : [Event] = events
+    
     //MARK: -  Create Event
     
     var iconsEvent : [String] = ["carChristmas", "iconChristmas", "houseChristmas"]
