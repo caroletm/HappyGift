@@ -17,7 +17,7 @@ struct ParticipantEmptyView: View {
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.beige)
+        .background(Color("beige"))
     }
     
     var icon : some View{

@@ -19,7 +19,7 @@ struct ButtonParticipantCellView: View {
                 .overlay{
                     Text("Ajouter")
                         .font(.custom("Syncopate-Bold", size: 15))
-                        .foregroundStyle(.beige)
+                        .foregroundStyle(Color("beige"))
                 }
             
         }
