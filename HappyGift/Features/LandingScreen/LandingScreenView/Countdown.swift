@@ -23,15 +23,20 @@ struct Countdown : View {
 
             ZStack {
                 HStack (spacing: 15) {
-                    RoundedRectangle(cornerRadius: 10)
-                        .frame(width: 60, height: 60)
-                        .foregroundStyle(.white)
-                        .overlay {
-                            Text(viewModel.formattedTimeLeft.days)
-                                .font(.custom("Syncopate-Bold", size: 24))
-                                .foregroundStyle(.vertDark)
-                                .contentTransition(.numericText(countsDown: true))
-                        }
+                    VStack {
+                        Text("jours")
+                            .font(.custom("Syncopate-Bold", size: 10))
+                        RoundedRectangle(cornerRadius: 10)
+                            .frame(width: 60, height: 60)
+                            .foregroundStyle(.white)
+                            .overlay {
+                                Text(viewModel.formattedBackupTimeLeft.days)
+                                    .font(.custom("Syncopate-Bold", size: 24))
+                                    .foregroundStyle(.vertDark)
+                                    .contentTransition(.numericText(countsDown: true))
+                            }
+                    }
+
                     
                     VStack {
                         Circle()
@@ -42,17 +47,21 @@ struct Countdown : View {
                             .frame(width: 10)
                             .foregroundStyle(.grisDark)
                     }
+                    VStack {
+                        Text("heures")
+                            .font(.custom("Syncopate-Bold", size: 10))
+                        RoundedRectangle(cornerRadius: 10)
+                            .frame(width: 60, height: 60)
+                            .foregroundStyle(.white)
+                            .overlay {
+                                Text(viewModel.formattedBackupTimeLeft.hours)
+                                    .font(.custom("Syncopate-Bold", size: 24))
+                                    .foregroundStyle(.vertDark)
+                                    .contentTransition(.numericText(countsDown: true))
 
-                    RoundedRectangle(cornerRadius: 10)
-                        .frame(width: 60, height: 60)
-                        .foregroundStyle(.white)
-                        .overlay {
-                            Text(viewModel.formattedTimeLeft.hours)
-                                .font(.custom("Syncopate-Bold", size: 24))
-                                .foregroundStyle(.vertDark)
-                                .contentTransition(.numericText(countsDown: true))
+                            }
 
-                        }
+                    }
 
 
                     
@@ -67,23 +76,27 @@ struct Countdown : View {
                             .foregroundStyle(.grisDark)
                     }
 
-                    
-                    RoundedRectangle(cornerRadius: 10)
-                        .frame(width: 60, height: 60)
-                        .foregroundStyle(.white)
-                        .overlay {
-                            Text(viewModel.formattedTimeLeft.minutes)
-                                .font(.custom("Syncopate-Bold", size: 24))
-                                .foregroundStyle(.vertDark)
-                                .contentTransition(.numericText(countsDown: true))
+                    VStack {
+                        Text("minutes")
+                            .font(.custom("Syncopate-Bold", size: 10))
+                        RoundedRectangle(cornerRadius: 10)
+                            .frame(width: 60, height: 60)
+                            .foregroundStyle(.white)
+                            .overlay {
+                                Text(viewModel.formattedBackupTimeLeft.minutes)
+                                    .font(.custom("Syncopate-Bold", size: 24))
+                                    .foregroundStyle(.vertDark)
+                                    .contentTransition(.numericText(countsDown: true))
 
-                        }
+                            }
 
-
+                    }
                 }
             }
-
-            
+        }
+        .onAppear {
+            viewModel.startTimer()
+            viewModel.updateTimeLeft()
         }
     }
 }
@@ -91,7 +104,7 @@ struct Countdown : View {
 #Preview {
     ZStack {
         Color.gris
-        Countdown(viewModel: .constant(LandingScreenViewModel(targetDate: Date())))
+        Countdown(viewModel: .constant(LandingScreenViewModel(eventVM: EventViewModel())))
 
     }
 }
