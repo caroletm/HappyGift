@@ -10,40 +10,41 @@ import SwiftUI
 struct RecapEvent: View {
     
     @Environment(EventViewModel.self) private var eventVM
-
+    
     var body: some View {
         
         ZStack {
             Color.beige.edgesIgnoringSafeArea(.all)
-            
             ZStack {
+                
                 ZStack {
-                    Rectangle()
-                        .fill(Color.vert)
-                        .frame(width: 330, height: 300)
-                        .cornerRadius(20)
-                        .padding()
                     ZStack {
-                        Circle()
-                            .fill(Color.white)
-                            .frame(width: 90, height: 90)
-                        Image("carChristmas")
-                            .resizable()
-                            .scaledToFit( )
-                            .frame(width: 59, height: 44)
+                        Rectangle()
+                            .fill(Color.vert)
+                            .frame(width: 330, height: 300)
+                            .cornerRadius(20)
+                            .padding()
+                        ZStack {
+                            Circle()
+                                .fill(Color.white)
+                                .frame(width: 90, height: 90)
+                            Image("carChristmas")
+                                .resizable()
+                                .scaledToFit( )
+                                .frame(width: 59, height: 44)
+                        }
+                        .offset(x: 0, y: -150)
+                        VStack(alignment: .center) {
+                            Text(eventVM.nomEvent)
+                                .font(.custom( "Syncopate-Bold", size: 16))
+                                .foregroundStyle(Color.white)
+                            Text(eventVM.descriptionEvent)
+                                .foregroundStyle(Color.white)
+                                .frame(width: 260, height: 150)
+                                .multilineTextAlignment(.center)
+                        }
                     }
-                    .offset(x: 0, y: -150)
-                    VStack(alignment: .center) {
-                        Text(eventVM.nomEvent)
-                            .font(.custom( "Syncopate-Bold", size: 16))
-                            .foregroundStyle(Color.white)
-                        Text(eventVM.descriptionEvent)
-                            .foregroundStyle(Color.white)
-                            .frame(width: 260, height: 150)
-                            .multilineTextAlignment(.center)
-                    }
-                }
-                .offset(x: 0, y: -210)
+                    .offset(x: 0, y: -210)
                     HStack {
                         ZStack {
                             Rectangle()
@@ -89,109 +90,110 @@ struct RecapEvent: View {
                         
                     }
                     .offset(y: 40)
-             
-                ZStack {
-                    Rectangle()
-                        .fill(Color.rose)
-                        .frame(width: 260, height: 260)
-                        .cornerRadius(28)
-                    VStack (alignment: .center) {
-                        Text("Liste des\n participants")
-                            .font(.custom( "Syncopate-Bold", size: 18))
-                            .foregroundStyle(Color.white)
-                            .multilineTextAlignment(.center)
                     
-                            Button {
-                                //
-                            }label:{
-                                ZStack {
-                                Rectangle()
-                                    .fill(Color.white)
-                                    .opacity(0.4)
-                                    .frame(width: 75, height: 75)
-                                    .cornerRadius(10)
-                
-                                Image(systemName: "plus")
-                                    .resizable()
-                                    .frame(width: 40, height: 40)
-                                    .foregroundStyle(Color.white)
-                            }
-                                .offset(y: 30)
-                        }
-
-                    }
-                    .offset(y: -40)
-                    
-                    Image("bouleBeige")
-                        .offset(x: 80, y: -40)
-                    Image("bouleRouge")
-                        .offset(x:-90, y: -40)
-                        .rotationEffect(Angle(degrees: -15))
-//                    Image("bouleBeige")
-//                        .offset(x:-85, y: 35)
-                    Image("bouleRouge")
-                        .offset(x:30, y:80)
-                        .rotationEffect(Angle(degrees: -50))
-                    Image("bouleBeige")
-                        .offset(x: 55, y: 80)
-                    Image("bouleRouge")
-                        .offset(x:-90, y:20)
-                        .rotationEffect(Angle(degrees: -50))
-                    
-                }
-                .offset(x: 160, y: 270)
-                .rotationEffect(Angle(degrees: 15))
-                
-                ZStack {
-                    Rectangle()
-                        .fill(Color.vert)
-                        .frame(width: 200, height: 210)
-                        .cornerRadius(25)
-                    VStack {
-                        Text("Budget")
-                            .font(.custom( "Syncopate-Bold", size: 18))
-                            .foregroundStyle(Color.white)
-                        Image("giftBox")
-                            .resizable()
-                            .scaledToFit( )
-                            .frame(width: 75, height: 75)
-                            .rotationEffect(Angle(degrees: 15))
-                            .padding(5)
-                        HStack {
-                            Button {
-                                //
-                            }label:{
-                                ZStack {
-                                    Circle()
-                                        .fill(Color.white)
-                                        .frame(width: 40, height: 40)
-                                    Image(systemName: "minus")
-                                        .foregroundStyle(Color.black)
-                                }
-                            }
-                            Text("\(eventVM.priceGift) €")
+                    ZStack {
+                        Rectangle()
+                            .fill(Color.rose)
+                            .frame(width: 260, height: 260)
+                            .cornerRadius(28)
+                        VStack (alignment: .center) {
+                            Text("Liste des\n participants")
                                 .font(.custom( "Syncopate-Bold", size: 18))
                                 .foregroundStyle(Color.white)
-                                .padding(.horizontal, 10)
+                                .multilineTextAlignment(.center)
+                            
                             Button {
                                 //
                             }label:{
                                 ZStack {
-                                    Circle()
+                                    Rectangle()
                                         .fill(Color.white)
-                                        .frame(width: 40, height: 40)
+                                        .opacity(0.4)
+                                        .frame(width: 75, height: 75)
+                                        .cornerRadius(10)
+                                    
                                     Image(systemName: "plus")
-                                        .foregroundStyle(Color.black)
+                                        .resizable()
+                                        .frame(width: 40, height: 40)
+                                        .foregroundStyle(Color.white)
                                 }
+                                .offset(y: 30)
                             }
-                           
+                            
                         }
-
+                        .offset(y: -40)
+                        
+                        Image("bouleBeige")
+                            .offset(x: 80, y: -40)
+                        Image("bouleRouge")
+                            .offset(x:-90, y: -40)
+                            .rotationEffect(Angle(degrees: -15))
+                        //                    Image("bouleBeige")
+                        //                        .offset(x:-85, y: 35)
+                        Image("bouleRouge")
+                            .offset(x:30, y:80)
+                            .rotationEffect(Angle(degrees: -50))
+                        Image("bouleBeige")
+                            .offset(x: 55, y: 80)
+                        Image("bouleRouge")
+                            .offset(x:-90, y:20)
+                            .rotationEffect(Angle(degrees: -50))
+                        
                     }
+                    .offset(x: 160, y: 270)
+                    .rotationEffect(Angle(degrees: 15))
                     
+                    ZStack {
+                        Rectangle()
+                            .fill(Color.vert)
+                            .frame(width: 200, height: 210)
+                            .cornerRadius(25)
+                        VStack {
+                            Text("Budget")
+                                .font(.custom( "Syncopate-Bold", size: 18))
+                                .foregroundStyle(Color.white)
+                            Image("giftBox")
+                                .resizable()
+                                .scaledToFit( )
+                                .frame(width: 75, height: 75)
+                                .rotationEffect(Angle(degrees: 15))
+                                .padding(5)
+                            HStack {
+                                Button {
+                                    //
+                                }label:{
+                                    ZStack {
+                                        Circle()
+                                            .fill(Color.white)
+                                            .frame(width: 40, height: 40)
+                                        Image(systemName: "minus")
+                                            .foregroundStyle(Color.black)
+                                    }
+                                }
+                                Text("\(eventVM.priceGift) €")
+                                    .font(.custom( "Syncopate-Bold", size: 18))
+                                    .foregroundStyle(Color.white)
+                                    .padding(.horizontal, 10)
+                                Button {
+                                    //
+                                }label:{
+                                    ZStack {
+                                        Circle()
+                                            .fill(Color.white)
+                                            .frame(width: 40, height: 40)
+                                        Image(systemName: "plus")
+                                            .foregroundStyle(Color.black)
+                                    }
+                                }
+                                
+                            }
+                            
+                        }
+                        
+                    }
+                    .rotationEffect(Angle(degrees: -15))
+                    .offset(x: -90, y: 230)
                 }
-                .rotationEffect(Angle(degrees: -15))
-                .offset(x: -90, y: 230)
             }
             Button {
                 //
