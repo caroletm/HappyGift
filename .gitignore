@@ -14,3 +14,7 @@
 *.xcuserdatad/
 *.xcworkspace/xcuserdata/*
 
+# Swift Package Manager
+*.swiftpm
+.swiftpm
+Package.resolved

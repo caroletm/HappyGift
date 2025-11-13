@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct TirageView: View {
-    @StateObject private var viewModel = TirageViewModel()
+
+    @State var viewModel:TirageViewModel
+    @Environment(TirageViewModel.self) private var tirageViewModel
     
     var body: some View {
         ZStack {
-            Color.vert
-                .edgesIgnoringSafeArea(.all)
+            Color("vert").edgesIgnoringSafeArea(.all)
             
             VStack(alignment: .center){
                 Text("Shake your phone to see who you got!")
                     .font(.custom("Syncopate-Bold", size: 32))
-                    .foregroundColor(.rose)
+                    .foregroundColor(Color("rose"))
                 
                 ZStack{
                     //MARK: - Globe
@@ -28,10 +29,9 @@ struct TirageView: View {
                     
                     //MARK: - Name
                     if let name = viewModel.selectedName {
-                        Text(viewModel.selectedName!)
-                        //                    Text("test")
+                        Text(name)
                             .font(.custom("Syncopate-Bold", size: 18))
-                            .foregroundColor(.rose)
+                            .foregroundColor(Color("rose"))
                             .frame(maxWidth: 110)
                             .lineLimit(1)
                             .minimumScaleFactor(0.5)
@@ -66,8 +66,4 @@ struct TirageView: View {
             .allowsHitTesting(false)
         }
     }
-}
-
-#Preview {
-    TirageView()
 }

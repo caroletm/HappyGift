@@ -1,13 +1,13 @@
 //
-//  RecapEvent.swift
+//  DetailEvent.swift
 //  HappyGift
 //
-//  Created by caroletm on 12/11/2025.
+//  Created by caroletm on 13/11/2025.
 //
 
 import SwiftUI
 
-struct RecapEvent: View {
+struct DetailEvent: View {
     
     @Environment(EventViewModel.self) private var eventVM
     
@@ -112,9 +112,8 @@ struct RecapEvent: View {
                                         .frame(width: 75, height: 75)
                                         .cornerRadius(10)
                                     
-                                    Image(systemName: "plus")
-                                        .resizable()
-                                        .frame(width: 40, height: 40)
+                                    Text("Voir")
+                                        .font(.custom( "Syncopate-Bold", size: 14))
                                         .foregroundStyle(Color.white)
                                 }
                                 .offset(y: 30)
@@ -206,6 +205,6 @@ struct RecapEvent: View {
 }
 
 #Preview {
-    RecapEvent()
+    DetailEvent()
         .environment(EventViewModel())
 }

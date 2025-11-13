@@ -11,9 +11,11 @@ import SwiftUI
 struct HappyGiftApp: App {
     var body: some Scene {
         WindowGroup {
+            
+            ContentView()
+            
 //            LandingScreenView()
 //            TirageView()
-            mailbox2View()
         }
     }
 }

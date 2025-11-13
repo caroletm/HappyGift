@@ -28,6 +28,20 @@ class EventViewModel {
     var lieuEvent: String = "A la maison"
     var priceGift: Int = 30
     
+    //MARK: -  Incrémenter budget
+    
+    func addBudget() {
+        priceGift += 1
+    }
+    
+    func minusBudget() {
+        priceGift -= 1
+    }
 }
+
+
+
+
+
 
 
