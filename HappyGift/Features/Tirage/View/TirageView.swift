@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct TirageView: View {
+
     @State var viewModel:TirageViewModel
+    @Environment(TirageViewModel.self) private var tirageViewModel
     
     var body: some View {
         ZStack {

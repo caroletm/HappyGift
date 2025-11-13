@@ -9,7 +9,10 @@ import SwiftUI
 import DotLottie
 
 struct LandingScreenView: View {
+    
     @State var viewModel = LandingScreenViewModel(targetDate: Date())
+    
+    
     var body: some View {
         NavigationStack{
             ZStack {
