@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var navigationViewModel = NavigationViewModel()
-    @State private var landingViewModel = LandingScreenViewModel(targetDate: Date())
+    @State private var landingViewModel = LandingScreenViewModel(eventVM: EventViewModel())
     @State private var eventViewModel = EventViewModel()
     @State private var participantViewModel = ParticipantViewModel()
     @State private var letterViewModel = LetterViewModel()
@@ -62,7 +62,7 @@ struct ContentView: View {
 #Preview {
     ContentView()
         .environment(NavigationViewModel())
-        .environment(LandingScreenViewModel(targetDate: Date()))
+        .environment(LandingScreenViewModel(eventVM: EventViewModel()))
         .environment(EventViewModel())
         .environment(ParticipantViewModel())
         .environment(LetterViewModel())

@@ -9,8 +9,9 @@ import SwiftUI
 
 struct LandingScreenView: View {
     
-    @State var viewModel = LandingScreenViewModel(targetDate: Date())
+    @State var viewModel = LandingScreenViewModel(eventVM: EventViewModel())
     @Environment(NavigationViewModel.self) var navVM
+    @Environment(EventViewModel.self)var eventVM
     
     
     var body: some View {
@@ -99,6 +100,9 @@ struct LandingScreenView: View {
                 Spacer()
                 Countdown(viewModel: $viewModel)
                     .padding(.bottom)
+                    .onAppear {
+                        viewModel.startTimer()
+                    }
                 
                 ButtonsLandingScreen()
             }.padding(.bottom)
@@ -144,6 +148,7 @@ struct SnowfallView2: View {
 #Preview {
     LandingScreenView()
         .environment(NavigationViewModel())
+        .environment(EventViewModel())
 }
 
 #Preview {

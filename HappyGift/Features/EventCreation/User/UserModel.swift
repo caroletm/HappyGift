@@ -18,3 +18,4 @@ struct UserModel : Identifiable {
 }
 
 let userStandard = UserModel(id: UUID(), name: "Marie")
+
