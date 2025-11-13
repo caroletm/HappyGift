@@ -27,7 +27,7 @@ public struct LetterView: View {
                         .foregroundColor(.black)
                         .padding(.top, 20)
                     
-                    Text(userMessage)
+                    Text("Cette année, j'ai été très sage et j'ai aidé mes amis et ma famille. J'aimerais beaucoup recevoir un vélo rouge avec un panier, et si tu as de la place, quelques livres d'aventure \nMerci beaucoup et joyeux Noël !")
                         .font(.system(size: 15))
                         .foregroundColor(.black)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -38,7 +38,7 @@ public struct LetterView: View {
                     
                     HStack {
                         Spacer()
-                        Text(signature)
+                        Text("Alice")
                             .font(.system(size: 15, weight: .bold))
                             .foregroundColor(.black)
                         Spacer()

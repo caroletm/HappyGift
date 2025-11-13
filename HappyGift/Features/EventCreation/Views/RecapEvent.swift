@@ -104,7 +104,7 @@ struct RecapEvent: View {
                                 .multilineTextAlignment(.center)
                             
                             Button {
-                                //
+                                navigationVM.path.append(AppRoute.participantList)
                             }label:{
                                 ZStack {
                                     Rectangle()
