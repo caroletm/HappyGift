@@ -13,7 +13,10 @@ public struct EnveloppeView: View {
     @State var isLetterOpen = false
     @State var isFlapOpen = false
     
-    @Binding var landingVM : LandingScreenViewModel
+//    @Binding var landingVM : LandingScreenViewModel
+    
+    @Environment(LandingScreenViewModel.self) private var landingVM
+
     
     public var body: some View {
         
@@ -109,5 +112,5 @@ public struct EnveloppeView: View {
 }
 
 #Preview {
-    EnveloppeView(viewModel: LetterViewModel(), landingVM: .constant(LandingScreenViewModel(targetDate: Date())))
+    EnveloppeView(viewModel: LetterViewModel() /*landingVM: .constant(LandingScreenViewModel(targetDate: Date()))*/)
 }
