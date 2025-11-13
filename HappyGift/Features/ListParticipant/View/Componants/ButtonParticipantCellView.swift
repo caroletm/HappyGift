@@ -8,16 +8,18 @@
 import SwiftUI
 
 struct ButtonParticipantCellView: View {
+    var title: String
     var function: () -> Void = {}
+    var size: CGFloat?
     var body: some View {
         Button {
            function()
         } label: {
             RoundedRectangle(cornerRadius: 20)
                 .fill(.black)
-                .frame(width: 149, height: 53)
+                .frame(width: size == nil ?  149 : size, height: 53)
                 .overlay{
-                    Text("Ajouter")
+                    Text(title)
                         .font(.custom("Syncopate-Bold", size: 15))
                         .foregroundStyle(Color("beige"))
                 }
@@ -28,5 +30,5 @@ struct ButtonParticipantCellView: View {
 }
 
 #Preview {
-    ButtonParticipantCellView()
+    ButtonParticipantCellView(title: "Ajouter")
 }

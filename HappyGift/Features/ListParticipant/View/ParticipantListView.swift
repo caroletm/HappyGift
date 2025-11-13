@@ -27,7 +27,7 @@ struct ParticipantListView: View {
                 Spacer()
                
             }
-            ButtonParticipantCellView {
+            ButtonParticipantCellView(title: "Ajouter") {
                 participantVM.isAddParticipant = true
             }
         }
