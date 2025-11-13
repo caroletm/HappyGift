@@ -175,7 +175,7 @@ struct DetailEvent: View {
             VStack {
                 Spacer()
                 Button {
-//                    navigationVM.path = NavigationPath()
+                    navigationVM.path.append(AppRoute.writeLetter)
                 }label:{
                     ButtonText(text: "Ecrire à mon pere noel", width: 270)
                 }

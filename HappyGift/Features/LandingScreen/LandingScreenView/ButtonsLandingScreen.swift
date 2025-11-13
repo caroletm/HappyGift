@@ -46,7 +46,7 @@ struct ButtonsLandingScreen: View {
                 
                 Button {
                     //TODO: vers liste d'évènements
-//                    navVM.path.append(AppRoute.)
+                    navVM.path.append(AppRoute.listEvent)
                     
                 } label: {
                     RoundedRectangle(cornerRadius: 16)

@@ -33,8 +33,8 @@ struct ContentView: View {
                         RecapEvent()
                     case .detailEvent:
                         DetailEvent()
-//                    case .listEvent:
-//                        EventList()
+                    case .listEvent:
+                        EventList()
                     case .participantList:
                         ParticipantListView()
                     case .enveloppeView:
