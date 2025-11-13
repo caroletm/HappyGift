@@ -12,7 +12,7 @@ struct ParticipantListView: View {
     var body: some View {
         VStack{
             Text("Liste des participants")
-                .font(.custom("Syncopate-Bold", size: 20))
+                .font(.custom("Syncopate-Bold", size: 30))
                 .foregroundStyle(.vert)
 
             if participantVM.participants.isEmpty{

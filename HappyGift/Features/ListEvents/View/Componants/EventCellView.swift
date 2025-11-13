@@ -10,7 +10,7 @@ import SwiftUI
 struct EventCellView: View {
     var RectangleColor: Color
     var RectanglePosition: Double
-    var dateEvent: String
+    var dateEvent: Date
     var title: String
     
     var body: some View {
@@ -29,7 +29,7 @@ struct EventCellView: View {
                 
                 HStack(alignment: .center, spacing: 130) {
                     VStack(alignment: .leading, spacing: 8) {
-                        Text(dateEvent)
+                        Text(dateEvent, format: Date.FormatStyle().day().month().year())
                             .font(.custom("Syncopate-Bold", size: 24))
                         Text(title)
                             .font(.custom("Syncopate-Regular", size: 14))
@@ -38,7 +38,7 @@ struct EventCellView: View {
                         .font(.system(size: 20))
                 }
                 .foregroundStyle(RectangleColor == .rose ? .rouge : .beige)
-                .padding(.horizontal, 30)
+               
             }
             .frame(width: geo.size.width, height: height)
         }
@@ -50,5 +50,5 @@ struct EventCellView: View {
 
 
 #Preview {
-    EventCellView(RectangleColor: .rose, RectanglePosition: 0, dateEvent: "22.23.2025", title: "Santa entre petit pote à la compote")
+    EventCellView(RectangleColor: .rose, RectanglePosition: 0, dateEvent: Date.from("24/12/2025 20:00"), title: "Santa entre petit pote à la compote")
 }

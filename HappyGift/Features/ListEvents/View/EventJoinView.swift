@@ -16,7 +16,7 @@ struct EventJoinView: View {
             SnowfallView(size: 250)
             VStack{
                 Text("Mon événement ")
-                    .font(.custom("Syncopate-Bold", size: 20))
+                    .font(.custom("Syncopate-Bold", size: 30))
                     .padding()
                 
                 Spacer()

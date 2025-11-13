@@ -21,7 +21,7 @@ struct EventList: View {
 
                 VStack {
                     Text("Mes événements")
-                        .font(.custom("Syncopate-Bold", size: 20))
+                        .font(.custom("Syncopate-Bold", size: 30))
                         .padding()
 
                     ForEach(eventVM.eventsVM) { event in
@@ -38,7 +38,7 @@ struct EventList: View {
                             EventCellView(
                                 RectangleColor: color,
                                 RectanglePosition: rotation,
-                                dateEvent: "12.23.2025",
+                                dateEvent: event.dateEvent,
                                 title: event.nomEvent
                             )
                             .padding(.bottom, -24)
