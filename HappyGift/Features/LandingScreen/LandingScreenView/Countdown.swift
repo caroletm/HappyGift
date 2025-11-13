@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct Countdown : View {
+    @Binding var viewModel : LandingScreenViewModel
+    
     var body: some View {
         VStack {
             //les élements au dessus de la neige
@@ -19,43 +21,61 @@ struct Countdown : View {
                 Spacer()
             }
 
-            
-            HStack (spacing: 15) {
-                RoundedRectangle(cornerRadius: 10)
-                    .frame(width: 60, height: 60)
-                    .foregroundStyle(.white)
-                
-                VStack {
-                    Circle()
-                        .frame(width: 10)
-                        .foregroundStyle(.grisDark)
+            ZStack {
+                HStack (spacing: 15) {
+                    RoundedRectangle(cornerRadius: 10)
+                        .frame(width: 60, height: 60)
+                        .foregroundStyle(.white)
+                        .overlay {
+                            Text(viewModel.formattedTimeLeft.days)
+                                .font(.custom("Syncopate-Bold", size: 24))
+                                .foregroundStyle(.vertDark)
+                        }
                     
-                    Circle()
-                        .frame(width: 10)
-                        .foregroundStyle(.grisDark)
-                }
+                    VStack {
+                        Circle()
+                            .frame(width: 10)
+                            .foregroundStyle(.grisDark)
+                        
+                        Circle()
+                            .frame(width: 10)
+                            .foregroundStyle(.grisDark)
+                    }
 
-                RoundedRectangle(cornerRadius: 10)
-                    .frame(width: 60, height: 60)
-                    .foregroundStyle(.white)
+                    RoundedRectangle(cornerRadius: 10)
+                        .frame(width: 60, height: 60)
+                        .foregroundStyle(.white)
+                        .overlay {
+                            Text(viewModel.formattedTimeLeft.hours)
+                                .font(.custom("Syncopate-Bold", size: 24))
+                                .foregroundStyle(.vertDark)
+                        }
 
-                
-                VStack {
-                    Circle()
-                        .frame(width: 10)
-                        .foregroundStyle(.grisDark)
 
                     
-                    Circle()
-                        .frame(width: 10)
-                        .foregroundStyle(.grisDark)
+                    VStack {
+                        Circle()
+                            .frame(width: 10)
+                            .foregroundStyle(.grisDark)
+
+                        
+                        Circle()
+                            .frame(width: 10)
+                            .foregroundStyle(.grisDark)
+                    }
+
+                    
+                    RoundedRectangle(cornerRadius: 10)
+                        .frame(width: 60, height: 60)
+                        .foregroundStyle(.white)
+                        .overlay {
+                            Text(viewModel.formattedTimeLeft.minutes)
+                                .font(.custom("Syncopate-Bold", size: 24))
+                                .foregroundStyle(.vertDark)
+                        }
+
+
                 }
-
-                
-                RoundedRectangle(cornerRadius: 10)
-                    .frame(width: 60, height: 60)
-                    .foregroundStyle(.white)
-
             }
 
             
@@ -65,8 +85,8 @@ struct Countdown : View {
 
 #Preview {
     ZStack {
-        Color.red
-        Countdown()
+        Color.gris
+        Countdown(viewModel: .constant(LandingScreenViewModel(targetDate: Date())))
 
     }
 }
