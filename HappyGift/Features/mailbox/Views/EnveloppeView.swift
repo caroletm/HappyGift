@@ -13,6 +13,8 @@ public struct EnveloppeView: View {
     @State var isLetterOpen = false
     @State var isFlapOpen = false
     
+    @Binding var landingVM : LandingScreenViewModel
+    
     public var body: some View {
         
         ZStack{
@@ -77,6 +79,7 @@ public struct EnveloppeView: View {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
                         withAnimation(.easeInOut(duration: 0.5)) {
                             isLetterOpen.toggle()
+                            landingVM.mailboxIsEmpty.toggle()
                         }
                     }
                 } label: {
@@ -95,5 +98,5 @@ public struct EnveloppeView: View {
 }
 
 #Preview {
-    EnveloppeView(viewModel: LetterViewModel())
+    EnveloppeView(viewModel: LetterViewModel(), landingVM: .constant(LandingScreenViewModel(targetDate: Date())))
 }
