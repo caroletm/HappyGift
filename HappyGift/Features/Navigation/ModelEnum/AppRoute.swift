@@ -16,8 +16,9 @@ enum AppRoute: Hashable {
 //    case listEvent
     case participantList
     case enveloppeView
-//    case letterView
+    case letterView
     case writeLetter
+    case mailbox
     case tirageView
     
 }

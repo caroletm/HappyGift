@@ -39,10 +39,12 @@ struct ContentView: View {
                         ParticipantListView()
                     case .enveloppeView:
                         EnveloppeView(viewModel: LetterViewModel())
-//                    case .letterView:
-//               LetterView()
+                    case .letterView:
+                        LetterView(userMessage: "", signature: "", height: 350)
                     case .writeLetter:
                         WriteLetterView()
+                    case .mailbox:
+                        mailboxView()
                     case .tirageView:
                         TirageView(viewModel: TirageViewModel(participantVM: ParticipantViewModel(), currentUserName: "Carole"))
                     }
