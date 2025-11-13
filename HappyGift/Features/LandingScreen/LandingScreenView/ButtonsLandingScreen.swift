@@ -9,63 +9,66 @@ import SwiftUI
 
 struct ButtonsLandingScreen: View {
     var body: some View {
-        VStack {
-            Button {
-                //créer un évènement
-            } label: {
-                RoundedRectangle(cornerRadius: 16)
-                    .frame(height: 100)
-                    .foregroundStyle(.vert)
-                    .overlay {
-                        Rectangle()
-                            .frame(height: 25)
-                            .foregroundStyle(.rouge)
-                            .padding(.bottom, 36)
-                    }
-                    .overlay {
-                        Rectangle()
-                            .frame(width: 30)
-                            .foregroundStyle(.rouge)
-                            .border(.rougeDark, width: 1.5)
-                            .padding(.trailing, 220)
-                    }
-                    .overlay {
-                        Text("Créer un évènement")
-                            .font(.custom("Syncopate-Bold", size: 12))
-                            .foregroundStyle(.beige)
-                            .padding(.top, 55)
-                            .padding(.leading, 120)
-                    }
-            }
-            .buttonStyle(.plain)
-            .padding(.bottom)
-            
-            
-            Button {
-                //voir mes évènements
-            } label: {
-                RoundedRectangle(cornerRadius: 16)
-                    .frame(height: 100)
-                    .foregroundStyle(.rose)
-                    .overlay {
-                        VStack {
-                            Image(.sucreOrge)
-                                .padding(.bottom)
-                            Text("Voir mes évènements")
+        NavigationStack{
+            VStack {
+                NavigationLink {
+                    //TODO: vers créer un évènement
+                } label: {
+                    RoundedRectangle(cornerRadius: 16)
+                        .frame(height: 100)
+                        .foregroundStyle(.vert)
+                        .overlay {
+                            Rectangle()
+                                .frame(height: 25)
+                                .foregroundStyle(.rouge)
+                                .padding(.bottom, 36)
+                        }
+                        .overlay {
+                            Rectangle()
+                                .frame(width: 30)
+                                .foregroundStyle(.rouge)
+                                .border(.rougeDark, width: 1.5)
+                                .padding(.trailing, 220)
+                        }
+                        .overlay {
+                            Text("Créer un évènement")
                                 .font(.custom("Syncopate-Bold", size: 12))
                                 .foregroundStyle(.beige)
-                                .padding(.bottom)
+                                .padding(.top, 55)
+                                .padding(.leading, 120)
                         }
-
-                    }
+                }
+                .buttonStyle(.plain)
+                .padding(.bottom)
+                
+                
+                NavigationLink {
+                    //TODO: vers liste d'évènements
+                } label: {
+                    RoundedRectangle(cornerRadius: 16)
+                        .frame(height: 100)
+                        .foregroundStyle(.rose)
+                        .overlay {
+                            VStack {
+                                Image(.sucreOrge)
+                                    .padding(.bottom)
+                                Text("Voir mes évènements")
+                                    .font(.custom("Syncopate-Bold", size: 12))
+                                    .foregroundStyle(.beige)
+                                    .padding(.bottom)
+                            }
+                            
+                        }
                     
-            }.buttonStyle(.plain)
-            
-
-
-        }.padding(.horizontal, 25)
-
-
+                }.buttonStyle(.plain)
+                
+                
+                
+            }.padding(.horizontal, 25)
+        }
+       
+        
+        
         
     }
 }
