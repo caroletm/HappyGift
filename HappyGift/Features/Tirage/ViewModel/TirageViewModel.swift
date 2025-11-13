@@ -14,13 +14,22 @@ class TirageViewModel: ObservableObject {
     @Published var showSnow = false
     @Published var selectedName: String? = nil
     
-    private let name = "Alizé"
-//TODO: - name = (the variable Carole uses for the tirage)
-    
-    func handleShake() {
-        withAnimation(.easeOut(duration: 1.0)) {
-            showSnow = true
-            selectedName = name
+    let participantVM: ParticipantViewModel
+        let currentUserName: String
+        
+        init(participantVM: ParticipantViewModel, currentUserName: String) {
+            self.participantVM = participantVM
+            self.currentUserName = currentUserName
+        }
+        
+        func handleShake() {
+            participantVM.doTirage()
+            
+            if let drawn = participantVM.getDrawnPerson(for: currentUserName) {
+                withAnimation(.easeOut(duration: 1.0)) {
+                    showSnow = true
+                    selectedName = drawn.name
+                }
+            }
         }
     }
-}
