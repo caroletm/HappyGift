@@ -9,9 +9,13 @@ import SwiftUI
 
 struct ParticipantFormCellView: View {
     
-    @Binding var participantVM : ParticipantViewModel
     @Environment(\.dismiss) var dismiss
+    @Environment(ParticipantViewModel.self) private var participantVM
+    @Bindable var participantViewModel = ParticipantViewModel()
+    @Binding var showModal : Bool
+    
     var body: some View {
+        
         ZStack{
             VStack(alignment: .leading, spacing: 50){
                 Text("Ajouter un participant")
@@ -24,7 +28,7 @@ struct ParticipantFormCellView: View {
               
                 ButtonParticipantCellView(title: "Ajouter") {
                     participantVM.addParticipant()
-                    dismiss()
+                    showModal = false
                     participantVM.reset()
                 }
                 
@@ -54,9 +58,9 @@ struct ParticipantFormCellView: View {
     
     var participantForm: some View{
         VStack(spacing: 20){
-            textfield(title: "name", data: $participantVM.name)
-            textfield(title: "tel", data: $participantVM.tel)
-            textfield(title: "email", data: $participantVM.email)
+            textfield(title: "name", data: $participantViewModel.name)
+            textfield(title: "tel", data: $participantViewModel.tel)
+            textfield(title: "email", data: $participantViewModel.email)
         }
         .padding()
       
@@ -64,5 +68,6 @@ struct ParticipantFormCellView: View {
 }
 
 #Preview {
-    ParticipantFormCellView(participantVM: .constant(.init()))
+    ParticipantFormCellView(showModal: .constant(false))
+        .environment(ParticipantViewModel())
 }
