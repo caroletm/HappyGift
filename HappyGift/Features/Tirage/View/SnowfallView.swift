@@ -8,18 +8,24 @@
 import SwiftUI
 
 struct SnowfallView: View {
-    @StateObject private var viewModel: SnowfallVM
+    @Environment(SnowfallVM.self)var snowfallVM
+
+//    var size: CGFloat
+//
+//    init(size: CGFloat = 250, snowCount: Int = 100) {
+//        _viewModel = StateObject(wrappedValue: SnowfallVM(numberOfSnowflakes: snowCount, size: size))
+//        self.size = size
+//    }
     
     var size: CGFloat
-
-    init(size: CGFloat = 250, snowCount: Int = 100) {
-        _viewModel = StateObject(wrappedValue: SnowfallVM(numberOfSnowflakes: snowCount, size: size))
-        self.size = size
-    }
+      
+    init(size: CGFloat = 450, snowCount: Int = 80) {
+          self.size = size
+      }
 
     var body: some View {
         Canvas { context, _ in
-            for flake in viewModel.snowflakes {
+            for flake in snowfallVM.snowflakes {
                 let position = CGPoint(x: flake.x, y: flake.y)
                 let radius = flake.size
                 context.fill(
@@ -43,6 +49,12 @@ struct SnowfallView: View {
     ZStack {
         Color.vert.ignoresSafeArea()
         SnowfallView(size: 250)
+            .environment(SnowfallVM(
+                   numberOfSnowflakes: 100,
+                   area: .circle,
+                   width: 300,
+                   height: 300
+               ))
             .overlay(
                 Circle().stroke(Color.white.opacity(0.5), lineWidth: 3)
             )

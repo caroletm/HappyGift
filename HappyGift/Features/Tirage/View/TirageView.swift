@@ -9,10 +9,10 @@ import SwiftUI
 
 struct TirageView: View {
 
-    @State var viewModel:TirageViewModel
     @Environment(TirageViewModel.self) private var tirageViewModel
     @Environment(ParticipantViewModel.self) private var participantViewModel
     @Environment(NavigationViewModel.self) private var navigationViewModel
+    @Environment(SnowfallVM.self) private var snowfallViewModel
     
     
     var body: some View {
@@ -21,7 +21,8 @@ struct TirageView: View {
             
             VStack(alignment: .center){
                 Text("Shake your phone to see who you got!")
-                    .font(.custom("Syncopate-Bold", size: 32))
+                    .font(.custom("Syncopate-Bold", size: 25))
+                    .multilineTextAlignment(.center)
                     .foregroundColor(Color("rose"))
                 
                 ZStack{
@@ -31,8 +32,8 @@ struct TirageView: View {
                         .scaledToFit()
                     
                     //MARK: - Name
-//                    if let name = viewModel.selectedName {
-                        Text("Alice")
+                    if let name =  tirageViewModel.selectedName {
+                        Text(tirageViewModel.selectedName ?? "OK")
                             .font(.custom("Syncopate-Bold", size: 18))
                             .foregroundColor(Color("rose"))
                             .frame(maxWidth: 110)
@@ -40,8 +41,8 @@ struct TirageView: View {
                             .minimumScaleFactor(0.5)
                             .offset(y: 152)
                             .transition(.opacity)
-                            .animation(.easeInOut, value: viewModel.selectedName)
-//                    }
+                            .animation(.easeInOut, value: tirageViewModel.selectedName)
+                    }
                 }
                 //MARK: - Button
                     Button{
@@ -59,14 +60,20 @@ struct TirageView: View {
                 
             }.padding(10)
             
-            if viewModel.showSnow {
+            if tirageViewModel.showSnow {
                 SnowfallView()
                     .transition(.opacity)
+                    .environment(SnowfallVM(
+                           numberOfSnowflakes: 100,
+                           area: .circle,
+                           width: 300,
+                           height: 300
+                       ))
                 
             }
             
             ShakeDetector {
-                viewModel.handleShake()
+                tirageViewModel.handleShake()
             }
             .allowsHitTesting(false)
         }
@@ -74,8 +81,14 @@ struct TirageView: View {
 }
 
 #Preview {
-    TirageView(viewModel: TirageViewModel(participantVM: ParticipantViewModel(), currentUserName: "Carole"))
+    TirageView()
         .environment(TirageViewModel(participantVM: ParticipantViewModel(), currentUserName: "Carole"))
         .environment(ParticipantViewModel())
         .environment(NavigationViewModel())
+        .environment(SnowfallVM(
+               numberOfSnowflakes: 100,
+               area: .circle,
+               width: 300,
+               height: 300
+           ))
 }

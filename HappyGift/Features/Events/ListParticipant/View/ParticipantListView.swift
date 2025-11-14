@@ -25,10 +25,15 @@ struct ParticipantListView: View {
                 ParticipantEmptyView()
                 
             } else {
-//                ForEach(participantVM.participants.enumerated(), id: \.1.id){ index, participant in
-//                    PartipantCellView(name: participant.name, tel: participant.tel, email: participant.email, bouleType: index % 2 == 0 ?  "BouleParticipantRed" : "BouleParticipantGreen")
-//                        .padding()
-//                }
+                ForEach(Array(participantVM.participants.enumerated()), id: \.1.id) { index, participant in
+                    PartipantCellView(
+                        name: participant.name,
+                        tel: participant.tel,
+                        email: participant.email,
+                        bouleType: index % 2 == 0 ? "BouleParticipantRed" : "BouleParticipantGreen"
+                    )
+                    .padding()
+                }
             }
             
             ButtonParticipantCellView(title: "Ajouter") {

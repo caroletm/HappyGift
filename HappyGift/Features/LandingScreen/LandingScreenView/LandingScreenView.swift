@@ -12,6 +12,7 @@ struct LandingScreenView: View {
     @State var viewModel = LandingScreenViewModel(eventVM: EventViewModel())
     @Environment(NavigationViewModel.self) var navVM
     @Environment(EventViewModel.self)var eventVM
+    @Environment(SnowfallVM.self)var snowfallVM
     
     
     var body: some View {
@@ -23,7 +24,7 @@ struct LandingScreenView: View {
             VStack(alignment: .leading) {
                 //les backgrounds neige + boite aux lettres + hello Name
                 Text("Hello \(userStandard.name)!")
-                    .font(.custom("Syncopate-Bold", size: 30))
+                    .font(.custom("Syncopate-Bold", size: 25))
                     .foregroundStyle(.white)
                     .padding(.top,30)
                     .padding(25)
@@ -76,7 +77,6 @@ struct LandingScreenView: View {
                                                         Image(.bonhomme)
                                                             .padding(.bottom, 30)
                                                     }
-                                                    
                                                 }
                                             }else {
                                                 Image(.bonhomme)
@@ -110,44 +110,50 @@ struct LandingScreenView: View {
             SnowfallView2()
         }
         
-        
+        //        .onAppear {
+        //                       MusicManager.shared.playLocalSound(named: "")
+        //                   }
+        //                   .onDisappear {
+        //                       MusicManager.shared.stop()
+        //                   }
     }
 }
 
 struct SnowfallView2: View {
-    @StateObject private var viewModel: SnowfallVM
+    @Environment(SnowfallVM.self)var snowfallVM
+    
+    //    var size: CGFloat
+    //
+    //    init(size: CGFloat = 450, snowCount: Int = 80) {
+    //        _viewModel = StateObject(wrappedValue: SnowfallVM(numberOfSnowflakes: snowCount, size: size))
+    //        self.size = size
+    //    }
     
     var size: CGFloat
     
-    init(size: CGFloat = 450, snowCount: Int = 80) {
-        _viewModel = StateObject(wrappedValue: SnowfallVM(numberOfSnowflakes: snowCount, size: size))
+    init(size: CGFloat = 200, snowCount: Int = 80) {
         self.size = size
     }
     
+    
     var body: some View {
         Canvas { context, _ in
-            for flake in viewModel.snowflakes {
-                let position = CGPoint(x: flake.x, y: flake.y)
-                let radius = flake.size
+            for flake in snowfallVM.snowflakes {
+                let rect = CGRect(
+                    x: flake.x - flake.size,
+                    y: flake.y - flake.size,
+                    width: flake.size * 2,
+                    height: flake.size * 2
+                )
+                
                 context.fill(
-                    Path(ellipseIn: CGRect(
-                        x: position.x - radius,
-                        y: position.y - radius,
-                        width: radius * 2,
-                        height: radius * 2
-                    )),
+                    Path(ellipseIn: rect),
                     with: .color(.gris)
                 )
             }
         }
         .ignoresSafeArea()
         .allowsHitTesting(false)
-        .onAppear {
-                       MusicManager.shared.playLocalSound(named: "")
-                   }
-                   .onDisappear {
-                       MusicManager.shared.stop()
-                   }
     }
 }
 
@@ -155,12 +161,23 @@ struct SnowfallView2: View {
     LandingScreenView()
         .environment(NavigationViewModel())
         .environment(EventViewModel())
+        .environment(SnowfallVM(
+                numberOfSnowflakes: 120,
+                area: .rect,
+                width: UIScreen.main.bounds.width,
+                height: 400
+            ))
 }
 
 #Preview {
     ZStack {
         Color.vert
         SnowfallView2()
+            .environment(SnowfallVM(
+                    numberOfSnowflakes: 120,
+                    area: .rect,
+                    width: UIScreen.main.bounds.width,
+                    height: UIScreen.main.bounds.height
+                ))
     }
-    
 }
