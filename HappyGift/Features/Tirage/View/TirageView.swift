@@ -31,8 +31,8 @@ struct TirageView: View {
                         .scaledToFit()
                     
                     //MARK: - Name
-                    if let name = viewModel.selectedName {
-                        Text(name)
+//                    if let name = viewModel.selectedName {
+                        Text("Alice")
                             .font(.custom("Syncopate-Bold", size: 18))
                             .foregroundColor(Color("rose"))
                             .frame(maxWidth: 110)
@@ -41,7 +41,7 @@ struct TirageView: View {
                             .offset(y: 152)
                             .transition(.opacity)
                             .animation(.easeInOut, value: viewModel.selectedName)
-                    }
+//                    }
                 }
                 //MARK: - Button
                     Button{

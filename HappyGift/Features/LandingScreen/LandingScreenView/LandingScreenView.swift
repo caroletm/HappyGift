@@ -138,6 +138,12 @@ struct SnowfallView2: View {
         }
         .ignoresSafeArea()
         .allowsHitTesting(false)
+        .onAppear {
+                       MusicManager.shared.playLocalSound(named: "")
+                   }
+                   .onDisappear {
+                       MusicManager.shared.stop()
+                   }
     }
 }
 

@@ -56,7 +56,14 @@ struct CreateSanta: View {
                         
                         HStack {
                             ForEach(eventViewModel.iconsEvent, id: \.self) { icon in
-                                IconCard(image: icon)
+                                Button {
+                                    eventViewModel.isIconSelected = true
+                                    eventViewModel.iconSelected = icon
+                                    
+                                }label:{
+                                    IconCard(image: icon)
+//                                        ./*opacity(eventViewModel.isIconSelected ? 1 : 0.5)*/
+                                }
                             }
                         }.padding()
                             .padding(.bottom,20)
