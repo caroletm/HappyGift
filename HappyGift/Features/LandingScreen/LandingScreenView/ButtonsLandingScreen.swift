@@ -33,7 +33,7 @@ struct ButtonsLandingScreen: View {
                                 .padding(.trailing, 220)
                         }
                         .overlay {
-                            Text("Créer un évènement")
+                            Text("Créer un secret santa")
                                 .font(.custom("Syncopate-Bold", size: 12))
                                 .foregroundStyle(.beige)
                                 .padding(.top, 55)
@@ -56,7 +56,7 @@ struct ButtonsLandingScreen: View {
                             VStack {
                                 Image(.sucreOrge)
                                     .padding(.bottom)
-                                Text("Voir mes évènements")
+                                Text("Voir mes secret santa")
                                     .font(.custom("Syncopate-Bold", size: 12))
                                     .foregroundStyle(.beige)
                                     .padding(.bottom)

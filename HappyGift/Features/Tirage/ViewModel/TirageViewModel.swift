@@ -11,7 +11,10 @@ import Combine
 
 @Observable
 @MainActor
+
+
 class TirageViewModel {
+    
   var showSnow = false
     var selectedName: String? = nil
     
@@ -34,3 +37,4 @@ class TirageViewModel {
             }
         }
     }
+

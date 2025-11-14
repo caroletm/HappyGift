@@ -14,6 +14,7 @@ struct ContentView: View {
     @State private var eventViewModel = EventViewModel()
     @State private var participantViewModel = ParticipantViewModel()
     @State private var letterViewModel = LetterViewModel()
+    @State private var snowfallViewModel = SnowfallVM()
     @State private var tirageViewModel = TirageViewModel(participantVM: ParticipantViewModel(), currentUserName: "Carole")
     
 //    viewModel: TirageViewModel(participantVM: participantVM, currentUserName: "Carole")
@@ -27,6 +28,12 @@ struct ContentView: View {
                     switch route {
                     case .landing:
                         LandingScreenView()
+                            .environment(SnowfallVM(
+                                    numberOfSnowflakes: 120,
+                                    area: .rect,
+                                    width: UIScreen.main.bounds.width,
+                                    height: 400
+                                ))
                     case .createEvent:
                         CreateSanta()
                     case .recapEvent:
@@ -46,7 +53,13 @@ struct ContentView: View {
                     case .mailbox:
                         mailboxView()
                     case .tirageView:
-                        TirageView(viewModel: TirageViewModel(participantVM: ParticipantViewModel(), currentUserName: "Carole"))
+                        TirageView()
+                            .environment(SnowfallVM(
+                                   numberOfSnowflakes: 100,
+                                   area: .circle,
+                                   width: 300,
+                                   height: 300
+                               ))
                     }
                 }
         }
@@ -56,6 +69,7 @@ struct ContentView: View {
         .environment(participantViewModel)
         .environment(letterViewModel)
         .environment(tirageViewModel)
+        .environment(snowfallViewModel)
     }
 }
 
