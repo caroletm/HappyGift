@@ -21,7 +21,8 @@ struct EventList: View {
 
                 VStack {
                     Text("Mes événements")
-                        .font(.custom("Syncopate-Bold", size: 30))
+                        .font(.custom("Syncopate-Bold", size: 20))
+                        .multilineTextAlignment(.center)
                         .padding()
 
                     ForEach(eventVM.eventsVM) { event in

@@ -55,7 +55,7 @@ struct ContentView: View {
         .environment(eventViewModel)
         .environment(participantViewModel)
         .environment(letterViewModel)
-//        .environment(tirageViewModel)
+        .environment(tirageViewModel)
     }
 }
 
