@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Letter {
+struct Letter:  Hashable {
     var userMessage: String
     var signature: String
 }

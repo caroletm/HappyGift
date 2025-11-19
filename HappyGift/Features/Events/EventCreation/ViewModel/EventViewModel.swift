@@ -20,26 +20,125 @@ class EventViewModel {
     //MARK: -  Create Event
     
     var iconsEvent : [String] = ["carChristmas", "iconChristmas", "houseChristmas"]
-    
-    var nomEvent: String = "Le noel des enfants"
-    var descriptionEvent: String = "On s’offre des cadeaux rigolos, avec plein de petits trucs sympas mais on se fait plaisir. \n\n C’est Noel il faut rigoler le père Noel est mignon."
-    var imageEvent: String = "carChristmas"
+    var nomEvent: String = ""
+    var descriptionEvent: String = ""
+    var imageEvent: String = ""
     var dateEvent: Date = Date()
-    var lieuEvent: String = "A la maison"
-    var priceGift: Int = 30
+    var lieuEvent: String = ""
+    var priceGift: Int = 0
     var isIconSelected: Bool = false
     var iconSelected: String? = nil
+    var participants : [Participant] = []
+    
+    func createEvent() {
+        let event  = Event(id: UUID(), nomEvent: nomEvent, descriptionEvent: descriptionEvent, imageEvent: imageEvent, dateEvent: dateEvent, lieuEvent: lieuEvent, participants: participants, prixCadeau: priceGift, codeEvent: "CODESANTA")
+        eventsVM.append(event)
+    }
+    
+    func resetFormEvent() {
+        nomEvent = ""
+        descriptionEvent = ""
+        imageEvent = ""
+        dateEvent = Date()
+        lieuEvent = ""
+        priceGift = 0
+        isIconSelected = false
+        iconSelected = nil
+        participants = []
+    }
     
     //MARK: -  Incrémenter budget
     
     func addBudget() {
         priceGift += 1
     }
-    
     func minusBudget() {
         priceGift -= 1
     }
+    
+    //MARK: -  Gestion des participants
+
+    var name: String = ""
+    var tel: String = ""
+    var email: String = ""
+    
+    var isAddParticipant: Bool = false
+
+ func addParticipant(){
+     let participant  = Participant(name: name, tel: tel, email: email)
+     participants.append(participant)
+ }
+ 
+ func reset(){
+     name = ""
+     tel = ""
+     email = ""
+ }
+ 
+ // MARK: - Tirage
+    
+    var showSnow = false
+    var selectedName: String? = nil
+    var tirageResult: [UUID: UUID] = [:]
+    var tirageResultName : [String: String] = [:]
+    
+ func doTirage() {
+     guard participants.count > 1 else { return }
+     
+     var shuffled = participants.shuffled()
+     tirageResult.removeAll()
+     
+     for (index, participant) in participants.enumerated() {
+         var drawn = shuffled[index]
+         if drawn.id == participant.id {
+             let nextIndex = (index + 1) % participants.count
+             shuffled.swapAt(index, nextIndex)
+             drawn = shuffled[index]
+         }
+         tirageResult[participant.id] = drawn.id
+         print ("resultat du tirage : \(tirageResult)")
+         print("resultat du tirage name : \(tirageResultName)")
+     }
+ }
+ 
+ func getDrawnPerson(for participantName: String) -> Participant? {
+     guard let current = participants.first(where: { $0.name == participantName }),
+           let drawnID = tirageResult[current.id],
+           let drawn = participants.first(where: { $0.id == drawnID }) else {
+         return nil
+     }
+     print("Personne tirée : \(drawn)")
+     return drawn
+ }
+    
+    func handleShake() {
+        doTirage()
+        if let drawn = getDrawnPerson(for: userStandard.name) {
+            withAnimation(.easeOut(duration: 1.0)) {
+                showSnow = true
+                selectedName = drawn.name
+                print("tiré au sort : \(drawn.name)")
+            }
+        }else{
+            print("pas réussi à tirer au sort")
+        }
+    }
+    
+    // MARK: - EventList
+    
+    var isJoinEvent: Bool = false
+    var isAddEvent: Bool = false
+    var codeEvent : String = ""
+    func joinEvent(typeEvent: Bool){
+        if typeEvent == isAddEvent{
+            isAddEvent = true
+            
+        }else if typeEvent == isJoinEvent{
+            isJoinEvent = true
+        }
+    }
 }
+
 
 
 

@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct Snowflake: Identifiable {
+struct Snowflake: Identifiable{
     let id = UUID()
     var x: CGFloat
     var y: CGFloat

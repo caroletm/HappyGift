@@ -17,7 +17,7 @@ class LandingScreenViewModel {
     //MARK: - Compte à rebours
     var eventVM : EventViewModel
     var targetDate: Date {
-        eventVM.dateEvent
+        eventVM.eventsVM.last!.dateEvent
     }
     var timeLeft: TimeInterval = 0
     private var timer: Timer?

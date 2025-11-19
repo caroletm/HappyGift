@@ -9,11 +9,14 @@ import SwiftUI
 
 struct EventList: View {
     @Environment(EventViewModel.self) private var eventVM
+    @Bindable var eventViewModel : EventViewModel
     @Environment(NavigationViewModel.self) private var navVM
     
-    @State var eventListVM = EventListViewModel()
+//    @State var eventListVM = EventListViewModel()
     
     var body: some View {
+        
+//        @Bindable var eventVM = EventViewModel()
 
             ZStack {
                 Color.beige
@@ -25,44 +28,48 @@ struct EventList: View {
                         .multilineTextAlignment(.center)
                         .padding()
 
-                    ForEach(eventVM.eventsVM) { event in
-                        let rotationPattern: [Double] = [0, -2.16, 2.16, 0]
-                        let colorPattern: [Color] = [.rose, .rouge, .vert, .rose]
-                        let index = eventVM.eventsVM.firstIndex(where: { $0.id == event.id }) ?? 0
-                        let rotation = rotationPattern[index % rotationPattern.count]
-                        let color = colorPattern[index % colorPattern.count]
-                        
-                        Button {
-                            navVM.path.append(AppRoute.detailEvent)
+                    ScrollView {
+                        ForEach(eventVM.eventsVM) { event in
+                            let rotationPattern: [Double] = [0, -2.16, 2.16, 0]
+                            let colorPattern: [Color] = [.rose, .rouge, .vert, .rose]
+                            let index = eventVM.eventsVM.firstIndex(where: { $0.id == event.id }) ?? 0
+                            let rotation = rotationPattern[index % rotationPattern.count]
+                            let color = colorPattern[index % colorPattern.count]
                             
-                        } label: {
-                            EventCellView(
-                                RectangleColor: color,
-                                RectanglePosition: rotation,
-                                dateEvent: event.dateEvent,
-                                title: event.nomEvent
-                            )
-                            .padding(.bottom, -24)
+                            Button {
+                                navVM.path.append(AppRoute.detailEvent(event : event))
+                                
+                            } label: {
+                                EventCellView(
+                                    RectangleColor: color,
+                                    RectanglePosition: rotation,
+                                    dateEvent: event.dateEvent,
+                                    title: event.nomEvent
+                                )
+                                .padding(.bottom, -24)
+                            }
                         }
+                        Spacer()
                     }
-                    Spacer()
                     
                     ButtonParticipantCellView(title: "Ajouter"){
-                        eventListVM.joinEvent(typeEvent: eventListVM.isAddEvent)
+//                        eventVM.joinEvent(typeEvent: eventVM.isAddEvent)
+                        navVM.path.append(AppRoute.joinEvent)
+
                     }
                 }
                 .padding(.top, 16)
             }
 //        .navigationBarHidden(true)
-        .sheet(isPresented: $eventListVM.isAddEvent) {
-            EventJoinView(eventListVM: $eventListVM)
-        }
+//        .sheet(isPresented: $eventVM.isAddEvent) {
+//            EventJoinView()
+//        }
     }
 }
 
 
 #Preview {
-    EventList()
+    EventList(eventViewModel: EventViewModel())
         .environment(EventViewModel())
         .environment(NavigationViewModel())
 }

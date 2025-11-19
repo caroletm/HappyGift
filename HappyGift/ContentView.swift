@@ -10,15 +10,29 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var navigationViewModel = NavigationViewModel()
-    @State private var landingViewModel = LandingScreenViewModel(eventVM: EventViewModel())
-    @State private var eventViewModel = EventViewModel()
-    @State private var participantViewModel = ParticipantViewModel()
+    @State private var landingViewModel: LandingScreenViewModel
+    @State private var eventViewModel: EventViewModel
+
+    init() {
+        let eventVM = EventViewModel()
+        self._eventViewModel = State(initialValue: eventVM)
+        self._landingViewModel = State(initialValue: LandingScreenViewModel(eventVM: eventVM))
+    }
+
     @State private var letterViewModel = LetterViewModel()
-    @State private var snowfallViewModel = SnowfallVM()
-    @State private var tirageViewModel = TirageViewModel(participantVM: ParticipantViewModel(), currentUserName: "Carole")
-    
-//    viewModel: TirageViewModel(participantVM: participantVM, currentUserName: "Carole")
-    
+    @State private var snowfallViewModelLanding = SnowfallVM(
+        numberOfSnowflakes: 120,
+        area: .rect,
+        width: UIScreen.main.bounds.width,
+        height: 400
+    )
+    @State private var snowfallViewModelTirage = SnowfallVM(
+        numberOfSnowflakes: 100,
+        area: .circle,
+        width: 300,
+        height: 300
+    )
+   
     var body: some View {
         NavigationStack(path: $navigationViewModel.path) {
             
@@ -28,20 +42,16 @@ struct ContentView: View {
                     switch route {
                     case .landing:
                         LandingScreenView()
-                            .environment(SnowfallVM(
-                                    numberOfSnowflakes: 120,
-                                    area: .rect,
-                                    width: UIScreen.main.bounds.width,
-                                    height: 400
-                                ))
                     case .createEvent:
-                        CreateSanta()
+                        CreateSanta(eventViewModel: eventViewModel)
                     case .recapEvent:
                         RecapEvent()
-                    case .detailEvent:
-                        DetailEvent()
+                    case .detailEvent (let event) :
+                        DetailEvent(event: event)
                     case .listEvent:
-                        EventList()
+                        EventList(eventViewModel: eventViewModel)
+                    case .joinEvent:
+                        EventJoinView()
                     case .participantList:
                         ParticipantListView()
                     case .enveloppeView:
@@ -54,32 +64,39 @@ struct ContentView: View {
                         mailboxView()
                     case .tirageView:
                         TirageView()
-                            .environment(SnowfallVM(
-                                   numberOfSnowflakes: 100,
-                                   area: .circle,
-                                   width: 300,
-                                   height: 300
-                               ))
+                           
                     }
                 }
         }
         .environment(navigationViewModel)
         .environment(landingViewModel)
         .environment(eventViewModel)
-        .environment(participantViewModel)
         .environment(letterViewModel)
-        .environment(tirageViewModel)
-        .environment(snowfallViewModel)
+        .environment(snowfallViewModelLanding)
+        .environment(snowfallViewModelTirage)
     }
 }
 
 #Preview {
+    
+    let snowfallViewModelLanding = SnowfallVM(
+        numberOfSnowflakes: 120,
+        area: .rect,
+        width: UIScreen.main.bounds.width,
+        height: 400
+    )
+    let snowfallViewModelTirage = SnowfallVM(
+        numberOfSnowflakes: 100,
+        area: .circle,
+        width: 300,
+        height: 300
+    )
+    let eventVM = EventViewModel()
     ContentView()
         .environment(NavigationViewModel())
-        .environment(LandingScreenViewModel(eventVM: EventViewModel()))
-        .environment(EventViewModel())
-        .environment(ParticipantViewModel())
+        .environment(LandingScreenViewModel(eventVM: eventVM))
+        .environment(eventVM)
         .environment(LetterViewModel())
-        .environment(TirageViewModel(participantVM: ParticipantViewModel(), currentUserName: "Carole"))
-
+        .environment(snowfallViewModelLanding)
+        .environment(snowfallViewModelTirage)
 }

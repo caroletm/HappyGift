@@ -8,15 +8,19 @@
 import SwiftUI
 
 struct EventJoinView: View {
-    @Binding var eventListVM : EventListViewModel
+//    @Binding var eventListVM : EventListViewModel
+    @Environment(EventViewModel.self) private var eventVM
+    @Environment(SnowfallVM.self) private var snowfallVM
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
+        
+        @Bindable var eventVM = EventViewModel()
+
         ZStack{
-            SnowfallView(size: 250)
             VStack{
                 Text("Mon événement ")
-                    .font(.custom("Syncopate-Bold", size: 30))
+                    .font(.custom("Syncopate-Bold", size: 25))
                     .padding()
                 
                 Spacer()
@@ -30,7 +34,7 @@ struct EventJoinView: View {
                         .frame(width: 120)
                         .multilineTextAlignment(.center)
                     
-                    TextField("", text: $eventListVM.codeEvent)
+                    TextField("", text: $eventVM.codeEvent)
                         .padding(.horizontal, 10)
                         .frame(width: 140, height: 40)
                         .background(.white.opacity(0.8))
@@ -40,23 +44,25 @@ struct EventJoinView: View {
                 }
                 .padding()
                 
-                
-                
                 Spacer()
                 
                 ButtonParticipantCellView(title: "Rejoindre", function:{
-                    eventListVM.joinEvent(typeEvent: eventListVM.isJoinEvent)
+                    eventVM.joinEvent(typeEvent: eventVM.isJoinEvent)
                     dismiss()
                 }, size: 274)
                 
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .background(.beige)
+            SnowfallView(size: 450)
+
         }
         
     }
 }
 
 #Preview {
-    EventJoinView(eventListVM: .constant(.init()))
+    EventJoinView()
+        .environment(EventViewModel())
+        .environment(SnowfallVM())
 }

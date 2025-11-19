@@ -108,26 +108,34 @@ struct LandingScreenView: View {
             }.padding(.bottom)
             
             SnowfallView2()
+            
+            VStack {
+                HStack{
+                    Spacer()
+                    Button {
+                        MusicManager.shared.stop()
+                    }label: {
+                        Image(.mariah)
+                            .resizable()
+                            .scaledToFit()
+                            .clipShape(Circle())
+                            .frame(width: 80, height: 80)
+                    }
+                }
+                Spacer()
+            }
         }
-        
-        //        .onAppear {
-        //                       MusicManager.shared.playLocalSound(named: "")
-        //                   }
-        //                   .onDisappear {
-        //                       MusicManager.shared.stop()
-        //                   }
+//                .onAppear {
+//                               MusicManager.shared.playLocalSound(named: "")
+//                           }
+//                           .onDisappear {
+//                               MusicManager.shared.stop()
+//                           }
     }
 }
 
 struct SnowfallView2: View {
     @Environment(SnowfallVM.self)var snowfallVM
-    
-    //    var size: CGFloat
-    //
-    //    init(size: CGFloat = 450, snowCount: Int = 80) {
-    //        _viewModel = StateObject(wrappedValue: SnowfallVM(numberOfSnowflakes: snowCount, size: size))
-    //        self.size = size
-    //    }
     
     var size: CGFloat
     
