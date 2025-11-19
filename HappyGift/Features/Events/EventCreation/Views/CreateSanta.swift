@@ -10,9 +10,8 @@ import SwiftUI
 struct CreateSanta: View {
     
     @Environment(EventViewModel.self) private var eventVM
-    @Bindable var eventViewModel = EventViewModel()
+    @Bindable var eventViewModel : EventViewModel
     @Environment(NavigationViewModel.self) private var navigationVM
-
    
     var body: some View {
         
@@ -57,12 +56,12 @@ struct CreateSanta: View {
                         HStack {
                             ForEach(eventViewModel.iconsEvent, id: \.self) { icon in
                                 Button {
-                                    eventViewModel.isIconSelected = true
                                     eventViewModel.iconSelected = icon
-                                    
                                 }label:{
                                     IconCard(image: icon)
-//                                        ./*opacity(eventViewModel.isIconSelected ? 1 : 0.5)*/
+                                        .opacity(eventViewModel.iconSelected == icon ? 1 : 0.5)
+                                        .scaleEffect(eventViewModel.iconSelected == icon ? 1.1 : 1.0)
+                                        .animation(.easeInOut(duration: 0.2), value: eventViewModel.iconSelected)
                                 }
                             }
                         }.padding()
@@ -85,7 +84,6 @@ struct CreateSanta: View {
                             .padding()
                         
                         VStack(alignment: .leading, spacing: 10) {
-    
                             
                             DatePicker(
                                 "",
@@ -101,6 +99,7 @@ struct CreateSanta: View {
                         .padding(.bottom,20)
                         
                         Button {
+                            eventVM.createEvent()
                             navigationVM.path.append(AppRoute.recapEvent)
                         }label:{
                             ButtonText(text: "OK", width: 150)

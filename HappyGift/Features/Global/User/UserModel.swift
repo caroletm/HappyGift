@@ -10,12 +10,10 @@ import Foundation
 struct UserModel : Identifiable {
     var id: UUID
     var name: String
+    var events : [Event] = []
+    var letters : [Letter] = []
     
-    init(id: UUID, name: String) {
-        self.id = id
-        self.name = name
     }
-}
 
-let userStandard = UserModel(id: UUID(), name: "Marie")
+let userStandard = UserModel(id: UUID(), name: "Carole")
 

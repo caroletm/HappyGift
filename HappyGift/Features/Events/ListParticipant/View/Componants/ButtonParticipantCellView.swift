@@ -23,7 +23,6 @@ struct ButtonParticipantCellView: View {
                         .font(.custom("Syncopate-Bold", size: 15))
                         .foregroundStyle(Color("beige"))
                 }
-            
         }
         .frame(maxWidth: .infinity, alignment: .center)
     }

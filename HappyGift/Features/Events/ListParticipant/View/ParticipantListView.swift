@@ -9,23 +9,21 @@ import SwiftUI
 
 struct ParticipantListView: View {
     
-    @Environment(ParticipantViewModel.self) private var participantVM
+    @Environment(EventViewModel.self) private var eventVM
+
     @State var showModal = false
-    
+        
     var body: some View {
-        
-        @Bindable var participantVM = ParticipantViewModel()
-        
+                
         VStack{
             Text("Liste des participants")
                 .font(.custom("Syncopate-Bold", size: 30))
                 .foregroundStyle(.vert)
             
-            if participantVM.participants.isEmpty{
+            if eventVM.participants.isEmpty{
                 ParticipantEmptyView()
-                
             } else {
-                ForEach(Array(participantVM.participants.enumerated()), id: \.1.id) { index, participant in
+                ForEach(Array(eventVM.participants.enumerated()), id: \.1.id) { index, participant in
                     PartipantCellView(
                         name: participant.name,
                         tel: participant.tel,
@@ -35,6 +33,7 @@ struct ParticipantListView: View {
                     .padding()
                 }
             }
+            Spacer()
             
             ButtonParticipantCellView(title: "Ajouter") {
                 showModal = true
@@ -55,5 +54,5 @@ struct ParticipantListView: View {
 
 #Preview {
     ParticipantListView()
-        .environment(ParticipantViewModel())
+        .environment(EventViewModel())
 }

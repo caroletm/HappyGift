@@ -8,44 +8,49 @@
 import SwiftUI
 
 struct ParticipantFormCellView: View {
-    
-    @Environment(\.dismiss) var dismiss
-    @Environment(ParticipantViewModel.self) private var participantVM
-    @Bindable var participantViewModel = ParticipantViewModel()
-    @Binding var showModal : Bool
-    
+
+    @Environment(EventViewModel.self) private var eventVM
+    @Binding var showModal: Bool
+
     var body: some View {
         
-        ZStack{
-            VStack(alignment: .leading, spacing: 50){
+        @Bindable var eventVM = eventVM
+        
+        ZStack {
+            VStack(alignment: .leading, spacing: 50) {
                 Text("Ajouter un participant")
                     .font(.custom("Syncopate-Bold", size: 15))
                     .foregroundStyle(Color("beige"))
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.top)
-                
-                participantForm
-              
-                ButtonParticipantCellView(title: "Ajouter") {
-                    participantVM.addParticipant()
-                    showModal = false
-                    participantVM.reset()
+
+                VStack(spacing: 20) {
+                    textfield(title: "name", data: $eventVM.name)
+                    textfield(title: "tel", data: $eventVM.tel)
+                    textfield(title: "email", data: $eventVM.email)
                 }
-                
+                .padding()
+
+                ButtonParticipantCellView(title: "Ajouter") {
+                    eventVM.addParticipant()
+                    showModal = false
+                    eventVM.reset()
+                    print(eventVM.participants)
+                }
             }
             .padding()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color("vert"))
     }
-    
-    func textfield(title: String, data: Binding<String>) -> some View{
+
+    func textfield(title: String, data: Binding<String>) -> some View {
         HStack(alignment: .center) {
             Text(title)
                 .font(.custom("Syncopate-Bold", size: 12))
                 .foregroundStyle(Color("beige"))
                 .frame(width: 70, alignment: .leading)
-            
+
             TextField("", text: data)
                 .padding(.horizontal, 10)
                 .frame(height: 40)
@@ -55,19 +60,10 @@ struct ParticipantFormCellView: View {
                 .font(.custom("Syncopate-Regular", size: 14))
         }
     }
-    
-    var participantForm: some View{
-        VStack(spacing: 20){
-            textfield(title: "name", data: $participantViewModel.name)
-            textfield(title: "tel", data: $participantViewModel.tel)
-            textfield(title: "email", data: $participantViewModel.email)
-        }
-        .padding()
-      
-    }
 }
+
 
 #Preview {
     ParticipantFormCellView(showModal: .constant(false))
-        .environment(ParticipantViewModel())
+        .environment(EventViewModel())
 }

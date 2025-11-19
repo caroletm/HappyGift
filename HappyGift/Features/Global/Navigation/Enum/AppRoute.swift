@@ -12,8 +12,9 @@ enum AppRoute: Hashable {
     case landing
     case createEvent
     case recapEvent
-    case detailEvent
+    case detailEvent(event: Event)
     case listEvent
+    case joinEvent
     case participantList
     case enveloppeView
     case letterView
