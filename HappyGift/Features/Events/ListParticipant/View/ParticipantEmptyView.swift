@@ -31,8 +31,8 @@ struct ParticipantEmptyView: View {
         VStack(spacing: 6){
             Text("HOHOHO !")
                 .font(.custom("Syncopate-Bold", size: 15))
-            Text("Tu n'as pas encore de participant")
-                .font(.custom("Syncopate-Regular", size: 12))
+            Text("Tu n'as pas encore de participants")
+                .font(.system(size: 12))
         }
     }
 }

@@ -22,7 +22,7 @@ struct CarreRoseLieuEvent: View {
                 .offset(x: 25, y: -60)
             VStack (alignment: .center) {
                 Text("Lieu")
-                    .font(.custom( "Syncopate-Bold", size: 16))
+                    .font(.system(size: 20, weight: .bold))
                     .foregroundStyle(Color.white)
                 Text(eventVM.lieuEvent)
                     .foregroundStyle(Color.white)

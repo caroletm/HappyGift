@@ -34,7 +34,7 @@ struct ButtonsLandingScreen: View {
                         }
                         .overlay {
                             Text("Créer un secret santa")
-                                .font(.custom("Syncopate-Bold", size: 12))
+                                .font(.system(size: 18, weight :.bold))
                                 .foregroundStyle(.beige)
                                 .padding(.top, 55)
                                 .padding(.leading, 120)
@@ -57,7 +57,7 @@ struct ButtonsLandingScreen: View {
                                 Image(.sucreOrge)
                                     .padding(.bottom)
                                 Text("Voir mes secret santa")
-                                    .font(.custom("Syncopate-Bold", size: 12))
+                                    .font(.system(size: 18, weight :.bold))
                                     .foregroundStyle(.beige)
                                     .padding(.bottom)
                             }

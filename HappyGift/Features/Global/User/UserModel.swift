@@ -7,13 +7,12 @@
 
 import Foundation
 
-struct UserModel : Identifiable {
+struct User : Identifiable {
     var id: UUID
     var name: String
-    var events : [Event] = []
-    var letters : [Letter] = []
-    
+    var events : [Event]
+    var letters : [Letter]
     }
 
-let userStandard = UserModel(id: UUID(), name: "Carole")
+let userStandard = User(id: UUID(), name: "Carole", events: [santa1,santa2], letters: [letterFromBob,letterFromAlice,letterFromSarah])
 

@@ -10,6 +10,7 @@ import SwiftUI
 struct CarreVertBudgetPlus: View {
     
     @Environment(EventViewModel.self) private var eventVM
+    @State private var pulse = false
     
     var body: some View {
         ZStack {
@@ -27,6 +28,10 @@ struct CarreVertBudgetPlus: View {
                     .frame(width: 75, height: 75)
                     .rotationEffect(Angle(degrees: 15))
                     .padding(5)
+                    .shadow(
+                        color: Color.white.opacity(pulse ? 1 : 0),
+                        radius: pulse ? 30 : 5
+                    )
                 HStack {
                     Button {
                         eventVM.minusBudget()
@@ -56,6 +61,11 @@ struct CarreVertBudgetPlus: View {
                     }
                     
                 }
+            }
+        }
+        .onAppear {
+            withAnimation(.easeInOut(duration: 1).repeatForever(autoreverses: true)) {
+                pulse.toggle()
             }
         }
     }

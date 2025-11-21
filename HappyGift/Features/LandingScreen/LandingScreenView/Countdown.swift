@@ -14,8 +14,8 @@ struct Countdown : View {
         VStack {
             //les élements au dessus de la neige
             HStack {
-                Text("Prochain Évènement")
-                    .font(.custom("Syncopate-Bold", size: 12))
+                Text("Prochain évènement")
+                    .font(.system(size: 16, weight: .bold))
                     .padding(.leading, 30)
                     .padding(.bottom)
                 Spacer()

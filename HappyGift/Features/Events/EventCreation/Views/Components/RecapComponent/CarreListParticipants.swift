@@ -9,6 +9,7 @@ import SwiftUI
 struct CarreListeParticipants: View {
     
     @Environment(NavigationViewModel.self) private var navigationVM
+    @State private var pulse = false
     
     var body: some View {
         ZStack {
@@ -28,7 +29,7 @@ struct CarreListeParticipants: View {
                     ZStack {
                         Rectangle()
                             .fill(Color.white)
-                            .opacity(0.4)
+                            .opacity(0.2)
                             .frame(width: 75, height: 75)
                             .cornerRadius(10)
                         
@@ -36,8 +37,13 @@ struct CarreListeParticipants: View {
                             .resizable()
                             .frame(width: 40, height: 40)
                             .foregroundStyle(Color.white)
+                          
                     }
                     .offset(y: 10)
+                    .shadow(
+                        color: Color.white.opacity(pulse ? 1 : 0),
+                        radius: pulse ? 30 : 5
+                    )
                 }
             }
             .offset(y: -40)
@@ -58,6 +64,11 @@ struct CarreListeParticipants: View {
                 .offset(x:-90, y:20)
                 .rotationEffect(Angle(degrees: -50))
             
+        }
+        .onAppear {
+            withAnimation(.easeInOut(duration: 1).repeatForever(autoreverses: true)) {
+                pulse.toggle()
+            }
         }
     }
 }

@@ -33,7 +33,7 @@ struct SucessEventModal: View {
                     .font(.system(size: 18))
                     .padding(.bottom, 20)
                 Button {
-//                    eventViewModel.createEvent()
+                    eventViewModel.createEvent()
                     showModal = false
                     eventViewModel.resetFormEvent()
                     navigationViewModel.path = NavigationPath()

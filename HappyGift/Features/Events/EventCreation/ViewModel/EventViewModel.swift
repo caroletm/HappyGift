@@ -31,7 +31,7 @@ class EventViewModel {
     var participants : [Participant] = []
     
     func createEvent() {
-        let event  = Event(id: UUID(), nomEvent: nomEvent, descriptionEvent: descriptionEvent, imageEvent: imageEvent, dateEvent: dateEvent, lieuEvent: lieuEvent, participants: participants, prixCadeau: priceGift, codeEvent: "CODESANTA")
+        let event  = Event(id: UUID(), nomEvent: nomEvent, descriptionEvent: descriptionEvent, imageEvent: imageEvent, dateEvent: dateEvent, lieuEvent: lieuEvent, participants: participants, prixCadeau: priceGift, codeEvent: "CODESANTA", tirageResult: tirageResult)
         eventsVM.append(event)
     }
     
@@ -78,9 +78,8 @@ class EventViewModel {
  // MARK: - Tirage
     
     var showSnow = false
-    var selectedName: String? = nil
+    var selectedPerson: String? = nil
     var tirageResult: [UUID: UUID] = [:]
-    var tirageResultName : [String: String] = [:]
     
  func doTirage() {
      guard participants.count > 1 else { return }
@@ -97,7 +96,6 @@ class EventViewModel {
          }
          tirageResult[participant.id] = drawn.id
          print ("resultat du tirage : \(tirageResult)")
-         print("resultat du tirage name : \(tirageResultName)")
      }
  }
  
@@ -116,7 +114,7 @@ class EventViewModel {
         if let drawn = getDrawnPerson(for: userStandard.name) {
             withAnimation(.easeOut(duration: 1.0)) {
                 showSnow = true
-                selectedName = drawn.name
+                selectedPerson = drawn.name
                 print("tiré au sort : \(drawn.name)")
             }
         }else{

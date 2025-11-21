@@ -9,10 +9,11 @@ import SwiftUI
 
 struct mailboxView: View {
     
-    @State private var enveloppes = ["env_rouge", "env_rose", "env_vert", "env_rouge", "env_rose", "env_vert", "env_rouge"]
+//    @State private var enveloppes = ["env_rouge", "env_rose", "env_vert", "env_rouge", "env_rose", "env_vert", "env_rouge"]
     @State private var currentIndex: Int = 3
     @State private var dragEnv: CGSize = .zero
     @Environment(NavigationViewModel.self) var navVM
+    @Environment(LetterViewModel.self) var letterVM
 
     
     
@@ -32,7 +33,7 @@ struct mailboxView: View {
                 Spacer()
                 
                 ZStack {
-                    ForEach(enveloppes.indices, id: \.self) { index in
+                    ForEach(letterVM.enveloppes.indices, id: \.self) { index in
                         let position = CGFloat(index - currentIndex)
                         let size = 360 - abs(position) * 10
 
@@ -42,7 +43,7 @@ struct mailboxView: View {
                                 Button {
                                     navVM.path.append(AppRoute.enveloppeView)
                                 } label: {
-                                    Image(enveloppes[index])
+                                    Image(letterVM.enveloppes[index])
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: size, height: size * 0.66)
@@ -53,7 +54,7 @@ struct mailboxView: View {
                                 }
                                 .buttonStyle(.plain) // pour retirer le style par défaut
                             } else {
-                                Image(enveloppes[index])
+                                Image(letterVM.enveloppes[index])
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: size, height: size * 0.66)
@@ -71,7 +72,7 @@ struct mailboxView: View {
                             }
                             .onEnded { value in
                                 if value.translation.height < -50 {
-                                    if currentIndex < enveloppes.count - 1 { currentIndex += 1 }
+                                    if currentIndex < letterVM.enveloppes.count - 1 { currentIndex += 1 }
                                 } else if value.translation.height > 50 {
                                     if currentIndex > 0 { currentIndex -= 1 }
                                 }
@@ -88,4 +89,5 @@ struct mailboxView: View {
 #Preview {
     mailboxView()
         .environment(NavigationViewModel())
+        .environment(LetterViewModel())
 }

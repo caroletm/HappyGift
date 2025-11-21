@@ -32,12 +32,12 @@ struct EventCellView: View {
                         Text(dateEvent, format: Date.FormatStyle().day().month().year())
                             .font(.custom("Syncopate-Bold", size: 24))
                         Text(title)
-                            .font(.custom("Syncopate-Regular", size: 14))
+                            .font(.system(size: 18, weight: .medium))
                     }
                     Image(systemName: "chevron.right")
                         .font(.system(size: 20))
                 }
-                .foregroundStyle(RectangleColor == .rose ? .rouge : .beige)
+                .foregroundStyle(RectangleColor == .rose ? .white : .beige)
                
             }
             .frame(width: geo.size.width, height: height)

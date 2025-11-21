@@ -47,7 +47,6 @@ struct DetailEvent: View {
                 }label:{
                     ButtonText(text: "Ecrire à mon pere noel", width: 270)
                 }
-                
             }
         }
     }

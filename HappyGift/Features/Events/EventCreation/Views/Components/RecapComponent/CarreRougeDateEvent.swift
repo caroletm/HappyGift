@@ -22,8 +22,8 @@ struct CarreRougeDateEvent: View {
                 .rotationEffect(Angle(degrees: 12))
                 .offset(y: -90)
             VStack {
-                Text("Date du secret")
-                    .font(.custom( "Syncopate-Bold", size: 14))
+                Text("Date et heure")
+                    .font(.system(size: 20, weight: .bold))
                     .foregroundStyle(Color.white)
                 Text(eventVM.dateEvent.formattedStringWithTime())
                     .foregroundStyle(Color.white)

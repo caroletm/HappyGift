@@ -31,7 +31,7 @@ struct EventList: View {
                     ScrollView {
                         ForEach(eventVM.eventsVM) { event in
                             let rotationPattern: [Double] = [0, -2.16, 2.16, 0]
-                            let colorPattern: [Color] = [.rose, .rouge, .vert, .rose]
+                            let colorPattern: [Color] = [.rose, .rouge, .vert]
                             let index = eventVM.eventsVM.firstIndex(where: { $0.id == event.id }) ?? 0
                             let rotation = rotationPattern[index % rotationPattern.count]
                             let color = colorPattern[index % colorPattern.count]

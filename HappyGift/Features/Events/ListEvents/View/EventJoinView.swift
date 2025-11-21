@@ -20,7 +20,7 @@ struct EventJoinView: View {
         ZStack{
             VStack{
                 Text("Mon événement ")
-                    .font(.custom("Syncopate-Bold", size: 25))
+                    .font(.custom("Syncopate-Bold", size: 20))
                     .padding()
                 
                 Spacer()
@@ -30,7 +30,7 @@ struct EventJoinView: View {
                 VStack(spacing: 12){
                     
                     Text("Code santa")
-                        .font(.custom("Syncopate-Bold", size: 13))
+                        .font(.system( size: 16, weight: .bold))
                         .frame(width: 120)
                         .multilineTextAlignment(.center)
                     

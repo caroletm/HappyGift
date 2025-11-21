@@ -24,7 +24,7 @@ struct LandingScreenView: View {
             VStack(alignment: .leading) {
                 //les backgrounds neige + boite aux lettres + hello Name
                 Text("Hello \(userStandard.name)!")
-                    .font(.custom("Syncopate-Bold", size: 25))
+                    .font(.custom("The Santa", size: 42))
                     .foregroundStyle(.white)
                     .padding(.top,30)
                     .padding(25)
