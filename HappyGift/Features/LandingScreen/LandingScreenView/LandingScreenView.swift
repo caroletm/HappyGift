@@ -69,7 +69,7 @@ struct LandingScreenView: View {
                                                 
                                                 Button {
                                                     //TODO: vers la boite aux lettres
-                                                    navVM.path.append(AppRoute.enveloppeView)
+                                                    navVM.path.append(AppRoute.enveloppeView(letter: userStandard.letters.last!))
                                                 } label: {
                                                     VStack {
                                                         Image(.bulleLettre)

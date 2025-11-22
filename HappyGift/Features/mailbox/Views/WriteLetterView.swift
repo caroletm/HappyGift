@@ -11,12 +11,15 @@ public struct WriteLetterView: View {
     
     @State var viewModel = LetterViewModel()
     @State private var showModal = false
+    @State var userMessage : String = ""
+    @State var signature : String = ""
     
     init() {
         UITextView.appearance().tintColor = UIColor.black
     }
     
     public var body: some View {
+                
         ZStack {
             Color(.rose)
                 .ignoresSafeArea()
@@ -51,14 +54,14 @@ public struct WriteLetterView: View {
                         
                         // message
                         ZStack(alignment: .topLeading) {
-                            if viewModel.userMessage.isEmpty {
+                          
                                 Text("Écris ton message ici ...")
                                     .foregroundColor(.black)
                                     .font(.system(size: 18))
                                     .padding(.top, 8)
                                     .padding(.leading, 5)
-                            }
-                            TextEditor(text: $viewModel.userMessage)
+                            
+                            TextEditor(text: $userMessage)
                                 .font(.system(size: 18))
                                 .foregroundColor(.black)
                                 .scrollContentBackground(.hidden)
@@ -71,14 +74,12 @@ public struct WriteLetterView: View {
                         HStack{
                             Spacer()
                             ZStack(alignment: .trailing) {
-                                if  viewModel.signature.isEmpty {
                                     Text("Prénom")
                                         .foregroundColor(.black)
                                         .font(.system(size: 18))
                                         .padding(.bottom, 5)
                                         .padding(.trailing, 2.5)
-                                }
-                                TextEditor(text: $viewModel.signature)
+                                TextEditor(text: $signature)
                                     .font(.system(size: 18, weight: .regular))
                                     .foregroundColor(.black)
                                     .scrollContentBackground(.hidden)

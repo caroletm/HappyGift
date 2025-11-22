@@ -54,14 +54,14 @@ struct ContentView: View {
                         EventJoinView()
                     case .participantList:
                         ParticipantListView()
-                    case .enveloppeView:
-                        EnveloppeView(viewModel: LetterViewModel())
-                    case .letterView:
-                        LetterView(userMessage: "", signature: "", height: 350)
+                    case .enveloppeView (let letter):
+                        EnveloppeView(viewModel: LetterViewModel(), letter: letter)
+                    case .letterView (let letter):
+                        LetterView(letter: letter)
                     case .writeLetter:
                         WriteLetterView()
                     case .mailbox:
-                        mailboxView()
+                        mailbox3View()
                     case .tirageView:
                         TirageView()
                            

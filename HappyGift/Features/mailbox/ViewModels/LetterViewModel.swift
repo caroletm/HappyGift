@@ -9,21 +9,27 @@ import SwiftUI
 
 @Observable
 class LetterViewModel {
-    var userMessage = ""
-    var signature = ""
+
+    var user = userStandard
+
+    /// Commence sur la dernière lettre (index max)
+    var currentIndex: Int = max(0, userStandard.letters.count - 1)
     
-    //MARK: - Mailbox
-    
-    var letterCount : Int {
-        userStandard.letters.count
+    var lastFourSlots: [Letter?] {
+        Array(mailboxSlots.suffix(4))
     }
-    
-    var enveloppes : [String] {
-        let couleurs = ["env_rouge", "env_rose", "env_vert"]
-        var result : [String] = []
-        for i in 0..<7 {
-            result.append(couleurs[i % couleurs.count])
+
+    var mailboxSlots: [Letter?] {
+        (0..<4).map { i in
+            i < user.letters.count ? user.letters[i] : nil
         }
-        return result
+    }
+
+    var colorCycle = ["env_rouge", "env_rose", "env_vert"]
+
+    func envelopeImage(for index: Int) -> String {
+        index < user.letters.count
+            ? colorCycle[index % colorCycle.count]
+            : "env_gray"
     }
 }

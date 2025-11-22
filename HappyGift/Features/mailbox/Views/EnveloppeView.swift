@@ -16,7 +16,8 @@ public struct EnveloppeView: View {
 //    @Binding var landingVM : LandingScreenViewModel
     
     @Environment(LandingScreenViewModel.self) private var landingVM
-
+    
+    var letter : Letter
     
     public var body: some View {
         
@@ -31,7 +32,6 @@ public struct EnveloppeView: View {
                         .foregroundColor(.beige)
                         .padding(.top, 25)
                         .multilineTextAlignment(.center)
-                        
                 }
                 Spacer()
                 
@@ -45,9 +45,7 @@ public struct EnveloppeView: View {
                     
                     // LETTRE
                     LetterView(
-                        userMessage: viewModel.userMessage,
-                        signature: viewModel.signature,
-                        height: isLetterOpen ? 350 : 240
+                        height: isLetterOpen ? 350 : 240, letter: letter
                     )
                     .frame(width: 330)
                     .offset(y: isLetterOpen ? -120 : 0)
@@ -112,6 +110,6 @@ public struct EnveloppeView: View {
 }
 
 #Preview {
-    EnveloppeView(viewModel: LetterViewModel())
+    EnveloppeView(viewModel: LetterViewModel(), letter: letterFromBob)
         .environment(LandingScreenViewModel(eventVM: EventViewModel()))
 }

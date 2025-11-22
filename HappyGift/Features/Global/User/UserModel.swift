@@ -14,5 +14,5 @@ struct User : Identifiable {
     var letters : [Letter]
     }
 
-let userStandard = User(id: UUID(), name: "Carole", events: [santa1,santa2], letters: [letterFromBob,letterFromAlice,letterFromSarah])
+let userStandard = User(id: UUID(), name: "Carole", events: [santa1,santa2], letters: [letterFromBob,letterFromAlice,letterFromSarah,letterFromBob,letterFromAlice,letterFromSarah])
 
