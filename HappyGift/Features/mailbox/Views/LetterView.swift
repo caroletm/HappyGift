@@ -9,12 +9,14 @@ import SwiftUI
 
 public struct LetterView: View {
     
+
     var signature: String = "Alice"
     var height: CGFloat = 300
     
     var letter : Letter
     
     public var body: some View {
+        
         ZStack(alignment: .bottom) { // aligné en bas
             Rectangle()
                 .fill(Color.beige)
@@ -23,6 +25,8 @@ public struct LetterView: View {
             
             ScrollView {
                 VStack(alignment: .leading, spacing: 10) {
+                    
+                    
                     Text("Cher Père Noël,")
                         .font(.system(size: 16, weight: .bold))
                         .foregroundColor(.black)
@@ -54,5 +58,4 @@ public struct LetterView: View {
 
 #Preview {
     LetterView(letter: letterFromBob)
-  
 }

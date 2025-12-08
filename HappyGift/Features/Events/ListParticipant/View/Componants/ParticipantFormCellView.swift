@@ -19,11 +19,11 @@ struct ParticipantFormCellView: View {
         ZStack {
             VStack(alignment: .leading, spacing: 50) {
                 Text("Ajouter un participant")
-                    .font(.custom("The Santa", size: 24))
+                    .padding(.top)
+                    .font(.custom("Syncopate-Bold", size: 16))
                     .foregroundStyle(Color("beige"))
                     .frame(maxWidth: .infinity, alignment: .center)
-                    .padding(.top)
-
+                 
                 VStack(spacing: 20) {
                     textfield(title: "nom", data: $eventVM.name)
                     textfield(title: "tel", data: $eventVM.tel)

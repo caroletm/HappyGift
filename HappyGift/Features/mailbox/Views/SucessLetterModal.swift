@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SucessLetterModal: View {
     
+    @Environment(NavigationViewModel.self) var navigationVM
     @Binding var showModal : Bool
     
     var body: some View {
@@ -29,6 +30,8 @@ struct SucessLetterModal: View {
                     .padding(.bottom, 20)
                 Button {
                     showModal = false
+                    navigationVM.path = NavigationPath()
+                    
                 } label: {
                     ZStack{
                         RoundedRectangle(cornerRadius: 30)
@@ -47,5 +50,6 @@ struct SucessLetterModal: View {
 
 #Preview {
     SucessLetterModal(showModal: .constant(false))
+        .environment(NavigationViewModel())
 }
 

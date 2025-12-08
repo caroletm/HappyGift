@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct Countdown : View {
-    @Binding var viewModel : LandingScreenViewModel
-    
+    @Environment(LandingScreenViewModel.self)var landingVM
+
     var body: some View {
         VStack {
             //les élements au dessus de la neige
@@ -22,15 +22,15 @@ struct Countdown : View {
             }
 
             ZStack {
-                HStack (spacing: 15) {
+                HStack (spacing: 10) {
                     VStack {
                         Text("jours")
-                            .font(.custom("Syncopate-Bold", size: 10))
+                            .font(.custom("Syncopate-Bold", size: 9))
                         RoundedRectangle(cornerRadius: 10)
                             .frame(width: 60, height: 60)
                             .foregroundStyle(.white)
                             .overlay {
-                                Text(viewModel.formattedBackupTimeLeft.days)
+                                Text(landingVM.formattedBackupTimeLeft.days)
                                     .font(.custom("Syncopate-Bold", size: 24))
                                     .foregroundStyle(.vertDark)
                                     .contentTransition(.numericText(countsDown: true))
@@ -49,12 +49,12 @@ struct Countdown : View {
                     }
                     VStack {
                         Text("heures")
-                            .font(.custom("Syncopate-Bold", size: 10))
+                            .font(.custom("Syncopate-Bold", size: 9))
                         RoundedRectangle(cornerRadius: 10)
                             .frame(width: 60, height: 60)
                             .foregroundStyle(.white)
                             .overlay {
-                                Text(viewModel.formattedBackupTimeLeft.hours)
+                                Text(landingVM.formattedBackupTimeLeft.hours)
                                     .font(.custom("Syncopate-Bold", size: 24))
                                     .foregroundStyle(.vertDark)
                                     .contentTransition(.numericText(countsDown: true))
@@ -78,12 +78,12 @@ struct Countdown : View {
 
                     VStack {
                         Text("minutes")
-                            .font(.custom("Syncopate-Bold", size: 10))
+                            .font(.custom("Syncopate-Bold", size: 9))
                         RoundedRectangle(cornerRadius: 10)
                             .frame(width: 60, height: 60)
                             .foregroundStyle(.white)
                             .overlay {
-                                Text(viewModel.formattedBackupTimeLeft.minutes)
+                                Text(landingVM.formattedBackupTimeLeft.minutes)
                                     .font(.custom("Syncopate-Bold", size: 24))
                                     .foregroundStyle(.vertDark)
                                     .contentTransition(.numericText(countsDown: true))
@@ -91,12 +91,40 @@ struct Countdown : View {
                             }
 
                     }
+                    
+                    
+//                    VStack {
+//                        Circle()
+//                            .frame(width: 10)
+//                            .foregroundStyle(.grisDark)
+//
+//                        
+//                        Circle()
+//                            .frame(width: 10)
+//                            .foregroundStyle(.grisDark)
+//                    }
+                    
+//                    VStack {
+//                        Text("secondes")
+//                            .font(.custom("Syncopate-Bold", size: 9))
+//                        RoundedRectangle(cornerRadius: 10)
+//                            .frame(width: 60, height: 60)
+//                            .foregroundStyle(.white)
+//                            .overlay {
+//                                Text(landingVM.formattedBackupTimeLeft.seconds)
+//                                    .font(.custom("Syncopate-Bold", size: 24))
+//                                    .foregroundStyle(.vertDark)
+//                                    .contentTransition(.numericText(countsDown: true))
+//
+//                            }
+//
+//                    }
                 }
             }
         }
         .onAppear {
-            viewModel.startTimer()
-            viewModel.updateTimeLeft()
+            landingVM.startTimer()
+            landingVM.updateTimeLeft()
         }
     }
 }
@@ -104,8 +132,8 @@ struct Countdown : View {
 #Preview {
     ZStack {
         Color.gris
-        Countdown(viewModel: .constant(LandingScreenViewModel(eventVM: EventViewModel())))
-
+        Countdown()
+            .environment(LandingScreenViewModel(eventVM: EventViewModel()))
     }
 }
 

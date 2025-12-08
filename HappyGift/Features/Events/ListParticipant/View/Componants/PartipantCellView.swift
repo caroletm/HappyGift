@@ -19,7 +19,7 @@ struct PartipantCellView: View {
                 .frame(width: 55, height: 60)
             VStack(alignment: .leading, spacing: 6){
                 Text(name)
-                    .font(.custom("The Santa", size: 20))
+                    .font(.custom("Syncopate-Bold", size: 14))
                     .bold()
                 Text(tel)
                     .font(.system(size: 12))

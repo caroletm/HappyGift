@@ -15,7 +15,7 @@ class EventViewModel {
     
     //MARK: -  Data Event
 
-    var eventsVM : [Event] = events
+    var eventsVM : [Event] = [santa1, santa2]
     
     //MARK: -  Create Event
     
@@ -79,6 +79,7 @@ class EventViewModel {
     
     var showSnow = false
     var selectedPerson: String? = nil
+    var selectedPersonParticipantID: UUID? = nil
     var tirageResult: [UUID: UUID] = [:]
     
  func doTirage() {
@@ -115,6 +116,7 @@ class EventViewModel {
             withAnimation(.easeOut(duration: 1.0)) {
                 showSnow = true
                 selectedPerson = drawn.name
+                selectedPersonParticipantID = drawn.id
                 print("tiré au sort : \(drawn.name)")
             }
         }else{
@@ -134,6 +136,10 @@ class EventViewModel {
         }else if typeEvent == isJoinEvent{
             isJoinEvent = true
         }
+    }
+    
+    var eventsSortedByDate: [Event] {
+        eventsVM.sorted { $0.dateEvent < $1.dateEvent }
     }
 }
 

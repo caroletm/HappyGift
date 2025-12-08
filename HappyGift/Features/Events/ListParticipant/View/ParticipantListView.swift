@@ -17,8 +17,8 @@ struct ParticipantListView: View {
                 
         VStack{
             Text("Liste des participants")
-                .font(.custom("The Santa", size: 36))
-                .foregroundStyle(.vert)
+                .font(.custom("Syncopate-Bold", size: 20))
+                .foregroundStyle(.vertDark)
             
             if eventVM.participants.isEmpty{
                 ParticipantEmptyView()

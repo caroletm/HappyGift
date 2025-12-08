@@ -54,7 +54,11 @@ struct TirageView: View {
                 }
                 //MARK: - Button
                 Button{
-                    showModal = true
+                    if eventViewModel.selectedPerson != nil {
+                        showModal = true
+                    }else{
+                        navigationViewModel.path = NavigationPath()
+                    }
                     
                 } label: {
                     Text("OK")

@@ -9,13 +9,15 @@ import SwiftUI
 
 struct LandingScreenView: View {
     
-    @State var viewModel = LandingScreenViewModel(eventVM: EventViewModel())
+    @Environment(LandingScreenViewModel.self)var landingVM
     @Environment(NavigationViewModel.self) var navVM
     @Environment(EventViewModel.self)var eventVM
     @Environment(SnowfallVM.self)var snowfallVM
-    
+    @Environment(LetterViewModel.self)var letterVM
     
     var body: some View {
+        
+        @Bindable var landingVM = landingVM
         
         ZStack {
             Color.vert
@@ -24,7 +26,7 @@ struct LandingScreenView: View {
             VStack(alignment: .leading) {
                 //les backgrounds neige + boite aux lettres + hello Name
                 Text("Hello \(userStandard.name)!")
-                    .font(.custom("The Santa", size: 42))
+                    .font(.custom("Syncopate-Bold", size: 25))
                     .foregroundStyle(.white)
                     .padding(.top,30)
                     .padding(25)
@@ -37,6 +39,7 @@ struct LandingScreenView: View {
                     .frame(height: UIScreen.main.bounds.height / 2.6)
                     .overlay {
                         //font blanc en OVERLAY
+                          
                         Image(.neigeFont)
                             .resizable()
                             .scaledToFill()
@@ -45,6 +48,7 @@ struct LandingScreenView: View {
                             .overlay {
                                 // boite au lettre et bonhomme de neige en OVERLAY sur le font neige blanc
                                 VStack {
+                                    
                                     HStack{
                                         //boite aux lettres et bonhomme de neige
                                         Button {
@@ -55,7 +59,7 @@ struct LandingScreenView: View {
                                             VStack {
                                                 //boite aux lettres et son ombre
                                                 withAnimation(.easeInOut(duration: 2)) {
-                                                    Image(viewModel.mailboxIsEmpty ? .boiteAuxLettresVide : .boiteAuxLettres)
+                                                    Image(letterVM.mailboxData.isEmpty ? .boiteAuxLettresVide : .boiteAuxLettres)
                                                 }
                                                 Image(.ombreBoite)
                                                     .offset(y: -10)
@@ -65,11 +69,11 @@ struct LandingScreenView: View {
                                         
                                         
                                         VStack {
-                                            if !viewModel.mailboxIsEmpty {
+                                            if !letterVM.mailboxData.isEmpty && letterVM.lastLetterIsRead == false {
                                                 
                                                 Button {
                                                     //TODO: vers la boite aux lettres
-                                                    navVM.path.append(AppRoute.enveloppeView(letter: userStandard.letters.last!))
+                                                    navVM.path.append(AppRoute.enveloppeView(letter: letterVM.mailboxData.last!))
                                                 } label: {
                                                     VStack {
                                                         Image(.bulleLettre)
@@ -85,23 +89,29 @@ struct LandingScreenView: View {
                                             }
                                             
                                         }
+                                        
                                         Spacer()
+                                       
                                     }.frame(width: UIScreen.main.bounds.width / 1.3)
                                     
                                     Spacer()
-                                }.frame(height: UIScreen.main.bounds.height / (viewModel.mailboxIsEmpty ? 1.16 : 1.1))
+                                    
+                                 
+                                    
+                                }.frame(height: UIScreen.main.bounds.height / (letterVM.mailboxData.isEmpty ? 1.16 : 1.1))
                                 
                                 
                             }
                     }
+              
             }
             
             VStack {
                 Spacer()
-                Countdown(viewModel: $viewModel)
+                Countdown()
                     .padding(.bottom)
                     .onAppear {
-                        viewModel.startTimer()
+                        landingVM.startTimer()
                     }
                 
                 ButtonsLandingScreen()
@@ -109,21 +119,29 @@ struct LandingScreenView: View {
             
             SnowfallView2()
             
-            VStack {
-                HStack{
-                    Spacer()
-                    Button {
-                        MusicManager.shared.stop()
-                    }label: {
-                        Image(.mariah)
-                            .resizable()
-                            .scaledToFit()
-                            .clipShape(Circle())
-                            .frame(width: 80, height: 80)
-                    }
-                }
-                Spacer()
-            }
+//            VStack {
+//                HStack{
+//                    Spacer()
+//                    Button {
+//                        MusicManager.shared.stop()
+//                    }label: {
+//                        Image(.mariah)
+//                            .resizable()
+//                            .scaledToFit()
+//                            .clipShape(Circle())
+//                            .frame(width: 80, height: 80)
+//                    }
+//                }
+//                Spacer()
+//            }
+            
+
+            
+            Image(.maisonsRose)
+                .resizable()
+                .scaledToFit( )
+                .frame(width: 110, height: 310)
+                .offset(x: 130, y: -70)
         }
 //                .onAppear {
 //                               MusicManager.shared.playLocalSound(named: "")
@@ -166,26 +184,30 @@ struct SnowfallView2: View {
 }
 
 #Preview {
+    let eventVM = EventViewModel()
     LandingScreenView()
+        .environment(LetterViewModel())
+        .environment(LandingScreenViewModel(eventVM: eventVM))
         .environment(NavigationViewModel())
-        .environment(EventViewModel())
+        .environment(eventVM)
         .environment(SnowfallVM(
                 numberOfSnowflakes: 120,
                 area: .rect,
                 width: UIScreen.main.bounds.width,
                 height: 400
             ))
+    
 }
 
-#Preview {
-    ZStack {
-        Color.vert
-        SnowfallView2()
-            .environment(SnowfallVM(
-                    numberOfSnowflakes: 120,
-                    area: .rect,
-                    width: UIScreen.main.bounds.width,
-                    height: UIScreen.main.bounds.height
-                ))
-    }
-}
+//#Preview {
+//    ZStack {
+//        Color.vert
+//        SnowfallView2()
+//            .environment(SnowfallVM(
+//                    numberOfSnowflakes: 120,
+//                    area: .rect,
+//                    width: UIScreen.main.bounds.width,
+//                    height: UIScreen.main.bounds.height
+//                ))
+//    }
+//}

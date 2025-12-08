@@ -30,7 +30,7 @@ struct CarreNomDescriptionEvent: View {
             .offset(x: 0, y: -150)
             VStack(alignment: .center) {
                 Text(eventVM.nomEvent)
-                    .font(.custom("The Santa", size: 28))
+                    .font(.custom( "Syncopate-Bold", size: 18))
                     .foregroundStyle(Color.white)
                 Text(eventVM.descriptionEvent)
                     .foregroundStyle(Color.white)

@@ -32,6 +32,7 @@ struct ContentView: View {
         width: 300,
         height: 300
     )
+    @State private var authViewModel = AuthViewModel()
    
     var body: some View {
         NavigationStack(path: $navigationViewModel.path) {
@@ -55,7 +56,7 @@ struct ContentView: View {
                     case .participantList:
                         ParticipantListView()
                     case .enveloppeView (let letter):
-                        EnveloppeView(viewModel: LetterViewModel(), letter: letter)
+                        EnveloppeView(letter: letter)
                     case .letterView (let letter):
                         LetterView(letter: letter)
                     case .writeLetter:
@@ -64,7 +65,6 @@ struct ContentView: View {
                         mailbox3View()
                     case .tirageView:
                         TirageView()
-                           
                     }
                 }
         }
@@ -74,6 +74,7 @@ struct ContentView: View {
         .environment(letterViewModel)
         .environment(snowfallViewModelLanding)
         .environment(snowfallViewModelTirage)
+        .environment(authViewModel)
     }
 }
 
@@ -99,4 +100,5 @@ struct ContentView: View {
         .environment(LetterViewModel())
         .environment(snowfallViewModelLanding)
         .environment(snowfallViewModelTirage)
+        .environment(AuthViewModel())
 }
