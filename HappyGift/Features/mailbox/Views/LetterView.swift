@@ -9,11 +9,14 @@ import SwiftUI
 
 public struct LetterView: View {
     
-    var userMessage: String
-    var signature: String
-    var height: CGFloat
+
+    var signature: String = "Alice"
+    var height: CGFloat = 300
+    
+    var letter : Letter
     
     public var body: some View {
+        
         ZStack(alignment: .bottom) { // aligné en bas
             Rectangle()
                 .fill(Color.beige)
@@ -22,12 +25,14 @@ public struct LetterView: View {
             
             ScrollView {
                 VStack(alignment: .leading, spacing: 10) {
+                    
+                    
                     Text("Cher Père Noël,")
                         .font(.system(size: 16, weight: .bold))
                         .foregroundColor(.black)
                         .padding(.top, 20)
                     
-                    Text("Cette année, j'ai été très sage et j'ai aidé mes amis et ma famille. J'aimerais beaucoup recevoir un vélo rouge avec un panier, et si tu as de la place, quelques livres d'aventure \nMerci beaucoup et joyeux Noël !")
+                    Text(letter.userMessage)
                         .font(.system(size: 15))
                         .foregroundColor(.black)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -38,7 +43,7 @@ public struct LetterView: View {
                     
                     HStack {
                         Spacer()
-                        Text("Alice")
+                        Text(letter.signature)
                             .font(.system(size: 15, weight: .bold))
                             .foregroundColor(.black)
                         Spacer()
@@ -52,6 +57,5 @@ public struct LetterView: View {
 }
 
 #Preview {
-    LetterView(userMessage: "Cette année, j'ai été très sage et j'ai aidé mes amis et ma famille. J'aimerais beaucoup recevoir un vélo rouge avec un panier, et si tu as de la place, quelques livres d'aventure .\n\nMerci beaucoup et joyeux Noël !", signature: "Alice", height: 300)
-  
+    LetterView(letter: letterFromBob)
 }

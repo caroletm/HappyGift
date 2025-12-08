@@ -9,14 +9,15 @@ import SwiftUI
 
 public struct WriteLetterView: View {
     
-    @State var viewModel = LetterViewModel()
+    @Environment(LetterViewModel.self) var letterVM
+    @Environment(NavigationViewModel.self) var navigationVM
     @State private var showModal = false
-    
-    init() {
-        UITextView.appearance().tintColor = UIColor.black
-    }
+
     
     public var body: some View {
+        
+        @Bindable var letterVM = letterVM
+                
         ZStack {
             Color(.rose)
                 .ignoresSafeArea()
@@ -51,34 +52,34 @@ public struct WriteLetterView: View {
                         
                         // message
                         ZStack(alignment: .topLeading) {
-                            if viewModel.userMessage.isEmpty {
+                            if letterVM.userMessage.isEmpty {
                                 Text("Écris ton message ici ...")
                                     .foregroundColor(.black)
                                     .font(.system(size: 18))
                                     .padding(.top, 8)
                                     .padding(.leading, 5)
                             }
-                            TextEditor(text: $viewModel.userMessage)
-                                .font(.system(size: 18))
-                                .foregroundColor(.black)
-                                .scrollContentBackground(.hidden)
-                                .background(Color.clear)
-                                .lineSpacing(5)
-                                .frame(height: 350)
-                            
+                                TextEditor(text: $letterVM.userMessage)
+                                    .font(.system(size: 18))
+                                    .foregroundColor(.black)
+                                    .scrollContentBackground(.hidden)
+                                    .background(Color.clear)
+                                    .lineSpacing(5)
+                                    .frame(height: 350)
+                                
                         }
                         // Signature
                         HStack{
                             Spacer()
                             ZStack(alignment: .trailing) {
-                                if  viewModel.signature.isEmpty {
+                                if letterVM.signature.isEmpty {
                                     Text("Prénom")
                                         .foregroundColor(.black)
                                         .font(.system(size: 18))
                                         .padding(.bottom, 5)
                                         .padding(.trailing, 2.5)
                                 }
-                                TextEditor(text: $viewModel.signature)
+                                TextEditor(text: $letterVM.signature)
                                     .font(.system(size: 18, weight: .regular))
                                     .foregroundColor(.black)
                                     .scrollContentBackground(.hidden)
@@ -95,6 +96,8 @@ public struct WriteLetterView: View {
                 .padding(.horizontal)
                 
                 Button {
+                    letterVM.sendLetter()
+                    print(letterVM.mailboxData)
                     showModal = true
                 } label: {
                     ZStack {
@@ -119,5 +122,7 @@ public struct WriteLetterView: View {
 
 #Preview {
     WriteLetterView()
+        .environment(LetterViewModel())
+        .environment(NavigationViewModel())
 }
 

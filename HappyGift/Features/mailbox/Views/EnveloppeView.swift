@@ -9,14 +9,13 @@ import SwiftUI
 
 public struct EnveloppeView: View {
     
-    @State var viewModel: LetterViewModel
+    @Environment(LetterViewModel.self) var letterVM
     @State var isLetterOpen = false
     @State var isFlapOpen = false
-    
-//    @Binding var landingVM : LandingScreenViewModel
-    
+        
     @Environment(LandingScreenViewModel.self) private var landingVM
-
+    
+    var letter : Letter
     
     public var body: some View {
         
@@ -31,7 +30,6 @@ public struct EnveloppeView: View {
                         .foregroundColor(.beige)
                         .padding(.top, 25)
                         .multilineTextAlignment(.center)
-                        
                 }
                 Spacer()
                 
@@ -45,9 +43,7 @@ public struct EnveloppeView: View {
                     
                     // LETTRE
                     LetterView(
-                        userMessage: viewModel.userMessage,
-                        signature: viewModel.signature,
-                        height: isLetterOpen ? 350 : 240
+                        height: isLetterOpen ? 350 : 240, letter: letter
                     )
                     .frame(width: 330)
                     .offset(y: isLetterOpen ? -120 : 0)
@@ -88,8 +84,7 @@ public struct EnveloppeView: View {
                     } else {
                         withAnimation(Animation.easeInOut(duration: 0.3).delay(0.3)) {
                             isLetterOpen.toggle()
-                            landingVM.mailboxIsEmpty.toggle()
-                        }
+                            letterVM.lastLetterIsRead = true                        }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
                             withAnimation(.easeInOut(duration: 0.5)) {
                                 isFlapOpen.toggle()
@@ -112,6 +107,8 @@ public struct EnveloppeView: View {
 }
 
 #Preview {
-    EnveloppeView(viewModel: LetterViewModel())
+
+    EnveloppeView(letter: letterFromBob)
         .environment(LandingScreenViewModel(eventVM: EventViewModel()))
+        .environment(LetterViewModel())
 }

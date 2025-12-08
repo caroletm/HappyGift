@@ -17,7 +17,7 @@ struct CreateSanta: View {
         
         
         ZStack {
-            Color.beige.edgesIgnoringSafeArea(.all)
+            Color.vert.edgesIgnoringSafeArea(.all)
             VStack {
                 VStack {
                     Image(.littleSantaClaus)
@@ -26,32 +26,9 @@ struct CreateSanta: View {
                 ScrollView {
                     VStack {
                         
-                        Text("Nom de l'evenement")
-                            .font(.custom("Syncopate-Bold", size: 15))
-                            .foregroundStyle(.rougeDark)
-                            .padding(.top, 10)
-                        
-                        TextField("Nom de l'évènement", text: $eventViewModel.nomEvent)
-                            .frame(width: 360, height: 40, alignment: .center)
-                            .background(Color.white)
-                            .cornerRadius(10)
-                            .padding()
-                            .padding(.bottom,20)
-                        
-                        Text("Description de l'evenement")
-                            .font(.custom("Syncopate-Bold", size: 15))
-                            .foregroundStyle(.rougeDark)
-                        TextEditor(text: $eventViewModel.descriptionEvent)
-                            .frame(width: 360, height: 135, alignment: .center)
-                            .background(Color.white)
-                            .cornerRadius(10)
-                            .padding()
-                            .padding(.bottom,20)
-
-                        
                         Text("Image de l'evenement")
-                            .font(.custom("Syncopate-Bold", size: 15))
-                            .foregroundStyle(.rougeDark)
+                            .font(.custom( "Syncopate-Bold", size: 16))
+                            .foregroundStyle(.white)
                         
                         HStack {
                             ForEach(eventViewModel.iconsEvent, id: \.self) { icon in
@@ -65,12 +42,37 @@ struct CreateSanta: View {
                                 }
                             }
                         }.padding()
+                            .padding(.bottom,10)
+                        
+                        Text("Nom de l'evenement")
+                            .font(.custom( "Syncopate-Bold", size: 16))
+                            .foregroundStyle(.white)
+                            .padding(.top, 10)
+                        
+                        TextField("Nom de l'évènement", text: $eventViewModel.nomEvent)
+                            .padding()
+                            .frame(width: 360, height: 40, alignment: .center)
+                            .background(Color.white)
+                            .cornerRadius(10)
+                            .padding()
+                            .padding(.bottom,20)
+                        
+                        Text("Description de l'evenement")
+                            .font(.custom( "Syncopate-Bold", size: 16))
+                            .foregroundStyle(.white)
+                        TextEditor(text: $eventViewModel.descriptionEvent)
+                            .padding()
+                            .frame(width: 360, height: 135, alignment: .center)
+                            .background(Color.white)
+                            .cornerRadius(10)
+                            .padding()
                             .padding(.bottom,20)
                         
                         Text("Lieu de l'evenement")
-                            .font(.custom("Syncopate-Bold", size: 15))
-                            .foregroundStyle(.rougeDark)
+                            .font(.custom( "Syncopate-Bold", size: 16))
+                            .foregroundStyle(.white)
                         TextField("Lieu", text: $eventViewModel.lieuEvent)
+                            .padding()
                             .frame(width: 360, height: 40, alignment: .center)
                             .background(Color.white)
                             .cornerRadius(10)
@@ -79,8 +81,8 @@ struct CreateSanta: View {
 
                         
                         Text("Date & Heure de l'evenement")
-                            .font(.custom("Syncopate-Bold", size: 15))
-                            .foregroundStyle(.rougeDark)
+                            .font(.custom( "Syncopate-Bold", size: 16))
+                            .foregroundStyle(.white)
                             .padding()
                         
                         VStack(alignment: .leading, spacing: 10) {
@@ -91,7 +93,7 @@ struct CreateSanta: View {
                                 displayedComponents: [.date, .hourAndMinute]
                             )
                             .datePickerStyle(.graphical)
-                            .accentColor(.vertDark)
+                            .accentColor(.rose)
                             .background(Color.white)
                             .cornerRadius(10)
                             .padding(.horizontal)
@@ -99,7 +101,7 @@ struct CreateSanta: View {
                         .padding(.bottom,20)
                         
                         Button {
-                            eventVM.createEvent()
+                      
                             navigationVM.path.append(AppRoute.recapEvent)
                         }label:{
                             ButtonText(text: "OK", width: 150)

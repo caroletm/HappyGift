@@ -20,7 +20,7 @@ struct ButtonParticipantCellView: View {
                 .frame(width: size == nil ?  149 : size, height: 53)
                 .overlay{
                     Text(title)
-                        .font(.custom("Syncopate-Bold", size: 15))
+                        .font(.system(size: 18, weight: .bold))
                         .foregroundStyle(Color("beige"))
                 }
         }

@@ -21,7 +21,7 @@ struct ButtonText: View {
                 .cornerRadius(50)
             Text(text)
                 .foregroundStyle(.white)
-                .font(.custom( "Syncopate-Bold", size: 12))
+                .font(.system( size: 16, weight : .bold))
             
         }
     }

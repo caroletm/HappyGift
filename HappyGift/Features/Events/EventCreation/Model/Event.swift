@@ -17,8 +17,9 @@ class Event : Identifiable, Hashable {
     var participants : [Participant]
     var prixCadeau : Int
     var codeEvent : String
+    var tirageResult : [UUID:UUID] = [:]
     
-    init(id: UUID, nomEvent: String, descriptionEvent: String, imageEvent: String, dateEvent: Date, lieuEvent: String, participants: [Participant], prixCadeau: Int, codeEvent: String) {
+    init(id: UUID, nomEvent: String, descriptionEvent: String, imageEvent: String, dateEvent: Date, lieuEvent: String, participants: [Participant], prixCadeau: Int, codeEvent: String, tirageResult: [UUID:UUID]) {
         self.id = id
         self.nomEvent = nomEvent
         self.descriptionEvent = descriptionEvent
@@ -28,6 +29,7 @@ class Event : Identifiable, Hashable {
         self.participants = participants
         self.prixCadeau = prixCadeau
         self.codeEvent = codeEvent
+        self.tirageResult = tirageResult
     }
     
     // MARK: - Hashable
@@ -60,8 +62,8 @@ extension Date {
 
 //MARK: - Events Database
 
-var santa1 = Event(id: UUID(), nomEvent: "Le noël des enfants", descriptionEvent: "blablabla", imageEvent: "carChristmas", dateEvent: Date.from("25/12/2025 20:00"), lieuEvent: "Chez moi",participants: [],prixCadeau: 35, codeEvent: "ABC123")
-var santa2 = Event(id: UUID(), nomEvent: "Le noël des zombies", descriptionEvent: "hello", imageEvent: "houseChristmas", dateEvent: Date.from("24/12/2025 20:00"), lieuEvent: "Chez Papa", participants: [], prixCadeau: 35,codeEvent: "ABC456")
-var santa3 = Event(id: UUID(), nomEvent: "Noël en famille", descriptionEvent: "hello", imageEvent: "houseChristmas", dateEvent: Date.from("15/12/2025 20:00"), lieuEvent: "Chez Papa", participants: [],prixCadeau: 45, codeEvent: "ABC456")
+var santa1 = Event(id: UUID(), nomEvent: "Le noël des enfants", descriptionEvent: "blablabla", imageEvent: "carChristmas", dateEvent: Date.from("25/12/2025 20:00"), lieuEvent: "Chez moi",participants: [],prixCadeau: 35, codeEvent: "ABC123", tirageResult: [:])
+var santa2 = Event(id: UUID(), nomEvent: "Le noël des zombies", descriptionEvent: "hello", imageEvent: "houseChristmas", dateEvent: Date.from("24/12/2025 20:00"), lieuEvent: "Chez Papa", participants: [], prixCadeau: 35,codeEvent: "ABC456", tirageResult: [:])
+var santa3 = Event(id: UUID(), nomEvent: "Noël en famille", descriptionEvent: "hello", imageEvent: "houseChristmas", dateEvent: Date.from("15/12/2025 20:00"), lieuEvent: "Chez Papa", participants: [],prixCadeau: 45, codeEvent: "ABC456", tirageResult: [:])
 
 var events : [Event] = [santa1, santa2, santa3]

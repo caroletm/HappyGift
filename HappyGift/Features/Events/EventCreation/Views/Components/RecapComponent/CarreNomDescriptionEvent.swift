@@ -22,7 +22,7 @@ struct CarreNomDescriptionEvent: View {
                 Circle()
                     .fill(Color.white)
                     .frame(width: 90, height: 90)
-                Image("carChristmas")
+                Image(eventVM.iconSelected ?? "carChristmas")
                     .resizable()
                     .scaledToFit( )
                     .frame(width: 59, height: 44)
@@ -30,7 +30,7 @@ struct CarreNomDescriptionEvent: View {
             .offset(x: 0, y: -150)
             VStack(alignment: .center) {
                 Text(eventVM.nomEvent)
-                    .font(.custom( "Syncopate-Bold", size: 16))
+                    .font(.custom( "Syncopate-Bold", size: 18))
                     .foregroundStyle(Color.white)
                 Text(eventVM.descriptionEvent)
                     .foregroundStyle(Color.white)

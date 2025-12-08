@@ -19,7 +19,7 @@ struct TirageView: View {
             Color("vert").edgesIgnoringSafeArea(.all)
             
             VStack(alignment: .center){
-                if (eventViewModel.showSnow || eventViewModel.selectedName != nil) {
+                if (eventViewModel.showSnow || eventViewModel.selectedPerson != nil) {
                     Text("Tu dois offrir un cadeau à")
                         .font(.custom("Syncopate-Bold", size: 25))
                         .multilineTextAlignment(.center)
@@ -40,7 +40,7 @@ struct TirageView: View {
                     
                     //MARK: - Name
                     
-                    if let name =  eventViewModel.selectedName {
+                    if let name =  eventViewModel.selectedPerson {
                         Text(name)
                             .font(.custom("Syncopate-Bold", size: 18))
                             .foregroundColor(Color("rose"))
@@ -49,16 +49,20 @@ struct TirageView: View {
                             .minimumScaleFactor(0.5)
                             .offset(y: 152)
                             .transition(.opacity)
-                            .animation(.easeInOut, value: eventViewModel.selectedName)
+                            .animation(.easeInOut, value: eventViewModel.selectedPerson)
                     }
                 }
                 //MARK: - Button
                 Button{
-                    showModal = true
+                    if eventViewModel.selectedPerson != nil {
+                        showModal = true
+                    }else{
+                        navigationViewModel.path = NavigationPath()
+                    }
                     
                 } label: {
                     Text("OK")
-                        .font(.custom("Syncopate-Bold", size: 17))
+                        .font(.system(size: 17, weight : .bold))
                         .foregroundStyle(.white)
                         .frame(width: 278, height: 63)
                         .background(.black.opacity(0.85))
@@ -68,14 +72,14 @@ struct TirageView: View {
             }.padding(10)
             
             // MARK: - Gestion de la neige
-            if (eventViewModel.showSnow || eventViewModel.selectedName != nil) {
+            if (eventViewModel.showSnow || eventViewModel.selectedPerson != nil) {
                 SnowfallView(size: 300)
                     .transition(.opacity)
                     .animation(.easeInOut(duration: 0.5), value: eventViewModel.showSnow)
             }
             
             // MARK: - Shake uniquement si pas encore tiré
-            if eventViewModel.selectedName == nil {
+            if eventViewModel.selectedPerson == nil {
                 ShakeDetector {
                     eventViewModel.handleShake()
                     print("shake ok")

@@ -11,6 +11,8 @@ struct DetailEvent: View {
     
     @Environment(EventViewModel.self) private var eventVM
     @Environment(NavigationViewModel.self) private var navigationVM
+    @Environment(LetterViewModel.self) private var letterVM
+    @Environment(AuthViewModel.self)private var authVM
     
     var event: Event
     
@@ -43,20 +45,35 @@ struct DetailEvent: View {
             VStack {
                 Spacer()
                 Button {
+                    
+                    if let participantID = eventVM.selectedPersonParticipantID,
+                       let participant = event.participants.first(where: { $0.id == participantID }),
+                       let realUserID = participant.userID
+                        
+                    {
+                        letterVM.destinataire = realUserID// <-- ID du USER réel
+                        print("Destinataire USER ID = \(realUserID)")
+                        letterVM.expediteur = authVM.currentUser?.id
+
+                    } else {
+                        print("Impossible de trouver le user lié au participant")
+                    }
                     navigationVM.path.append(AppRoute.writeLetter)
                 }label:{
                     ButtonText(text: "Ecrire à mon pere noel", width: 270)
                 }
-                
             }
         }
     }
 }
 
 #Preview {
+    let eventVM = EventViewModel()
     DetailEvent(event: santa1)
-        .environment(EventViewModel())
+        .environment(eventVM)
         .environment(NavigationViewModel())
+        .environment(LetterViewModel())
+        .environment(AuthViewModel())
 }
 
 
