@@ -14,13 +14,11 @@ import Observation
 class UserViewModel {
     
     //MARK: - DataUser
-    var nomUtilisateur: String = ""
     var email: String = ""
     var motDePasse: String = ""
     var motDePasseConfirm: String = ""
-    var image : String? = nil
-    var nom = ""
-    var prenom = ""
+    var name = ""
+    var telephone = ""
     
     //MARK: - Date
     func dateFormatter(_ date: Date) -> String {

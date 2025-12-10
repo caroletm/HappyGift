@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SignInPage: View {
     @Environment(AuthViewModel.self) var authVM
+    @Environment(UserViewModel.self) var userVM
     
     @State var isPasswordVisible: Bool = false
     @State var isPasswordConfirmVisible: Bool = false
@@ -28,8 +29,13 @@ struct SignInPage: View {
                     .font(.custom("Syncopate-Bold", size: 20))
                     .foregroundStyle(.white)
                     .padding()
-                Spacer()
-                    .frame(height: 50)
+                
+                if let errorMessage = authVM.errorMessage {
+                    Text(errorMessage)
+                        .padding(20)
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(.black)
+                }
                 
                 TextFieldEmail()
                 TextFieldName()
@@ -37,12 +43,14 @@ struct SignInPage: View {
                 TextFieldPasswordConfirm()
                 
                 Spacer()
-                    .frame(height: 50)
+                    .frame(height: 20)
                 
                 Button {
-                    //
+                    Task {
+                        await authVM.signUp()
+                    }
                 }label:{
-                    ButtonText(text: "Se connecter", width: 335)
+                    ButtonText(text: "S'inscrire", width: 335)
                 }
                 HStack {
                     Text("Déjà un compte?")
@@ -51,9 +59,12 @@ struct SignInPage: View {
                         .padding(.vertical)
                     
                     Button {
-                        authVM.isAuthenticated = true
+                        withAnimation {
+                            authVM.showSignIn = false
+                            authVM.showLogin = true
+                        }
                     }label:{
-                        Text("Se connecter")
+                        Text("Connectez vous")
                             .font(.system(size: 14, weight:.bold))
                             .underline()
                             .foregroundStyle(.white)
@@ -70,4 +81,5 @@ struct SignInPage: View {
     let userVM = UserViewModel()
     SignInPage()
         .environment(AuthViewModel(userVM: userVM))
+        .environment(userVM)
 }

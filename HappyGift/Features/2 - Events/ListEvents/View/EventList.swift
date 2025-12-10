@@ -41,8 +41,8 @@ struct EventList: View {
                                     EventCellView(
                                         RectangleColor: color,
                                         RectanglePosition: rotation,
-                                        dateEvent: event.dateEvent,
-                                        title: event.nomEvent
+                                        dateEvent: event.date,
+                                        title: event.nom
                                     )
                                     .padding(.bottom, -24)
                                 }

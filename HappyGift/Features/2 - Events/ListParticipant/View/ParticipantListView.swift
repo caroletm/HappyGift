@@ -19,20 +19,25 @@ struct ParticipantListView: View {
             Text("Liste des participants")
                 .font(.custom("Syncopate-Bold", size: 20))
                 .foregroundStyle(.vertDark)
+            Text("Il faut au moins 3 participants pour lancer un tirage")
+                .font(.system(size: 14))
+                .padding(20)
             
             if eventVM.participants.isEmpty{
                 ParticipantEmptyView()
             } else {
-                ForEach(Array(eventVM.participants.enumerated()), id: \.1.id) { index, participant in
+                ForEach(eventVM.participants.indices, id: \.self) { index in
+                    let participant = eventVM.participants[index]
                     PartipantCellView(
                         name: participant.name,
-                        tel: participant.tel,
+                        tel: participant.telephone,
                         email: participant.email,
                         bouleType: index % 2 == 0 ? "BouleParticipantRed" : "BouleParticipantGreen"
                     )
                     .padding()
                 }
             }
+    
             Spacer()
             
             ButtonParticipantCellView(title: "Ajouter") {

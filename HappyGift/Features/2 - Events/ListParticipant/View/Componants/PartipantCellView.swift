@@ -25,7 +25,6 @@ struct PartipantCellView: View {
                     .font(.system(size: 12))
                 Text(email)
                     .font(.system(size: 12))
-          
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)

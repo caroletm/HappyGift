@@ -11,7 +11,7 @@ struct CarreNomDescriptionEvent2: View {
     
     @Environment(EventViewModel.self) private var eventVM
     
-    var event: Event
+    var event: EventDTO
 
     var body: some View {
         ZStack {
@@ -31,10 +31,10 @@ struct CarreNomDescriptionEvent2: View {
             }
             .offset(x: 0, y: -150)
             VStack(alignment: .center) {
-                Text(event.nomEvent)
+                Text(event.nom)
                     .font(.custom( "Syncopate-Bold", size: 16))
                     .foregroundStyle(Color.white)
-                Text(event.descriptionEvent)
+                Text(event.description)
                     .foregroundStyle(Color.white)
                     .frame(width: 260, height: 150)
                     .multilineTextAlignment(.center)

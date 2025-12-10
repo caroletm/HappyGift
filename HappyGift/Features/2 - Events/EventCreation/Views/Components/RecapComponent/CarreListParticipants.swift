@@ -42,7 +42,7 @@ struct CarreListeParticipants: View {
                     .offset(y: 10)
                     .shadow(
                         color: Color.white.opacity(pulse ? 1 : 0),
-                        radius: pulse ? 30 : 5
+                        radius: pulse ? 10 : 5
                     )
                 }
             }

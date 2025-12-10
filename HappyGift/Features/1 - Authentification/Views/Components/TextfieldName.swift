@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct TextFieldName: View {
-    @Environment(AuthViewModel.self) var authVM
+    @Environment(UserViewModel.self) var userVM
     
     var body: some View {
         
-        @Bindable var authVM = authVM
+        @Bindable var userVM = userVM
 
-        TextField("Votre prenom", text: $authVM.name)
+        TextField("Votre prenom", text: $userVM.name)
             .keyboardType(.emailAddress)
             .textContentType(.emailAddress)
             .autocapitalization(.none)
@@ -32,5 +32,5 @@ struct TextFieldName: View {
 #Preview {
     let userVM = UserViewModel()
     TextFieldName()
-        .environment(AuthViewModel(userVM: userVM))
+        .environment(userVM)
 }

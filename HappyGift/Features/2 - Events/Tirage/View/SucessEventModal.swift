@@ -27,13 +27,12 @@ struct SucessEventModal: View {
                     .padding(.top, 10)
                 Spacer()
                 Image("modale2")
-                Text("Ton évènement a bien été créé avec succès ! \nLes participants recevront leurs invitations")
+                Text("Ton évènement a bien été créé avec succès ! \nLes participants ont reçu les invitations")
                     .multilineTextAlignment(.center)
                     .foregroundColor(.black)
                     .font(.system(size: 18))
                     .padding(.bottom, 20)
                 Button {
-                    eventViewModel.createEvent()
                     showModal = false
                     eventViewModel.resetFormEvent()
                     navigationViewModel.path = NavigationPath()

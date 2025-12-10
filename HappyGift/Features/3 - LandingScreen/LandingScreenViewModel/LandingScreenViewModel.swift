@@ -18,7 +18,8 @@ class LandingScreenViewModel {
     
     var eventVM : EventViewModel
     var targetDate: Date {
-        eventVM.eventsVM.last!.dateEvent
+        guard let lastEventDate = eventVM.eventsVM.last?.date else { return Date() }
+        return lastEventDate
     }
     var timeLeft: TimeInterval = 0
     private var timer: Timer?
@@ -35,10 +36,10 @@ class LandingScreenViewModel {
     
     var nextEventDate: Date? {
         // On récupère tous les événements dont la date est après maintenant
-        let upcomingEvents = eventVM.eventsVM.filter { $0.dateEvent > Date() }
+        let upcomingEvents = eventVM.eventsVM.filter { $0.date > Date() }
         
         // On prend celui avec la date la plus proche
-        return upcomingEvents.min(by: { $0.dateEvent < $1.dateEvent })?.dateEvent
+        return upcomingEvents.min(by: { $0.date < $1.date })?.date
     }
     
 //    // Temps restant
