@@ -11,17 +11,23 @@ struct ParticipantFormCellView: View {
 
     @Environment(EventViewModel.self) private var eventVM
     @Binding var showModal: Bool
+    @State var showAlert = false
 
     var body: some View {
         
         @Bindable var eventVM = eventVM
         
         ZStack {
-            VStack(alignment: .leading, spacing: 50) {
+            VStack(alignment: .leading, spacing: 20) {
                 Text("Ajouter un participant")
                     .padding(.top)
                     .font(.custom("Syncopate-Bold", size: 16))
                     .foregroundStyle(Color("beige"))
+                    .frame(maxWidth: .infinity, alignment: .center)
+                Text("(N'oublie pas de t'ajouter en tant que participant)")
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundStyle(Color("beige"))
+                    .multilineTextAlignment(.center)
                     .frame(maxWidth: .infinity, alignment: .center)
                  
                 VStack(spacing: 20) {
@@ -32,16 +38,26 @@ struct ParticipantFormCellView: View {
                 .padding()
 
                 ButtonParticipantCellView(title: "Ajouter") {
-                    eventVM.addParticipant()
-                    showModal = false
-                    eventVM.reset()
-                    print(eventVM.participants)
+                    if eventVM.isValidParticipant {
+                        eventVM.addParticipant()
+                        showModal = false
+                        eventVM.reset()
+                        print(eventVM.participants)
+                    }else{
+                        showAlert = true
+                    }
                 }
             }
             .padding()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color("vert"))
+
+        .alert("Ajout impossible", isPresented: $showAlert) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text("Vous n'avez pas bien rempli tous les champs!")
+        }
     }
 
     func textfield(title: String, data: Binding<String>) -> some View {
@@ -58,7 +74,7 @@ struct ParticipantFormCellView: View {
                 .background(Color("beige"))
                 .cornerRadius(10)
                 .foregroundColor(Color("vertDark"))
-                .font(.custom("Syncopate-Regular", size: 14))
+                .font(.system(size: 14))
         }
     }
 }

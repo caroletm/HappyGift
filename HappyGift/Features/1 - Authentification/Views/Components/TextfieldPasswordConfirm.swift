@@ -9,28 +9,29 @@ import SwiftUI
 
 struct TextFieldPasswordConfirm: View {
     @Environment(AuthViewModel.self) var authVM
+    @Environment(UserViewModel.self) var userVM
     
     var body: some View {
         
-        @Bindable var authVM = authVM
-        
+        @Bindable var userVM = userVM
+
         HStack {
             if authVM.isPasswordVisibleConfirm {
-                TextField("Confirmez le mot de passe", text: $authVM.motDePasseConfirm)
+                TextField("Confirmez le mot de passe", text: $userVM.motDePasseConfirm)
                     .font(.system(size: 14))
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
                 
                 
             } else {
-                SecureField("Confirmez le mot de passe", text: $authVM.motDePasseConfirm)
+                SecureField("Confirmez le mot de passe", text: $userVM.motDePasseConfirm)
                     .font(.system(size: 14))
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
             }
             
             Button {
-                authVM.isPasswordVisible.toggle()
+                authVM.isPasswordVisibleConfirm.toggle()
             }label: {
                 Image(systemName: authVM.isPasswordVisibleConfirm ? "eye.slash" : "eye")
                     .foregroundColor(authVM.isPasswordVisibleConfirm ? .black : .gray)
@@ -45,6 +46,8 @@ struct TextFieldPasswordConfirm: View {
 }
 
 #Preview {
+    let userVM = UserViewModel()
     TextFieldPasswordConfirm()
-        .environment(AuthViewModel(userVM: UserViewModel()))
+        .environment(AuthViewModel(userVM: userVM))
+        .environment(userVM)
 }

@@ -1,19 +1,18 @@
 //
-//  SucessEventModal.swift
+//  LogoutModal.swift
 //  HappyGift
 //
-//  Created by caroletm on 19/11/2025.
+//  Created by caroletm on 10/12/2025.
 //
 
 import SwiftUI
 
-import SwiftUI
-
-struct SucessEventModal: View {
+struct LogoutModal: View {
     
-    @Environment(EventViewModel.self) private var eventViewModel
-    @Environment(NavigationViewModel.self) private var navigationViewModel
-    @Binding var showModal : Bool
+    @Environment(NavigationViewModel.self) var navigationVM
+    @Environment(AuthViewModel.self) var authVM
+    
+    @Binding var showLogoutModal : Bool
     
     var body: some View {
         ZStack {
@@ -26,22 +25,21 @@ struct SucessEventModal: View {
                     .cornerRadius(20)
                     .padding(.top, 10)
                 Spacer()
-                Image("modale2")
-                Text("Ton évènement a bien été créé avec succès ! \nLes participants ont reçu les invitations")
-                    .multilineTextAlignment(.center)
+                Image(.maisonsRose)
+                Text("Etes vous sur de vous déconnecter?")
                     .foregroundColor(.black)
                     .font(.system(size: 18))
                     .padding(.bottom, 20)
                 Button {
-                    showModal = false
-                    eventViewModel.resetFormEvent()
-                    navigationViewModel.path = NavigationPath()
+                    showLogoutModal = false
+                    authVM.logout()
+                    
                 } label: {
                     ZStack{
                         RoundedRectangle(cornerRadius: 30)
                             .fill(Color.black)
                             .frame(width: 250, height: 60)
-                        Text("C'est noté !")
+                        Text("Se deconnecter")
                             .font(.system(size: 18, weight: .bold))
                             .foregroundColor(.beige)
                     }
@@ -53,7 +51,8 @@ struct SucessEventModal: View {
 }
 
 #Preview {
-    SucessEventModal(showModal: .constant(false))
-        .environment(EventViewModel())
+    let userVM = UserViewModel()
+    LogoutModal(showLogoutModal: .constant(false))
         .environment(NavigationViewModel())
+        .environment(AuthViewModel(userVM : userVM))
 }

@@ -9,20 +9,21 @@ import SwiftUI
 
 struct TextFieldPassword: View {
     @Environment(AuthViewModel.self) var authVM
+    @Environment(UserViewModel.self) var userVM
     
     var body: some View {
         
-        @Bindable var authVM = authVM
-        
+        @Bindable var userVM = userVM
+
         HStack {
             if authVM.isPasswordVisible {
-                TextField("Votre mot de passe", text: $authVM.motDePasse)
+                TextField("Votre mot de passe", text: $userVM.motDePasse)
                     .font(.system(size: 14))
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
                 
             } else {
-                SecureField("Votre mot de passe", text: $authVM.motDePasse)
+                SecureField("Votre mot de passe", text: $userVM.motDePasse)
                     .font(.system(size: 14))
                     .autocapitalization(.none)
                     .disableAutocorrection(true)

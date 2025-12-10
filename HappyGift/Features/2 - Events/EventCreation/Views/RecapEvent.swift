@@ -11,6 +11,7 @@ struct RecapEvent: View {
     
     @Environment(EventViewModel.self) private var eventVM
     @Environment(NavigationViewModel.self) private var navigationVM
+    @State var showAlert: Bool = false
         
     var body: some View {
         
@@ -43,12 +44,25 @@ struct RecapEvent: View {
                     Spacer()
                     
                     Button {
-                        navigationVM.path.append(AppRoute.tirageView)
+                        if eventVM.isValidFormEvent2 {
+                            
+                            Task {
+                                await eventVM.createEvent()
+                            }
+                            navigationVM.path.append(AppRoute.tirageView)
+                        }else{
+                            showAlert = true
+                        }
                     }label:{
                         ButtonText(text: "Lancer le tirage", width: 190)
                     }
                 }
             }
+        }
+        .alert("Tirage impossible", isPresented: $showAlert) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text("Vous n'avez pas défini de budget ou ajouté de participants")
         }
     }
 }

@@ -12,84 +12,109 @@ struct TirageView: View {
     @Environment(EventViewModel.self) private var eventViewModel
     @Environment(NavigationViewModel.self) private var navigationViewModel
     @Environment(SnowfallVM.self) private var snowfallViewModel
+    @Environment(UserViewModel.self) var userVM
+    
     @State var showModal = false
     
     var body: some View {
-        ZStack {
-            Color("vert").edgesIgnoringSafeArea(.all)
-            
-            VStack(alignment: .center){
-                if (eventViewModel.showSnow || eventViewModel.selectedPerson != nil) {
-                    Text("Tu dois offrir un cadeau à")
-                        .font(.custom("Syncopate-Bold", size: 25))
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(Color("rose"))
-                }else {
-                    Text("Secoue pour voir qui tu as tiré")
-                        .font(.custom("Syncopate-Bold", size: 25))
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(Color("rose"))
-                }
-                    
+        
+        NavigationView {
+            ZStack {
+                Color("vert").edgesIgnoringSafeArea(.all)
                 
-                ZStack{
-                    //MARK: - Globe
-                    Image("SnowGlobe")
-                        .resizable()
-                        .scaledToFit()
-                    
-                    //MARK: - Name
-                    
-                    if let name =  eventViewModel.selectedPerson {
-                        Text(name)
-                            .font(.custom("Syncopate-Bold", size: 18))
+                VStack(alignment: .center){
+                    if (eventViewModel.showSnow || eventViewModel.selectedPerson != nil) {
+                        Text("Tu dois offrir un cadeau à")
+                            .font(.custom("Syncopate-Bold", size: 25))
+                            .multilineTextAlignment(.center)
                             .foregroundColor(Color("rose"))
-                            .frame(maxWidth: 110)
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.5)
-                            .offset(y: 152)
-                            .transition(.opacity)
-                            .animation(.easeInOut, value: eventViewModel.selectedPerson)
-                    }
-                }
-                //MARK: - Button
-                Button{
-                    if eventViewModel.selectedPerson != nil {
-                        showModal = true
-                    }else{
-                        navigationViewModel.path = NavigationPath()
+                    }else {
+                        Text("Secoue pour voir qui tu as tiré")
+                            .font(.custom("Syncopate-Bold", size: 25))
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(Color("rose"))
                     }
                     
-                } label: {
-                    Text("OK")
-                        .font(.system(size: 17, weight : .bold))
-                        .foregroundStyle(.white)
-                        .frame(width: 278, height: 63)
-                        .background(.black.opacity(0.85))
-                        .clipShape(RoundedRectangle(cornerRadius: 30))
+                    
+                    ZStack{
+                        //MARK: - Globe
+                        Image("SnowGlobe")
+                            .resizable()
+                            .scaledToFit()
+                        
+                        //MARK: - Name
+                        
+                        if let name =  eventViewModel.selectedPerson {
+                            Text(name)
+                                .font(.custom("Syncopate-Bold", size: 18))
+                                .foregroundColor(Color("rose"))
+                                .frame(maxWidth: 110)
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.5)
+                                .offset(y: 152)
+                                .transition(.opacity)
+                                .animation(.easeInOut, value: eventViewModel.selectedPerson)
+                        }
+                    }
+                    //MARK: - Button
+                    Button{
+                        if eventViewModel.selectedPerson != nil {
+                            showModal = true
+                        }else{
+                            navigationViewModel.path = NavigationPath()
+                        }
+                        
+                    } label: {
+                        Text("OK")
+                            .font(.system(size: 17, weight : .bold))
+                            .foregroundStyle(.white)
+                            .frame(width: 278, height: 63)
+                            .background(.black.opacity(0.85))
+                            .clipShape(RoundedRectangle(cornerRadius: 30))
+                    }
+                    
+                }.padding(10)
+                
+                // MARK: - Gestion de la neige
+                if (eventViewModel.showSnow || eventViewModel.selectedPerson != nil) {
+                    SnowfallView(size: 300)
+                        .transition(.opacity)
+                        .animation(.easeInOut(duration: 0.5), value: eventViewModel.showSnow)
                 }
                 
-            }.padding(10)
-            
-            // MARK: - Gestion de la neige
-            if (eventViewModel.showSnow || eventViewModel.selectedPerson != nil) {
-                SnowfallView(size: 300)
-                    .transition(.opacity)
-                    .animation(.easeInOut(duration: 0.5), value: eventViewModel.showSnow)
-            }
-            
-            // MARK: - Shake uniquement si pas encore tiré
-            if eventViewModel.selectedPerson == nil {
-                ShakeDetector {
-                    eventViewModel.handleShake()
-                    print("shake ok")
+                // MARK: - Shake uniquement si pas encore tiré
+                
+                if eventViewModel.selectedPerson == nil {
+                    ShakeDetector {
+                        withAnimation {
+                            eventViewModel.showSnow = true
+                        }
+                        print("shake ok")
+                    }
+                    .allowsHitTesting(false)
                 }
-                .allowsHitTesting(false)
             }
         }
         .sheet(isPresented: $showModal){
             SucessEventModal(showModal: $showModal)
         }
+        .onAppear {
+            Task {
+                guard
+                    let eventId = eventViewModel.currentEvent?.id,
+                    let userEmail = userVM.email as String?
+                else {
+                    print("⚠️ Infos manquantes pour fetchDraw")
+                    return
+                }
+
+                await eventViewModel.findDrawForCurrentUser(
+                    eventId: eventId,
+                    userEmail: userEmail
+                )
+            }
+        }
+        .navigationBarBackButtonHidden(true)
     }
 }
 
@@ -103,4 +128,6 @@ struct TirageView: View {
             height: 300
         ))
         .environment(EventViewModel())
+        .environment(UserViewModel())
+        
 }

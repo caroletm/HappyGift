@@ -48,7 +48,17 @@ struct ContentView: View {
     var body: some View {
         NavigationStack(path: $navigationViewModel.path) {
             
-            LandingScreenView()
+            Group {
+                if authViewModel.isAuthenticated {
+                        LandingScreenView()
+                } else {
+                    if authViewModel.showLogin {
+                        LoginPage()
+                    } else if authViewModel.showSignIn {
+                        SignInPage()
+                    }
+                }
+            }
                 .navigationDestination(for: AppRoute.self) { route in
                     
                     switch route {

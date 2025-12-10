@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LoginPage: View {
     @Environment(AuthViewModel.self) var authVM
+    @Environment(UserViewModel.self) var userVM
     
     @State var isPasswordConfirmVisible: Bool = false
     
@@ -30,8 +31,14 @@ struct LoginPage: View {
                     .font(.custom("Syncopate-Bold", size: 20))
                     .foregroundStyle(.white)
                     .padding()
-                Spacer()
-                    .frame(height: 50)
+
+                
+                if let errorMessage = authVM.errorMessage {
+                    Text(errorMessage)
+                        .padding(20)
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(.black)
+                }
                 
                 TextFieldEmail()
                 Spacer()
@@ -42,7 +49,9 @@ struct LoginPage: View {
                     .frame(height: 50)
                 
                 Button {
-                    authVM.isAuthenticated = true
+                    
+                    Task { await authVM.signIn()}
+                    
                 }label:{
                     ButtonText(text: "Se connecter", width: 335)
                 }
@@ -53,7 +62,10 @@ struct LoginPage: View {
                         .padding(.vertical)
                     
                     Button {
-                        //
+                        withAnimation {
+                            authVM.showSignIn = true
+                            authVM.showLogin = false
+                        }
                     }label:{
                         Text("S'inscrire")
                             .font(.system(size: 14, weight:.bold))
@@ -69,6 +81,8 @@ struct LoginPage: View {
     }
 }
 #Preview {
+    let userVM = UserViewModel()
     LoginPage()
-        .environment(AuthViewModel(userVM: UserViewModel()))
+        .environment(AuthViewModel(userVM: userVM))
+        .environment(userVM)
 }
