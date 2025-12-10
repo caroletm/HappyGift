@@ -9,17 +9,29 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var navigationViewModel = NavigationViewModel()
+    @State private var navigationViewModel: NavigationViewModel
     @State private var landingViewModel: LandingScreenViewModel
     @State private var eventViewModel: EventViewModel
+    @State private var letterViewModel: LetterViewModel
+    @State private var authViewModel: AuthViewModel
+    @State private var userViewModel: UserViewModel
 
     init() {
+        let navigationVM = NavigationViewModel()
+        self._navigationViewModel = State(initialValue: navigationVM)
+
         let eventVM = EventViewModel()
         self._eventViewModel = State(initialValue: eventVM)
+
         self._landingViewModel = State(initialValue: LandingScreenViewModel(eventVM: eventVM))
+
+        let userVM = UserViewModel()
+        self._userViewModel = State(initialValue: userVM)
+
+        self._authViewModel = State(initialValue: AuthViewModel(userVM: userVM))
+        self._letterViewModel = State(initialValue: LetterViewModel(userVM: userVM))
     }
 
-    @State private var letterViewModel = LetterViewModel()
     @State private var snowfallViewModelLanding = SnowfallVM(
         numberOfSnowflakes: 120,
         area: .rect,
@@ -32,7 +44,6 @@ struct ContentView: View {
         width: 300,
         height: 300
     )
-    @State private var authViewModel = AuthViewModel()
    
     var body: some View {
         NavigationStack(path: $navigationViewModel.path) {
@@ -75,6 +86,7 @@ struct ContentView: View {
         .environment(snowfallViewModelLanding)
         .environment(snowfallViewModelTirage)
         .environment(authViewModel)
+        .environment(userViewModel)
     }
 }
 
@@ -93,12 +105,13 @@ struct ContentView: View {
         height: 300
     )
     let eventVM = EventViewModel()
+    let userVM = UserViewModel()
     ContentView()
         .environment(NavigationViewModel())
         .environment(LandingScreenViewModel(eventVM: eventVM))
         .environment(eventVM)
-        .environment(LetterViewModel())
+        .environment(LetterViewModel(userVM: userVM))
         .environment(snowfallViewModelLanding)
         .environment(snowfallViewModelTirage)
-        .environment(AuthViewModel())
+        .environment(AuthViewModel(userVM: userVM))
 }
