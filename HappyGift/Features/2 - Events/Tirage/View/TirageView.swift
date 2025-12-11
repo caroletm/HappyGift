@@ -16,6 +16,8 @@ struct TirageView: View {
     
     @State var showModal = false
     
+    var event : EventDTO
+    
     var body: some View {
         
         NavigationView {
@@ -34,7 +36,6 @@ struct TirageView: View {
                             .multilineTextAlignment(.center)
                             .foregroundColor(Color("rose"))
                     }
-                    
                     
                     ZStack{
                         //MARK: - Globe
@@ -100,18 +101,7 @@ struct TirageView: View {
         }
         .onAppear {
             Task {
-                guard
-                    let eventId = eventViewModel.currentEvent?.id,
-                    let userEmail = userVM.email as String?
-                else {
-                    print("⚠️ Infos manquantes pour fetchDraw")
-                    return
-                }
-
-                await eventViewModel.findDrawForCurrentUser(
-                    eventId: eventId,
-                    userEmail: userEmail
-                )
+                await eventViewModel.findDrawForCurrentUser(eventId: event.id!)
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -119,7 +109,7 @@ struct TirageView: View {
 }
 
 #Preview {
-    TirageView()
+    TirageView(event: santa1)
         .environment(NavigationViewModel())
         .environment(SnowfallVM(
             numberOfSnowflakes: 100,

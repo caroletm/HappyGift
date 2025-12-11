@@ -14,11 +14,42 @@ struct Letter:  Hashable {
     var userMessage: String
     var expediteur: UUID
     var signature : String
-    var type : LetterType
+    var type : TypeLetter
 }
 
 //MARK: - Database Letters
 
-var letterFromAlice: Letter = Letter(destinataire: participantStandard.id, userMessage: "Cette année, j'ai été très sage et j'ai aidé mes amis et ma famille. J'aimerais beaucoup recevoir un vélo rouge avec un panier, et si tu as de la place, quelques livres d'aventure \nMerci beaucoup et joyeux Noël !", expediteur: UUID(), signature: "Alice", type: .fromFriendToUser)
-var letterFromBob: Letter = Letter(destinataire: participantStandard.id, userMessage: "Holaaa! Je voudrais une playstation", expediteur: UUID(), signature: "Bob", type: .fromFriendToUser)
-var letterFromSarah: Letter = Letter(destinataire: participantStandard.id, userMessage: "Merci beaucoup pour tout ce que tu as fait pour moi cette année !", expediteur: UUID(), signature: "Sarah", type: .fromFriendToUser)
+var letterFromAlice = LetterDTO(
+    id: nil,
+    message: """
+    Cette année, j'ai été très sage et j'ai aidé mes amis et ma famille.
+    J'aimerais beaucoup recevoir un vélo rouge avec un panier, et si tu as de la place,
+    quelques livres d'aventure.
+    Merci beaucoup et joyeux Noël !
+    """,
+    signature: "Alice",
+    typeLetter: .fromFriendToUser,
+    date: nil,
+    expediteur: UUID(),
+    destinataire: userStandard.id
+)
+
+var letterFromBob = LetterDTO(
+    id: nil,
+    message: "Holaaa! Je voudrais une playstation",
+    signature: "Bob",
+    typeLetter: .fromFriendToUser,
+    date: nil,
+    expediteur: UUID(),
+    destinataire: userStandard.id
+)
+
+var letterFromSarah = LetterDTO(
+    id: nil,
+    message: "Merci beaucoup pour tout ce que tu as fait pour moi cette année !",
+    signature: "Sarah",
+    typeLetter: .fromFriendToUser,
+    date: nil,
+    expediteur: UUID(),
+    destinataire: userStandard.id
+)

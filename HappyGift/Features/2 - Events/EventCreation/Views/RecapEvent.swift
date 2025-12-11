@@ -44,14 +44,15 @@ struct RecapEvent: View {
                     Spacer()
                     
                     Button {
-                        if eventVM.isValidFormEvent2 {
-                            
-                            Task {
+                        Task {
+                            if eventVM.isValidFormEvent2 {
                                 await eventVM.createEvent()
+                                if eventVM.currentEvent != nil {
+                                    navigationVM.path.append(AppRoute.tirageView(event : eventVM.currentEvent!))
+                                }
+                            } else {
+                                showAlert = true
                             }
-                            navigationVM.path.append(AppRoute.tirageView)
-                        }else{
-                            showAlert = true
                         }
                     }label:{
                         ButtonText(text: "Lancer le tirage", width: 190)

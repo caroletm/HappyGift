@@ -80,12 +80,12 @@ struct ContentView: View {
                         EnveloppeView(letter: letter)
                     case .letterView (let letter):
                         LetterView(letter: letter)
-                    case .writeLetter:
-                        WriteLetterView()
+                    case .writeLetter (let event) :
+                        WriteLetterView(event : event)
                     case .mailbox:
                         mailbox3View()
-                    case .tirageView:
-                        TirageView()
+                    case .tirageView (let event) :
+                        TirageView(event : event)
                     }
                 }
         }

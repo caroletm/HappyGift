@@ -15,7 +15,7 @@ public struct EnveloppeView: View {
         
     @Environment(LandingScreenViewModel.self) private var landingVM
     
-    var letter : Letter
+    var letter : LetterDTO
     
     public var body: some View {
         

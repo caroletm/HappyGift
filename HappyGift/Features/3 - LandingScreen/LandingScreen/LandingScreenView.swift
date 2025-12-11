@@ -101,8 +101,6 @@ struct LandingScreenView: View {
                                         
                                         Spacer()
                                         
-                                        
-                                        
                                     }.frame(height: UIScreen.main.bounds.height / (letterVM.mailboxData.isEmpty ? 1.16 : 1.1))
                                     
                                 }
@@ -131,6 +129,11 @@ struct LandingScreenView: View {
                         .frame(width: 110, height: 310)
                         .offset(x: 130, y: -70)
                 }
+            }
+        }
+        .onAppear {
+            Task {
+                await eventVM.fetchEvents()
             }
         }
         .sheet(isPresented: $showLogoutModal) {
