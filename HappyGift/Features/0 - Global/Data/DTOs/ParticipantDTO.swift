@@ -19,3 +19,13 @@ struct ParticipantDTO: Codable, Hashable {
     var email: String
     var telephone: String
 }
+
+struct ParticipantJoinDTO: Codable, Hashable {
+    let email: String
+    let codeEvent: String
+}
+
+struct ParticipantJoinResponse: Codable, Hashable {
+    let participantId: UUID
+    let eventId: UUID
+}

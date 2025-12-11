@@ -13,6 +13,7 @@ public struct WriteLetterView: View {
     @Environment(NavigationViewModel.self) var navigationVM
     @State private var showModal = false
 
+    var event: EventDTO
     
     public var body: some View {
         
@@ -96,9 +97,13 @@ public struct WriteLetterView: View {
                 .padding(.horizontal)
                 
                 Button {
-                    letterVM.sendLetter()
-                    print(letterVM.mailboxData)
+                    Task {
+                        guard event.id != nil else { return }
+                        await letterVM.sendLetter(eventId: event.id!)
+                    }
+                    
                     showModal = true
+                    
                 } label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 30)
@@ -107,7 +112,7 @@ public struct WriteLetterView: View {
                         Text("Envoyer ma lettre")
                             .font(.system(size: 18, weight: .bold))
                             .foregroundColor(.beige)
-                        
+
                     }
                 }
                 //Modale
@@ -124,7 +129,7 @@ public struct WriteLetterView: View {
 
 
 #Preview {
-    WriteLetterView()
+    WriteLetterView(event: santa1)
         .environment(LetterViewModel(userVM: UserViewModel()))
         .environment(NavigationViewModel())
 }

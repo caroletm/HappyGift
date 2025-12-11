@@ -18,8 +18,8 @@ class LetterViewModel {
         self.userVM = userVM
     }
     
-    var mailboxData: [Letter] = [letterFromBob, letterFromAlice, letterFromSarah]
-    var mailboxSentData: [Letter] = []
+    var mailboxData: [LetterDTO] = []
+    var mailboxSentData: [LetterDTO] = []
     var lastLetterIsRead: Bool = false
     var newLetterinMailbox: Bool = false
 
@@ -30,13 +30,13 @@ class LetterViewModel {
         max(0, mailboxData.count - 1)
     }
 
-    var mailboxSlots: [Letter?] {
+    var mailboxSlots: [LetterDTO?] {
         (0..<4).map { i in
             i < mailboxData.count ? mailboxData[i] : nil
         }
     }
     
-    var lastFourSlots: [Letter?] {
+    var lastFourSlots: [LetterDTO?] {
         let last = mailboxData.suffix(4)
         return Array(last)
     }
@@ -54,37 +54,43 @@ class LetterViewModel {
     var signature : String = ""
     var destinataire : UUID? = nil
     
-    func sendLetter() {
-        guard let to = destinataire else {
-            print("❌ Pas de destinataire, lettre non envoyée.")
-            return
-        }
-
-        guard let from = expediteur else {
-            print("❌ Pas d’expéditeur, lettre non envoyée.")
-            return
-        }
-
-        guard userMessage.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false else {
-            print("❌ Message vide.")
-            return
-        }
-
-        let newLetter = Letter(
-            id: UUID(),
-            destinataire: to,
-            userMessage: userMessage,
-            expediteur: from,
-            signature: signature,
-            type: .fromUserToFriend
-        )
-
-        mailboxData.append(newLetter)
-
-        /// Reset après envoi (optionnel)
+    func resetLetterForm(){
         userMessage = ""
         signature = ""
         destinataire = nil
+    }
+    
+    func sendLetter(eventId: UUID) async {
+        let newLetter =
+        LetterCreateDTO(
+            message: userMessage,
+            signature: signature,
+            typeLetter: .fromUserToFriend,
+            eventId: eventId,
+        )
+        do {
+            let letterCreated = try await service.createLetter(newLetter)
+            mailboxSentData.append(letterCreated)
+            resetLetterForm()
+        }catch {
+            print("erreur dans l'envoi de la lettre : \(error)")
+        }
+    }
+    
+   
+    
+    //MARK: - CallAPI
+    
+    let service = LetterService()
+    
+    //Recupérer les lettres
+    func fetchLetters() async {
+        do {
+            mailboxData = try await service.getAllLetters()
+            print("Lettres récupérés : \(mailboxData)")
+        } catch {
+            print("Erreur dans le chargement des lettres: \(error)")
+        }
     }
 }
 

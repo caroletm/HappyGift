@@ -33,7 +33,7 @@ struct DetailEvent: View {
                             .padding(.top, 20)
                             .offset(x:40)
                     }
-                    CarreResultatTirage()
+                    CarreResultatTirage(event : event)
                         .offset(x: 160, y: 220)
                         .rotationEffect(Angle(degrees: 15))
                     
@@ -46,19 +46,8 @@ struct DetailEvent: View {
                 Spacer()
                 Button {
                     
-//                    if let participantID = eventVM.selectedPersonParticipantID,
-//                       let participant = event.participants.first(where: { $0.id == participantID }),
-//                       let realUserID = participant.userID
-//                        
-//                    {
-//                        letterVM.destinataire = realUserID// <-- ID du USER réel
-//                        print("Destinataire USER ID = \(realUserID)")
-//                        letterVM.expediteur = authVM.currentUser?.id
-//
-//                    } else {
-//                        print("Impossible de trouver le user lié au participant")
-//                    }
-//                    navigationVM.path.append(AppRoute.writeLetter)
+                    navigationVM.path.append(AppRoute.writeLetter(event:event))
+                    
                 }label:{
                     ButtonText(text: "Ecrire à mon pere noel", width: 270)
                 }

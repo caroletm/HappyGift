@@ -47,6 +47,7 @@ class EventViewModel {
             currentEvent = eventCreated
             eventsVM.append(eventCreated)
             resetFormEvent()
+            print("event créé")
         }catch{
             print("erreur dans la creation de l'event : \(error)")
         }
@@ -121,34 +122,24 @@ class EventViewModel {
     var selectedPerson: String? = nil
     var selectedPersonParticipantID: UUID? = nil
 
-    
-    func findDrawForCurrentUser(eventId: UUID, userEmail: String) async {
-        
-        // Appel direct à l'API → pas besoin de currentEvent
-        guard let event = currentEvent else {
-            print("⚠️ currentEvent est nil dans findDrawForCurrentUser")
-            return
-        }
-
-        // 1. Retrouver le participant associé au user
-        guard let me = event.participants.first(where: { $0.email == userEmail }) else {
-            print("⚠️ Aucun participant trouvé avec cet email")
-            return
-        }
-
+    func findDrawForCurrentUser(eventId: UUID) async {
         do {
-            // 2. Appel BACKEND : /event/:eventId/draw/:participantId
-            let draw = try await service.fetchDraw(eventId: eventId, participantId: me.id!)
-
-            // 3. Mise à jour de la vue
-            self.selectedPerson = draw.receiverName
-            self.selectedPersonParticipantID = draw.receiverId
-            self.showSnow = true
-
+            let draw = try await service.fetchDraw(eventId: eventId)
+            selectedPerson = draw.receiverName
+            selectedPersonParticipantID = draw.receiverId
+            showSnow = true
+            print("tu dois offrir un cadeau a \(draw.receiverName)")
         } catch {
-            print("❌ Erreur tirage:", error)
+            print("Erreur tirage:", error)
         }
     }
+    
+    func resetTirage() {
+        selectedPerson = nil
+        selectedPersonParticipantID = nil
+        showSnow = false
+    }
+    
     //    var tirageResult: [UUID: UUID] = [:]
     //    func doTirage() {
     //           guard let event = currentEvent else {
@@ -203,14 +194,6 @@ class EventViewModel {
     var isJoinEvent: Bool = false
     var isAddEvent: Bool = false
     var codeEvent : String = ""
-    func joinEvent(typeEvent: Bool){
-        if typeEvent == isAddEvent{
-            isAddEvent = true
-            
-        }else if typeEvent == isJoinEvent{
-            isJoinEvent = true
-        }
-    }
     
     var eventsSortedByDate: [EventDTO] {
         eventsVM.sorted { $0.date < $1.date }
@@ -219,7 +202,28 @@ class EventViewModel {
     // MARK: - CallAPI
     
     let service = EventService()
+    
+    //Recupérer les events
+    func fetchEvents() async {
+        do {
+            eventsVM = try await service.getAllEvents()
+            print("Events récupérés : \(eventsVM)")
+        } catch {
+            print("Erreur dans le chargement des events: \(error)")
+        }
+    }
+    
+    //Rejoindre un event
+    func joinEvent(email: String, code: String) async {
+        do {
+            _ = try await service.joinEvent(email: email, code: code)
+            print("Event rejoint")
+        } catch {
+            print("Erreur lors de la tentative de rejoindre un event: \(error)")
+        }
+    }
 }
+
 
 
 

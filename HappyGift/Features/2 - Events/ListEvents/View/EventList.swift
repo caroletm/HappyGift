@@ -35,6 +35,7 @@ struct EventList: View {
                                 let color = colorPattern[index % colorPattern.count]
                                 
                                 Button {
+                                    
                                     navVM.path.append(AppRoute.detailEvent(event : event))
                                     
                                 } label: {
@@ -63,6 +64,11 @@ struct EventList: View {
                     }
                 }
                 .padding(.top, 16)
+            }
+            .onAppear {
+                Task {
+                    await eventVM.fetchEvents()
+                }
             }
     }
 }

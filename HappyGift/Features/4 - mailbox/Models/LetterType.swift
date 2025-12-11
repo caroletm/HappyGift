@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum LetterType: String, CaseIterable {
+enum TypeLetter: String, CaseIterable, Codable {
     case fromUserToFriend
     case fromFriendToUser
 }

@@ -15,5 +15,5 @@ struct User : Identifiable {
     var telephone : String
     }
 
-//let userStandard = User(id: UUID(), name: "Carole", email : "carole@gmail.com", password: "cacao123", telephone: "000000000")
+let userStandard = User(id: UUID(), name: "Carole", email : "carole@gmail.com", password: "cacao123", telephone: "000000000")
 

@@ -10,6 +10,10 @@ import SwiftUI
 struct CarreResultatTirage: View {
     
     @Environment(NavigationViewModel.self) private var navigationVM
+    @Environment(EventViewModel.self) private var eventVM
+    
+    
+   var event: EventDTO
     
     var body: some View {
         ZStack {
@@ -24,7 +28,11 @@ struct CarreResultatTirage: View {
                     .multilineTextAlignment(.center)
                 
                 Button {
-                    navigationVM.path.append(AppRoute.tirageView)
+                    eventVM.resetTirage()           // ⬅️ super important
+                    eventVM.currentEvent = event
+                    navigationVM.path.append(AppRoute.tirageView(event: event))
+                                    
+                    
                 }label:{
                     ZStack {
                         Rectangle()
@@ -83,6 +91,7 @@ struct CarreResultatTirage: View {
 }
 
 #Preview {
-    CarreResultatTirage()
+    CarreResultatTirage(event: santa1)
         .environment(NavigationViewModel())
+        .environment(EventViewModel())
 }

@@ -34,37 +34,41 @@ struct mailbox3View: View {
                     ZStack {
                         let slots = letterVM.lastFourSlots
                         
-                        ForEach(slots.indices.sorted(by: { abs($0 - currentIndex) > abs($1 - currentIndex) }), id: \.self) { index in
-                            
-                            let position = CGFloat(index - currentIndex)
-                            let size = 360 - abs(position) * 15
-                            let letter = slots[index]
-                            let y = position * 70 + dragEnv.height
-                            
-                            if index == currentIndex {
-                                Button {
-                                    if let selectedLetter = letter {
-                                        navVM.path.append(AppRoute.enveloppeView(letter: selectedLetter))
+                        if !letterVM.mailboxData.isEmpty {
+                            ForEach(slots.indices.sorted(by: { abs($0 - currentIndex) > abs($1 - currentIndex) }), id: \.self) { index in
+                                
+                                let position = CGFloat(index - currentIndex)
+                                let size = 360 - abs(position) * 15
+                                let letter = slots[index]
+                                let y = position * 70 + dragEnv.height
+                                
+                                if index == currentIndex {
+                                    Button {
+                                        if let selectedLetter = letter {
+                                            navVM.path.append(AppRoute.enveloppeView(letter: selectedLetter))
+                                        }
+                                    } label: {
+                                        envelopeView2(
+                                            imageName: letterVM.envelopeImage(for: index),
+                                            size: size,
+                                            yOffset: y
+                                        )
+                                        .scaleEffect(1.05)
+                                        .zIndex(10)
                                     }
-                                } label: {
+                                    .buttonStyle(.plain)
+                                    
+                                } else {
                                     envelopeView2(
                                         imageName: letterVM.envelopeImage(for: index),
                                         size: size,
                                         yOffset: y
                                     )
-                                    .scaleEffect(1.05)
-                                    .zIndex(10)
+                                    .zIndex(Double(-abs(position)))
                                 }
-                                .buttonStyle(.plain)
-                                
-                            } else {
-                                envelopeView2(
-                                    imageName: letterVM.envelopeImage(for: index),
-                                    size: size,
-                                    yOffset: y
-                                )
-                                .zIndex(Double(-abs(position)))
                             }
+                        }else{
+                            Text("Vous n'avez pas encore reçu de lettres")
                         }
                     }
                     .gesture(
@@ -87,12 +91,16 @@ struct mailbox3View: View {
                     )
                     .onAppear {
                         currentIndex = letterVM.lastFourSlots.count - 1
+                        Task {
+                            await letterVM.fetchLetters()
+                        }
                     }
                     
                     Spacer()
                 }
             }
         }
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
     

@@ -10,12 +10,13 @@ import SwiftUI
 struct EventJoinView: View {
 //    @Binding var eventListVM : EventListViewModel
     @Environment(EventViewModel.self) private var eventVM
+    @Environment(UserViewModel.self) private var userVM
     @Environment(SnowfallVM.self) private var snowfallVM
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
         
-        @Bindable var eventVM = EventViewModel()
+        @Bindable var eventVM = eventVM
 
         ZStack{
             VStack{
@@ -24,7 +25,7 @@ struct EventJoinView: View {
                     .padding()
                 
                 Spacer()
-                Image("bonnetNoël")
+                Image("bonnetNoel")
                     .resizable()
                     .frame(width: 214, height: 380)
                 VStack(spacing: 12){
@@ -47,8 +48,9 @@ struct EventJoinView: View {
                 Spacer()
                 
                 ButtonParticipantCellView(title: "Rejoindre", function:{
-                    eventVM.joinEvent(typeEvent: eventVM.isJoinEvent)
-                    dismiss()
+                    Task {
+                        await eventVM.joinEvent(email: userVM.email, code: eventVM.codeEvent)
+                    }
                 }, size: 274)
                 
             }
@@ -65,4 +67,5 @@ struct EventJoinView: View {
     EventJoinView()
         .environment(EventViewModel())
         .environment(SnowfallVM())
+        .environment(UserViewModel())
 }

@@ -13,7 +13,7 @@ public struct LetterView: View {
     var signature: String = "Alice"
     var height: CGFloat = 300
     
-    var letter : Letter
+    var letter : LetterDTO
     
     public var body: some View {
         
@@ -32,7 +32,7 @@ public struct LetterView: View {
                         .foregroundColor(.black)
                         .padding(.top, 20)
                     
-                    Text(letter.userMessage)
+                    Text(letter.message)
                         .font(.system(size: 15))
                         .foregroundColor(.black)
                         .frame(maxWidth: .infinity, alignment: .leading)
