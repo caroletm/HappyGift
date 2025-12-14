@@ -21,12 +21,14 @@ struct TextFieldPassword: View {
                     .font(.system(size: 14))
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
+                    .frame(height: 20)
                 
             } else {
                 SecureField("Votre mot de passe", text: $userVM.motDePasse)
                     .font(.system(size: 14))
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
+                    .frame(height: 20)
             }
             
             Button {
@@ -35,8 +37,9 @@ struct TextFieldPassword: View {
                 Image(systemName: authVM.isPasswordVisible ? "eye.slash" : "eye")
                     .foregroundColor(authVM.isPasswordVisible ? .black : .gray)
             }
+            .padding(.trailing, 5)
         }
-        .padding(.horizontal, 20)
+        .padding(.leading, 20) 
         .padding(.vertical, 10)
         .background(Color.white)
         .cornerRadius(10)

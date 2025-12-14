@@ -20,6 +20,6 @@ enum AppRoute: Hashable {
     case letterView (letter: LetterDTO)
     case writeLetter (event: EventDTO)
     case mailbox
-    case tirageView (event: EventDTO)
+    case tirageView (event: EventDTO, showbackButton: Bool)
     
 }
