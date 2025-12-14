@@ -54,9 +54,6 @@ final class APIService {
           let (data, response) = try await URLSession.shared.data(for: request)
           
           // Affichage de la réponse brute pour debug
-          if let body = String(data: data, encoding: .utf8) {
-              print("Réponse brute serveur : \(body)")
-          }
         
 //        let (data, response) = try await URLSession.shared.data(for: request)
         

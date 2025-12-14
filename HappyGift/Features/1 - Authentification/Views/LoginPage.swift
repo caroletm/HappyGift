@@ -13,6 +13,13 @@ struct LoginPage: View {
     
     @State var isPasswordConfirmVisible: Bool = false
     
+    @FocusState private var focusedField: Field?
+
+    enum Field {
+        case email
+        case password
+    }
+    
     var body: some View {
         
         
@@ -43,15 +50,17 @@ struct LoginPage: View {
                 }
                 
                 TextFieldEmail()
+                    .focused($focusedField, equals: .email)
                 Spacer()
                     .frame(height: 15)
                 TextFieldPassword()
+                    .focused($focusedField, equals: .password)
                 
                 Spacer()
                     .frame(height: 50)
                 
                 Button {
-                    
+                    focusedField = nil
                     Task { await authVM.signIn()}
                     
                 }label:{

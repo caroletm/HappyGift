@@ -147,8 +147,8 @@ struct LandingScreenView: View {
                 
                 _ = await (events, letters)
             }
-            print("userVM.email: \(userVM.email) ")
-            print("userVM.name: \(userVM.name) ")
+//            print("userVM.email: \(userVM.email) ")
+//            print("userVM.name: \(userVM.name) ")
             
         }
         .sheet(isPresented: $showLogoutModal) {

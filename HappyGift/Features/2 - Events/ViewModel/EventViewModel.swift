@@ -131,7 +131,6 @@ class EventViewModel {
             selectedPerson = draw.receiverName
             selectedPersonParticipantID = draw.receiverId
             showSnow = true
-            print("tu dois offrir un cadeau a \(draw.receiverName)")
         } catch {
             print("Erreur tirage:", error)
         }
@@ -161,7 +160,7 @@ class EventViewModel {
     func fetchEvents() async {
         do {
             eventsVM = try await service.getAllEvents()
-            print("Events récupérés : \(eventsVM)")
+            print("Events récupérés : \(eventsVM.count)")
         } catch {
             print("Erreur dans le chargement des events: \(error)")
         }
