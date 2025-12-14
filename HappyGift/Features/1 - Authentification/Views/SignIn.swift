@@ -14,6 +14,15 @@ struct SignInPage: View {
     @State var isPasswordVisible: Bool = false
     @State var isPasswordConfirmVisible: Bool = false
     
+    @FocusState private var focusedField: Field?
+
+    enum Field {
+        case email
+        case password
+        case name
+        case passwordConfirm
+    }
+    
     var body: some View {
         
         ZStack {
@@ -38,9 +47,13 @@ struct SignInPage: View {
                 }
                 
                 TextFieldEmail()
+                    .focused($focusedField, equals: .email)
                 TextFieldName()
+                    .focused($focusedField, equals: .name)
                 TextFieldPassword()
+                    .focused($focusedField, equals: .password)
                 TextFieldPasswordConfirm()
+                    .focused($focusedField, equals: .passwordConfirm)
                 
                 Spacer()
                     .frame(height: 20)

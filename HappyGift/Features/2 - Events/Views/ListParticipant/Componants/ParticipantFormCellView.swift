@@ -42,7 +42,7 @@ struct ParticipantFormCellView: View {
                         eventVM.addParticipant()
                         showModal = false
                         eventVM.reset()
-                        print(eventVM.participants)
+                        print(eventVM.participants.count)
                     }else{
                         showAlert = true
                     }

@@ -10,7 +10,7 @@ import Foundation
 final class APIService {
     static let shared = APIService()
     
-    let baseURL : String = "http://192.168.68.54:8080"
+    let baseURL : String = "http://secretsanta-alb-703453147.us-east-1.elb.amazonaws.com/"
     
     private init() {}
 
@@ -54,9 +54,6 @@ final class APIService {
           let (data, response) = try await URLSession.shared.data(for: request)
           
           // Affichage de la réponse brute pour debug
-          if let body = String(data: data, encoding: .utf8) {
-              print("Réponse brute serveur : \(body)")
-          }
         
 //        let (data, response) = try await URLSession.shared.data(for: request)
         

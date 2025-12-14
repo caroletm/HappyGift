@@ -84,7 +84,6 @@ class AuthViewModel {
             let token = try await userService.login(email: userVM.email, motDePasse: userVM.motDePasse)
             authToken = token
             UserDefaults.standard.set(token, forKey: tokenKey)
-            print("Token reçu: \(token)")
             
             // Charger le profil utilisateur
             currentUser = try await userService.getProfile(token: token)
@@ -104,8 +103,6 @@ class AuthViewModel {
             userVM.motDePasse = ""
             userVM.motDePasseConfirm = ""
             isAuthenticated = true
-            
-            print("Connexion réussie avec token: \(token.prefix(20))...")
             
         } catch URLError.userAuthenticationRequired {
             errorMessage = "Email ou mot de passe incorrect"
