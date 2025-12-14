@@ -21,6 +21,7 @@ struct TextFieldPasswordConfirm: View {
                     .font(.system(size: 14))
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
+                    .frame(height: 20)
                 
                 
             } else {
@@ -28,6 +29,7 @@ struct TextFieldPasswordConfirm: View {
                     .font(.system(size: 14))
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
+                    .frame(height: 20)
             }
             
             Button {
@@ -36,8 +38,9 @@ struct TextFieldPasswordConfirm: View {
                 Image(systemName: authVM.isPasswordVisibleConfirm ? "eye.slash" : "eye")
                     .foregroundColor(authVM.isPasswordVisibleConfirm ? .black : .gray)
             }
+            .padding(.trailing, 5)
         }
-        .padding(.horizontal, 20)
+        .padding(.leading, 20)
         .padding(.vertical, 10)
         .background(Color.white)
         .cornerRadius(10)

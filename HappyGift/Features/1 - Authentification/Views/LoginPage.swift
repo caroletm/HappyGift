@@ -14,7 +14,7 @@ struct LoginPage: View {
     @State var isPasswordConfirmVisible: Bool = false
     
     var body: some View {
-    
+        
         
         @Bindable var authVM = authVM
         
@@ -30,14 +30,16 @@ struct LoginPage: View {
                 Text("My Secret Santa")
                     .font(.custom("Syncopate-Bold", size: 20))
                     .foregroundStyle(.white)
-                    .padding()
-
+                    .padding(10)
                 
                 if let errorMessage = authVM.errorMessage {
                     Text(errorMessage)
-                        .padding(20)
+                        .padding(10)
                         .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(.black)
+                        .foregroundColor(.rouge)
+                }else {
+                    Spacer()
+                        .frame(height: 20)
                 }
                 
                 TextFieldEmail()
@@ -73,7 +75,7 @@ struct LoginPage: View {
                             .foregroundStyle(.white)
                     }
                 }
-            
+                
                 Spacer()
                     .frame(height: 250)
             }

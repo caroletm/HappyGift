@@ -27,7 +27,7 @@ class AuthViewModel {
     var showLanding : Bool = true
     var showLogin : Bool = true
     var showSignIn : Bool = true
-    var showSignUp: Bool = false
+//    var showSignUp: Bool = false
     var isFirstConnexion : Bool = false
     
     //MARK: - Etats d'authentification
@@ -75,6 +75,8 @@ class AuthViewModel {
         }
         
         isLoading = true
+        defer { isLoading = false }
+        
         errorMessage = nil
         
         do {
@@ -87,16 +89,20 @@ class AuthViewModel {
             // Charger le profil utilisateur
             currentUser = try await userService.getProfile(token: token)
             print("Profil chargé: \(String(describing: currentUser?.name))")
-            
+            if currentUser?.name != nil {
+                userVM.name = currentUser!.name
+            }
+
             // Vérifier première connexion
 //            checkFirstConnection()
 //            userVM.update(from: currentUser!)
 
             showLogin = false
-            showSignUp = false
+//            showSignUp = false
             
             // Réinitialiser le mot de passe local
             userVM.motDePasse = ""
+            userVM.motDePasseConfirm = ""
             isAuthenticated = true
             
             print("Connexion réussie avec token: \(token.prefix(20))...")
@@ -108,8 +114,7 @@ class AuthViewModel {
             errorMessage = "Erreur de connexion. Vérifiez votre connexion."
             print("Erreur: \(error)")
         }
-        
-        isLoading = false
+ 
     }
     
     // MARK: - Inscription utilisateur
@@ -136,6 +141,7 @@ class AuthViewModel {
         }
         
         isLoading = true
+           defer { isLoading = false }
         errorMessage = nil
         
         do {
@@ -166,14 +172,13 @@ class AuthViewModel {
             
             // Réinitialiser le mot de passe
             userVM.motDePasse = ""
+            userVM.motDePasseConfirm = ""
             errorMessage = nil
             
         } catch {
             errorMessage = "Erreur lors de l'inscription. Email peut-être déjà utilisé."
             print("Erreur d'inscription: \(error)")
         }
-        
-        isLoading = false
     }
     
     // MARK: - Chargement du profil utilisateur
@@ -216,12 +221,13 @@ class AuthViewModel {
         // Réinitialise les champs
         userVM.email = ""
         userVM.motDePasse = ""
+        userVM.motDePasseConfirm = ""
         userVM.name = ""
         errorMessage = nil
         
         // Retour à la landing page
         showLogin = true
-        showSignUp = false
+//        showSignUp = false
         
         print(" Déconnexion réussie")
     }

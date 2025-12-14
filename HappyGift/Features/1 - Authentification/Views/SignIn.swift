@@ -19,7 +19,7 @@ struct SignInPage: View {
         ZStack {
             Image(.backAuth2)
                 .ignoresSafeArea(edges: .all)
-            VStack (spacing : 5) {
+            VStack (spacing : 10) {
                 Spacer()
                 Image(.papaNoel)
                     .resizable()
@@ -34,7 +34,7 @@ struct SignInPage: View {
                     Text(errorMessage)
                         .padding(20)
                         .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(.black)
+                        .foregroundColor(.rouge)
                 }
                 
                 TextFieldEmail()

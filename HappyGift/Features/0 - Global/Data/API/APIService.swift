@@ -10,7 +10,7 @@ import Foundation
 final class APIService {
     static let shared = APIService()
     
-    let baseURL : String = "http://127.0.0.1:8080"
+    let baseURL : String = "http://192.168.68.54:8080"
     
     private init() {}
 
@@ -50,10 +50,10 @@ final class APIService {
         }
         request.httpBody = try JSONEncoder.iso8601Encoder.encode(body)
         
-        // ⚡ Appel réseau
+        // Appel réseau
           let (data, response) = try await URLSession.shared.data(for: request)
           
-          // 🔹 Affichage de la réponse brute pour debug
+          // Affichage de la réponse brute pour debug
           if let body = String(data: data, encoding: .utf8) {
               print("Réponse brute serveur : \(body)")
           }
