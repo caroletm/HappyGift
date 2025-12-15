@@ -28,6 +28,7 @@ struct CarreRoseLieuEvent2: View {
                     .foregroundStyle(Color.white)
                 Text(event.lieu)
                     .foregroundStyle(Color.white)
+                    .frame(width: 140)
                     .padding(5)
             }.padding(.top, 20)
                 .multilineTextAlignment(.center)
