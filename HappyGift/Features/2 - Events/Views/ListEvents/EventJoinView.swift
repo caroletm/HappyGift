@@ -60,7 +60,7 @@ struct EventJoinView: View {
                     .padding()
                     
                     Spacer()
-                        .frame(height: 50)
+                        .frame(height: 40)
                     
                     ButtonParticipantCellView(title: "Rejoindre", function: {
                         if !eventVM.codeEvent.isEmpty{
@@ -87,6 +87,9 @@ struct EventJoinView: View {
         }
         .alert(isPresented: $showAlertEmptyCode) {
             Alert(title: Text("Veuillez saisir un code."))
+        }
+        .alert(isPresented: $eventVM.showInvalidCodeAlert) {
+            Alert(title: Text("Ce code ne correspond à aucun évènement"))
         }
         .onTapGesture {
             hideKeyboard()

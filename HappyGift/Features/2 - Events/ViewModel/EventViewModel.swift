@@ -170,6 +170,7 @@ class EventViewModel {
     //Rejoindre un event
     
     var showValidationJoinModal : Bool = false
+    var showInvalidCodeAlert : Bool = false
     
     func joinEvent(email: String, code: String) async {
         do {
@@ -178,6 +179,7 @@ class EventViewModel {
             showValidationJoinModal = true
         } catch {
             print("Erreur lors de la tentative de rejoindre un event: \(error)")
+            showInvalidCodeAlert = true
         }
     }
 }
