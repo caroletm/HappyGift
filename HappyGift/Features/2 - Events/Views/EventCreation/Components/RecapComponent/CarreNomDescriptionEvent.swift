@@ -32,10 +32,15 @@ struct CarreNomDescriptionEvent: View {
                 Text(eventVM.nomEvent)
                     .font(.custom( "Syncopate-Bold", size: 18))
                     .foregroundStyle(Color.white)
-                Text(eventVM.descriptionEvent)
-                    .foregroundStyle(Color.white)
-                    .frame(width: 260, height: 150)
+                    .frame(width: 310)
                     .multilineTextAlignment(.center)
+                ScrollView {
+                    Text(eventVM.descriptionEvent)
+                        .foregroundStyle(Color.white)
+                        .multilineTextAlignment(.center)
+                }
+                .padding(.top, 10)
+                    .frame(width: 260, height: 150)
             }
         }
     }

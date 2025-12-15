@@ -12,6 +12,8 @@ struct PartipantCellView: View {
     let tel: String
     let email: String
     let bouleType: String
+    let onDelete: () -> Void
+    
     var body: some View {
         HStack(spacing: 30){
             Image(bouleType)
@@ -21,10 +23,19 @@ struct PartipantCellView: View {
                 Text(name)
                     .font(.custom("Syncopate-Bold", size: 14))
                     .bold()
-//                Text(tel)
-//                    .font(.system(size: 14))
+                //                Text(tel)
+                //                    .font(.system(size: 14))
                 Text(email)
                     .font(.system(size: 14))
+            }
+            Spacer()
+            VStack {
+                Button(action: onDelete) {
+                    Image(systemName: "xmark.circle")
+                        .foregroundStyle(Color(.gray))
+                }
+                Spacer()
+                    .frame(height:60)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -32,5 +43,6 @@ struct PartipantCellView: View {
 }
 
 #Preview {
-    PartipantCellView(name: "test", tel: "00000000000", email: "test@gmail.com", bouleType: "BouleParticipantRed")
+    PartipantCellView(name: "test", tel: "00000000000", email: "test@gmail.com", bouleType: "BouleParticipantRed", onDelete: {})
 }
+

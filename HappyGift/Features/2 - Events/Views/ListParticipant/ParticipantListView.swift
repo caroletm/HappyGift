@@ -12,6 +12,8 @@ struct ParticipantListView: View {
     @Environment(EventViewModel.self) private var eventVM
 
     @State var showModal = false
+    @State var showAlertDelete: Bool = false
+    @State private var participantIndexToDelete: Int?
         
     var body: some View {
                 
@@ -26,14 +28,17 @@ struct ParticipantListView: View {
             if eventVM.participants.isEmpty{
                 ParticipantEmptyView()
             } else {
-                ForEach(eventVM.participants.indices, id: \.self) { index in
-                    let participant = eventVM.participants[index]
+                ForEach(Array(eventVM.participants.enumerated()), id: \.offset) { (index, participant) in
                     PartipantCellView(
-                        name: participant.name,
-                        tel: participant.telephone,
-                        email: participant.email,
-                        bouleType: index % 2 == 0 ? "BouleParticipantRed" : "BouleParticipantGreen"
-                    )
+                                 name: participant.name,
+                                 tel: participant.telephone,
+                                 email: participant.email,
+                                 bouleType: index % 2 == 0 ? "BouleParticipantRed" : "BouleParticipantGreen",
+                                 onDelete: {
+                                     participantIndexToDelete = index
+                                     showAlertDelete = true
+                                 }
+                             )
                     .padding()
                 }
             }
@@ -54,6 +59,20 @@ struct ParticipantListView: View {
                 .interactiveDismissDisabled(false)
                 .presentationCompactAdaptation(.none)
         }
+        .alert("Retirer ce participant ?", isPresented: $showAlertDelete) {
+            Button("Annuler", role: .cancel) {
+                participantIndexToDelete = nil
+            }
+            Button("OK", role: .destructive) {
+                if let index = participantIndexToDelete,
+                   index < eventVM.participants.count {
+                    eventVM.participants.remove(at: index)
+                }
+                participantIndexToDelete = nil
+            }
+        } message: {
+            Text("Retirer ce participant de l'évènement ?")
+        }
     }
 }
 
@@ -61,3 +80,4 @@ struct ParticipantListView: View {
     ParticipantListView()
         .environment(EventViewModel())
 }
+

@@ -34,7 +34,9 @@ struct CarreNomDescriptionEvent2: View {
                 Text(event.nom)
                     .font(.custom( "Syncopate-Bold", size: 16))
                     .frame(width: 310)
+                    .multilineTextAlignment(.center)
                     .foregroundStyle(Color.white)
+                
                 ScrollView {
                     Text(event.description)
                         .foregroundStyle(Color.white)

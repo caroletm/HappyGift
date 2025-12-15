@@ -43,7 +43,6 @@ struct CreateSanta: View {
                                     }
                                 }
                             }.padding()
-                                .padding(.bottom,10)
                             
                             Text("Nom de l'evenement")
                                 .font(.custom( "Syncopate-Bold", size: 16))
@@ -98,10 +97,12 @@ struct CreateSanta: View {
                                 .background(Color.white)
                                 .cornerRadius(10)
                                 .padding(.horizontal)
+                             
                             }
                             .padding(.bottom,20)
                             
                             Button {
+                                hideKeyboard()
                                 if eventVM.isValidFormEvent{
                                     navigationVM.path.append(AppRoute.recapEvent)
                                 }else{

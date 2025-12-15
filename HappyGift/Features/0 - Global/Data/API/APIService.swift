@@ -10,7 +10,7 @@ import Foundation
 final class APIService {
     static let shared = APIService()
     
-    let baseURL : String = "http://secretsanta-alb-703453147.us-east-1.elb.amazonaws.com/"
+    let baseURL : String = "https://api.mysecretsanta.cloud"
     
     private init() {}
 
