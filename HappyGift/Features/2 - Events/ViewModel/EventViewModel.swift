@@ -47,7 +47,7 @@ class EventViewModel {
             currentEvent = eventCreated
             eventsVM.append(eventCreated)
             resetFormEvent()
-            tirageDone = true
+            showName = false
             print("event créé, tirage effectué en back")
         }catch{
             print("erreur dans la creation de l'event : \(error)")
@@ -62,7 +62,7 @@ class EventViewModel {
         priceGift = 0
         iconSelected = nil
         participants = []
-        tirageDone = false
+        showName = false
     }
     
     var isValidFormEvent: Bool {
@@ -123,7 +123,7 @@ class EventViewModel {
     var showSnow = false
     var selectedPerson: String? = nil
     var selectedPersonParticipantID: UUID? = nil
-    var tirageDone: Bool = false
+    var showName: Bool = false
 
     func findDrawForCurrentUser(eventId: UUID) async {
         do {
@@ -131,6 +131,7 @@ class EventViewModel {
             selectedPerson = draw.receiverName
             selectedPersonParticipantID = draw.receiverId
             showSnow = true
+     
         } catch {
             print("Erreur tirage:", error)
         }

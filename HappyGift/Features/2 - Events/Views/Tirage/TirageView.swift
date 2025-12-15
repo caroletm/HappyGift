@@ -31,7 +31,7 @@ struct TirageView: View {
                 Color("vert").edgesIgnoringSafeArea(.all)
                 
                 VStack(alignment: .center){
-                    if (!event.tirages.isEmpty) {
+                    if (eventViewModel.selectedPerson != nil) {
                         Text("Tu dois offrir un cadeau à")
                             .font(.custom("Syncopate-Bold", size: 25))
                             .multilineTextAlignment(.center)
@@ -84,7 +84,7 @@ struct TirageView: View {
                 }.padding(10)
                 
                 // MARK: - Gestion de la neige
-                if (!event.tirages.isEmpty) {
+                if (eventViewModel.showSnow) {
                     SnowfallView(size: 300)
                         .transition(.opacity)
                         .offset(y: -40)
@@ -93,9 +93,11 @@ struct TirageView: View {
                 
                 // MARK: - Shake uniquement si pas encore tiré
                 
-                if eventViewModel.selectedPerson == nil {
+                if !event.tirages.isEmpty {
                     ShakeDetector {
                             Task {
+                                navigationViewModel.isLoading = true
+                                defer {navigationViewModel.isLoading = false}
                                 guard let eventId = event.id else { return }
                                 await eventViewModel.findDrawForCurrentUser(eventId: eventId)
                                 withAnimation {
@@ -111,16 +113,16 @@ struct TirageView: View {
         .sheet(isPresented: $showModal){
             SucessEventModal(showModal: $showModal)
         }
-        .onAppear {
-            if !event.tirages.isEmpty {
-                Task {
-                    navigationViewModel.isLoading = true
-                    defer {navigationViewModel.isLoading = false}
-                    guard let eventId = event.id else { return }
-                    await eventViewModel.findDrawForCurrentUser(eventId: eventId)
-                }
-            }
-        }
+//        .onAppear {
+//            if !event.tirages.isEmpty {
+//                Task {
+//                    navigationViewModel.isLoading = true
+//                    defer {navigationViewModel.isLoading = false}
+//                    guard let eventId = event.id else { return }
+//                    await eventViewModel.findDrawForCurrentUser(eventId: eventId)
+//                }
+//            }
+//        }
         .navigationBarBackButtonHidden(!showBackButton)
     }
 }
