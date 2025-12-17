@@ -13,6 +13,7 @@ struct HappyGiftApp: App {
         WindowGroup {
             
             ContentView()
+                .preferredColorScheme(.light)
             
 //            LandingScreenView()
 //            TirageView()

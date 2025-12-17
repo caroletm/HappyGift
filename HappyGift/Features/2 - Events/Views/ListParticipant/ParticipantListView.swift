@@ -28,18 +28,20 @@ struct ParticipantListView: View {
             if eventVM.participants.isEmpty{
                 ParticipantEmptyView()
             } else {
-                ForEach(Array(eventVM.participants.enumerated()), id: \.offset) { (index, participant) in
-                    PartipantCellView(
-                                 name: participant.name,
-                                 tel: participant.telephone,
-                                 email: participant.email,
-                                 bouleType: index % 2 == 0 ? "BouleParticipantRed" : "BouleParticipantGreen",
-                                 onDelete: {
-                                     participantIndexToDelete = index
-                                     showAlertDelete = true
-                                 }
-                             )
-                    .padding()
+                ScrollView{
+                    ForEach(Array(eventVM.participants.enumerated()), id: \.offset) { (index, participant) in
+                        PartipantCellView(
+                            name: participant.name,
+                            tel: participant.telephone,
+                            email: participant.email,
+                            bouleType: index % 2 == 0 ? "BouleParticipantRed" : "BouleParticipantGreen",
+                            onDelete: {
+                                participantIndexToDelete = index
+                                showAlertDelete = true
+                            }
+                        )
+                        .padding()
+                    }
                 }
             }
     
