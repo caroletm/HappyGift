@@ -95,6 +95,9 @@ struct CarreVertBudgetPlus: View {
                 pulse.toggle()
             }
         }
+        .onDisappear {
+              eventVM.stopAllTimers()
+          }
     }
 }
 

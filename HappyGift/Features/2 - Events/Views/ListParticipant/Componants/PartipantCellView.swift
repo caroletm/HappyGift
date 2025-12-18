@@ -15,7 +15,7 @@ struct PartipantCellView: View {
     let onDelete: () -> Void
     
     var body: some View {
-        HStack(spacing: 30){
+        HStack(spacing: 20){
             Image(bouleType)
                 .resizable()
                 .frame(width: 55, height: 60)

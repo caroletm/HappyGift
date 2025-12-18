@@ -114,6 +114,16 @@ class EventViewModel {
         decrementTimer = nil
     }
     
+    // Fonction pour nettoyer tous les timers
+      func stopAllTimers() {
+          stopIncrementing()
+          stopDecrementing()
+      }
+      
+      // Deinit pour s'assurer que les timers sont arrêtés
+      deinit {
+          stopAllTimers()
+      }
     
     //MARK: -  Gestion des participants
     
