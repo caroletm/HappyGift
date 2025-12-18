@@ -14,7 +14,7 @@ struct mailbox3View: View {
     @Environment(LetterViewModel.self) var letterVM
     
     @State private var dragEnv: CGSize = .zero
-    @State private var currentIndex: Int = 0 // 👈 initialisé dans onAppear
+    @State private var currentIndex: Int = 0
     
     var body: some View {
         NavigationView {

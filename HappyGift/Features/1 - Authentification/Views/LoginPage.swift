@@ -26,7 +26,11 @@ struct LoginPage: View {
         @Bindable var authVM = authVM
         
         ZStack {
+//            Color.vert
+//                .ignoresSafeArea(edges: .all)
             Image(.backAuth2)
+                .resizable()
+                .scaledToFill()
                 .ignoresSafeArea(edges: .all)
             VStack {
                 Spacer()

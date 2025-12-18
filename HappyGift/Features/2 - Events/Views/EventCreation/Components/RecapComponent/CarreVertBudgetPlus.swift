@@ -46,6 +46,19 @@ struct CarreVertBudgetPlus: View {
                                 .foregroundStyle(Color.black)
                         }
                     }
+                    .simultaneousGesture(
+                        LongPressGesture(minimumDuration: 0.5)
+                            .onEnded { _ in
+                                eventVM.startDecrementing()
+                            }
+                    )
+                    .simultaneousGesture(
+                        DragGesture(minimumDistance: 0)
+                            .onEnded { _ in
+                                eventVM.stopDecrementing()
+                            }
+                    )
+                    
                     Text("\(eventVM.priceGift) €")
                         .font(.custom( "Syncopate-Bold", size: 18))
                         .foregroundStyle(Color.white)
@@ -61,6 +74,18 @@ struct CarreVertBudgetPlus: View {
                                 .foregroundStyle(Color.black)
                         }
                     }
+                    .simultaneousGesture(
+                                          LongPressGesture(minimumDuration: 0.5)
+                                              .onEnded { _ in
+                                                  eventVM.startIncrementing()
+                                              }
+                                      )
+                                      .simultaneousGesture(
+                                          DragGesture(minimumDistance: 0)
+                                              .onEnded { _ in
+                                                  eventVM.stopIncrementing()
+                                              }
+                                      )
                     
                 }
             }

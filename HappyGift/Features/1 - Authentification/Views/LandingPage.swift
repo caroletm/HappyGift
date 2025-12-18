@@ -15,6 +15,8 @@ struct LandingPage : View {
         
         ZStack {
             Image(.landingPage2)
+                .resizable()
+                .scaledToFill()
                 .ignoresSafeArea(edges: .all)
             
             VStack {
@@ -28,7 +30,7 @@ struct LandingPage : View {
                         .foregroundStyle(.white)
                         .padding(10)
                 }.offset(y: -150)
-     
+                
                 HStack{
                     Image(.bonhomme)
                         .resizable()
@@ -56,7 +58,7 @@ struct LandingPage : View {
                     }
                     
                 }.offset(y: -60)
-          
+                
                 HStack{
                     Button {
                         withAnimation {

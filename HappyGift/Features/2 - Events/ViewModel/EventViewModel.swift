@@ -81,6 +81,40 @@ class EventViewModel {
         priceGift -= 1
     }
     
+    // États pour la pression longue
+    
+    var incrementTimer: Timer?
+    var decrementTimer: Timer?
+    
+    func startIncrementing() {
+        // Commence à incrémenter toutes les 0.1 secondes
+        incrementTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+            self.addBudget()
+        }
+    }
+    
+    func stopIncrementing() {
+        incrementTimer?.invalidate()
+        incrementTimer = nil
+    }
+    
+    func startDecrementing() {
+        // Commence à décrémenter toutes les 0.1 secondes
+        decrementTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+            if self.priceGift > 0 {
+                self.minusBudget()
+            } else {
+                self.stopDecrementing()
+            }
+        }
+    }
+    
+    func stopDecrementing() {
+        decrementTimer?.invalidate()
+        decrementTimer = nil
+    }
+    
+    
     //MARK: -  Gestion des participants
     
     var name: String = ""
@@ -91,8 +125,8 @@ class EventViewModel {
     
     var isValidParticipant: Bool {
         return !name.isEmpty &&
-               isValidEmail(email)
-//        &&isValidPhone(tel)
+        isValidEmail(email)
+        //        &&isValidPhone(tel)
     }
     
     func isValidEmail(_ email: String) -> Bool {
@@ -124,14 +158,14 @@ class EventViewModel {
     var selectedPerson: String? = nil
     var selectedPersonParticipantID: UUID? = nil
     var showName: Bool = false
-
+    
     func findDrawForCurrentUser(eventId: UUID) async {
         do {
             let draw = try await service.fetchDraw(eventId: eventId)
             selectedPerson = draw.receiverName
             selectedPersonParticipantID = draw.receiverId
             showSnow = true
-     
+            
         } catch {
             print("Erreur tirage:", error)
         }
@@ -166,7 +200,7 @@ class EventViewModel {
             print("Erreur dans le chargement des events: \(error)")
         }
     }
-
+    
     //Rejoindre un event
     
     var showValidationJoinModal : Bool = false
@@ -183,7 +217,6 @@ class EventViewModel {
         }
     }
 }
-
 
 
 

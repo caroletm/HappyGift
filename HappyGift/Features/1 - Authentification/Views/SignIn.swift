@@ -26,7 +26,11 @@ struct SignInPage: View {
     var body: some View {
         
         ZStack {
+            Color.vert
+                .ignoresSafeArea(edges: .all)
             Image(.backAuth2)
+                .resizable()
+                .scaledToFill()
                 .ignoresSafeArea(edges: .all)
             VStack (spacing : 10) {
                 Spacer()

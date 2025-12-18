@@ -36,6 +36,7 @@ struct CarreNomDescriptionEvent2: View {
                     .frame(width: 310)
                     .multilineTextAlignment(.center)
                     .foregroundStyle(Color.white)
+                    .lineLimit(2)
                 
                 ScrollView {
                     Text(event.description)

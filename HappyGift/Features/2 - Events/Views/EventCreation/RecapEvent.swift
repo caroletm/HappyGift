@@ -94,7 +94,7 @@ struct RecapEvent: View {
         .alert("Tirage impossible", isPresented: $showAlertParticipant) {
             Button("OK", role: .cancel) {}
         } message: {
-            Text("Ajouter votre mail dans la liste des participants")
+            Text("Ajoutez votre mail dans la liste des participants")
         }
     }
 }

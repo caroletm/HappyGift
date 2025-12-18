@@ -15,7 +15,7 @@ struct ButtonParticipantCellView: View {
         Button {
            function()
         } label: {
-            RoundedRectangle(cornerRadius: 20)
+            RoundedRectangle(cornerRadius: 50)
                 .fill(.black)
                 .frame(width: size == nil ?  149 : size, height: 53)
                 .overlay{
