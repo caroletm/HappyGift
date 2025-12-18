@@ -30,7 +30,7 @@ struct RecapEvent: View {
                         CarreRougeDateEvent()
                             .rotationEffect(Angle(degrees: -12))
                             .padding(.top, 20)
-                            .offset(x:40)
+                            .offset(x:30)
                     }
                     
                         CarreListeParticipants()

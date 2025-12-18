@@ -31,7 +31,7 @@ struct DetailEvent: View {
                         CarreRougeDateEvent2(event: event)
                             .rotationEffect(Angle(degrees: -12))
                             .padding(.top, 20)
-                            .offset(x:40)
+                            .offset(x:30)
                     }
                     CarreResultatTirage(event : event)
                         .offset(x: 160, y: 220)
